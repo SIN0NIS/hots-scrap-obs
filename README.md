@@ -5,6 +5,18 @@
 히어로즈 오브 더 스톰(Heroes of the Storm) 리플레이·관전용 인터페이스예요.
 왼쪽 위 **[메뉴]** 버튼 하나로 화면 UI를 켜고 끄고, 상단바를 영웅 카드(특성·스킬 쿨다운)로 바꿔 볼 수 있어요.
 
+## ⬇ 다운로드
+
+### [한국어판 받기 (KOR)](https://github.com/SIN0NIS/hots-scrap-obs/releases/latest/download/hots-scrap-obs_KOR.StormInterface) · [English (ENG)](https://github.com/SIN0NIS/hots-scrap-obs/releases/latest/download/hots-scrap-obs_ENG.StormInterface)
+
+누르면 파일이 바로 받아져요. 저장할 곳은 아래 폴더로 지정하세요.
+
+```
+%userprofile%\Documents\Heroes of the Storm\Interfaces
+```
+
+그다음 게임 **설정 → 관전·리플레이 → 리플레이 인터페이스** 에서 `hots-scrap-obs_KOR` (또는 `_ENG`)를 고르면 끝이에요.
+
 ## 출처
 
 - **AhliObs 기반** — Ahli(Christoph Ahlers)의 [Galaxy-Observer-UI](https://github.com/Ahli/Galaxy-Observer-UI) 에 있는 AhliObs 를 바탕으로 수정했어요. AhliObs 는 MIT 라이선스이고, 원 저작권 표기는 [LICENSE](LICENSE) 에 그대로 남겨 두었어요.

@@ -5,6 +5,18 @@
 A replay / observer interface for Heroes of the Storm.
 One small **[Menu]** button in the top-left corner shows and hides parts of the UI, and turns the top bar into hero cards with talents and ability cooldowns.
 
+## ⬇ Download
+
+### [English (ENG)](https://github.com/SIN0NIS/hots-scrap-obs/releases/latest/download/hots-scrap-obs_ENG.StormInterface) · [한국어 (KOR)](https://github.com/SIN0NIS/hots-scrap-obs/releases/latest/download/hots-scrap-obs_KOR.StormInterface)
+
+The file downloads right away. Save it into this folder:
+
+```
+%userprofile%\Documents\Heroes of the Storm\Interfaces
+```
+
+Then pick `hots-scrap-obs_ENG` (or `_KOR`) in game under **Options → Observer / Replay → Replay Interface**. Done.
+
 ## Credits
 
 - **Based on AhliObs** — modified from AhliObs in Ahli's (Christoph Ahlers) [Galaxy-Observer-UI](https://github.com/Ahli/Galaxy-Observer-UI). AhliObs is MIT licensed; the original copyright notice is kept in [LICENSE](LICENSE).
