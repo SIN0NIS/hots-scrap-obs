@@ -1,6 +1,6 @@
 **한국어** | [English](README.en.md)
 
-# SinonisObs
+# hots-scrap-obs (SinonisObs)
 
 히어로즈 오브 더 스톰(Heroes of the Storm) 리플레이·관전용 인터페이스예요.
 왼쪽 위 **[메뉴]** 버튼 하나로 화면 UI를 켜고 끄고, 상단바를 영웅 카드(특성·스킬 쿨다운)로 바꿔 볼 수 있어요.
@@ -17,8 +17,8 @@
 
 | 파일 | 메뉴 언어 |
 |---|---|
-| `SinonisObs_KOR.StormInterface` | 한국어 |
-| `SinonisObs_ENG.StormInterface` | English |
+| `hots-scrap-obs_KOR.StormInterface` | 한국어 |
+| `hots-scrap-obs_ENG.StormInterface` | English |
 
 ## 설치
 
@@ -27,7 +27,7 @@
    문서\Heroes of the Storm\Interfaces
    ```
    (`Win + R` → `%userprofile%\Documents\Heroes of the Storm\Interfaces` 입력)
-2. 게임을 켜고 **설정 → 관전·리플레이** 에서 **리플레이 인터페이스**(관전에도 쓰려면 관전 인터페이스까지)를 `SinonisObs_KOR` 또는 `SinonisObs_ENG` 로 골라요.
+2. 게임을 켜고 **설정 → 관전·리플레이** 에서 **리플레이 인터페이스**(관전에도 쓰려면 관전 인터페이스까지)를 `hots-scrap-obs_KOR` 또는 `hots-scrap-obs_ENG` 로 골라요.
 3. 리플레이를 열면 바로 적용돼요. 처음에는 기본 리플레이 화면과 똑같이 모든 UI가 보이는 상태로 시작해요.
 
 > 파일을 바꿔 넣을 때는 게임을 끈 상태에서 바꿔야 해요. 켜져 있으면 파일이 잠겨 있어요.
@@ -70,8 +70,8 @@
 
 ## 직접 빌드
 
-`SinonisObs.StormInterface` 폴더가 소스예요. Ahli 의 Galaxy-Observer-UI 빌더(`compile-spring-boot.jar --compile=<폴더>`)로 묶어요.
+`hots-scrap-obs_KOR.StormInterface` 폴더가 소스예요. Ahli 의 Galaxy-Observer-UI 빌더(`compile-spring-boot.jar --compile=<폴더>`)로 묶어요.
 
 - `tools/core_bar.py` — [메뉴] 창을 다시 만들어요
 - `tools/top_cards.py` — 상단 영웅 카드를 다시 만들어요 (영웅 데이터 JSON 이 따로 필요해요)
-- `tools/make_eng.py` — 문구만 영어로 바꾼 `SinonisObs_ENG.StormInterface` 를 옆에 만들어요
+- `tools/make_eng.py` — 문구만 영어로 바꾼 `hots-scrap-obs_ENG.StormInterface` 를 옆에 만들어요

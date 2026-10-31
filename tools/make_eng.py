@@ -1,4 +1,4 @@
-# Makes the English copy of SinonisObs next to it: SinonisObs_ENG.StormInterface.
+# Makes the English copy of hots-scrap-obs_KOR next to it: hots-scrap-obs_ENG.StormInterface.
 #   python make_eng.py        (run after core_bar.py / top_cards.py, then build both folders)
 # Only GameStrings differ - every Korean value below is swapped for its English text in every locale.
 import pathlib
@@ -6,7 +6,7 @@ import shutil
 import sys
 
 heroes = pathlib.Path(__file__).parent.parent / "Galaxy-Observer-UI/dev/heroes"
-src, dst = heroes / "SinonisObs.StormInterface", heroes / "SinonisObs_ENG.StormInterface"
+src, dst = heroes / "hots-scrap-obs_KOR.StormInterface", heroes / "hots-scrap-obs_ENG.StormInterface"
 
 EN = {
     "Sinonis 옵션": "Sinonis options",

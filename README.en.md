@@ -1,6 +1,6 @@
 [한국어](README.md) | **English**
 
-# SinonisObs
+# hots-scrap-obs (SinonisObs)
 
 A replay / observer interface for Heroes of the Storm.
 One small **[Menu]** button in the top-left corner shows and hides parts of the UI, and turns the top bar into hero cards with talents and ability cooldowns.
@@ -17,8 +17,8 @@ Pick the file for your language. You can also install both and choose in game.
 
 | File | Menu language |
 |---|---|
-| `SinonisObs_KOR.StormInterface` | Korean |
-| `SinonisObs_ENG.StormInterface` | English |
+| `hots-scrap-obs_KOR.StormInterface` | Korean |
+| `hots-scrap-obs_ENG.StormInterface` | English |
 
 ## Install
 
@@ -27,7 +27,7 @@ Pick the file for your language. You can also install both and choose in game.
    Documents\Heroes of the Storm\Interfaces
    ```
    (`Win + R` → `%userprofile%\Documents\Heroes of the Storm\Interfaces`)
-2. Start the game, open **Options → Observer / Replay** and set **Replay Interface** (and Observer Interface, if you want it there too) to `SinonisObs_KOR` or `SinonisObs_ENG`.
+2. Start the game, open **Options → Observer / Replay** and set **Replay Interface** (and Observer Interface, if you want it there too) to `hots-scrap-obs_KOR` or `hots-scrap-obs_ENG`.
 3. Open a replay. It starts like the default replay screen, with all UI shown.
 
 > Swap the file only while the game is closed; the game locks it while running.
@@ -70,8 +70,8 @@ None / All talents / Deaths, siege, hero damage / APM / Experience / Time dead, 
 
 ## Build from source
 
-The `SinonisObs.StormInterface` folder is the source. Pack it with Ahli's Galaxy-Observer-UI builder (`compile-spring-boot.jar --compile=<folder>`).
+The `hots-scrap-obs_KOR.StormInterface` folder is the source. Pack it with Ahli's Galaxy-Observer-UI builder (`compile-spring-boot.jar --compile=<folder>`).
 
 - `tools/core_bar.py` — regenerates the [Menu] panel
 - `tools/top_cards.py` — regenerates the top-bar hero cards (needs a separate hero data JSON)
-- `tools/make_eng.py` — makes `SinonisObs_ENG.StormInterface` next to it, with English text only
+- `tools/make_eng.py` — makes `hots-scrap-obs_ENG.StormInterface` next to it, with English text only

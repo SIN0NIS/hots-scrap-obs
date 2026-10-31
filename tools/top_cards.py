@@ -13,7 +13,7 @@
 import json, pathlib, re
 
 ROOT = pathlib.Path(__file__).parent.parent
-LAYOUT = ROOT / "Galaxy-Observer-UI/dev/heroes/SinonisObs.StormInterface/Base.StormData/UI/Layout/_TopPanel.StormLayout"
+LAYOUT = ROOT / "Galaxy-Observer-UI/dev/heroes/hots-scrap-obs_KOR.StormInterface/Base.StormData/UI/Layout/_TopPanel.StormLayout"
 HERODATA = ROOT.parent / "hots_archive/builds/hdp5/2.57.0.98348/data/herodata_98348.json"
 
 # measured 2026-10-31: 1 UI unit = ~1.06 px on a 2000 px wide screenshot, hero slots are ~133 apart

@@ -3,7 +3,7 @@
 # Safe to run again: SinonisMenuPanel is replaced, the rest of _Sinonis.StormLayout is left alone.
 import pathlib
 
-root = pathlib.Path(__file__).parent.parent / "Galaxy-Observer-UI/dev/heroes/SinonisObs.StormInterface"
+root = pathlib.Path(__file__).parent.parent / "Galaxy-Observer-UI/dev/heroes/hots-scrap-obs_KOR.StormInterface"
 lay = root / "Base.StormData/UI/Layout/_Sinonis.StormLayout"
 t = lay.read_text(encoding="utf-8")
 
