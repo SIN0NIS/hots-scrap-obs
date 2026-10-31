@@ -19,6 +19,8 @@ Then pick `hots-scrap-obs_ENG` (or `_KOR`) in game under **Options → Observer 
 
 ## Credits
 
+- **v1.0.0** · made by **SINONIS**, with help from AI (Claude).
+
 - **Based on AhliObs** — modified from AhliObs in Ahli's (Christoph Ahlers) [Galaxy-Observer-UI](https://github.com/Ahli/Galaxy-Observer-UI). AhliObs is MIT licensed; the original copyright notice is kept in [LICENSE](LICENSE).
 - **Inspired by Spazzo** — the top-bar hero card design (talent and cooldown layout) was inspired by spazzo966's [SpazzoReplayStatKit](https://github.com/spazzo966/SpazzoReplayStatKit). Only the design idea was referenced; no code was copied.
 - Hero portraits and talent / ability icons are referenced from the game at runtime; no Blizzard art is included. Heroes of the Storm is a trademark of Blizzard Entertainment.

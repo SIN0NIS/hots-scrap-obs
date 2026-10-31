@@ -242,7 +242,7 @@
 			<Anchor side="Top" relative="$parent/SinonisMenuButton" pos="Max" offset="4"/>
 			<Anchor side="Left" relative="$parent" pos="Min" offset="-9994"/>
 			<Width val="270"/>
-			<Height val="970"/>
+			<Height val="1030"/>
 			<RenderPriority val="900"/>
 
 			<Frame type="Image" name="LowImage">
@@ -2904,6 +2904,38 @@
 					<Style val="SinonisCoreBarLabel"/>
 					<Text val="@Sinonis/Menu/HpPct"/>
 				</Frame>
+			</Frame>
+			<Frame type="Image" name="FootLine">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="966"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="1"/>
+				<Texture val="@UI/StormTempWhite"/>
+				<Alpha val="50"/>
+			</Frame>
+			<Frame type="Label" name="Foot0">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="972"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="16"/>
+				<Style val="SinonisMenuFootLabel"/>
+				<Text val="@Sinonis/Menu/Foot0"/>
+			</Frame>
+			<Frame type="Label" name="Foot1">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="988"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="16"/>
+				<Style val="SinonisMenuFootLabel"/>
+				<Text val="@Sinonis/Menu/Foot1"/>
+			</Frame>
+			<Frame type="Label" name="Foot2">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="1004"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="16"/>
+				<Style val="SinonisMenuFootLabel"/>
+				<Text val="@Sinonis/Menu/Foot2"/>
 			</Frame>
 		</Frame>
 	</Frame>

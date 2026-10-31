@@ -77,6 +77,11 @@ EN = {
     "퍼센트": "Percent",
     "체력바 안 '(62%)' 퍼센트 (Ctrl+Alt+P)": "'(62%)' percent in the health bar (Ctrl+Alt+P)",
     "Sinonis 옵션 (체크 = 보임)": "Sinonis options (checked = shown)",
+    "옵션 (체크 = 보임)": "Options (checked = shown)",
+    "옵션 열기/닫기": "Open/close options",
+    "hots-scrap-obs v1.0.0 · 제작 SINONIS": "hots-scrap-obs v1.0.0 · by SINONIS",
+    "AhliObs(MIT) 기반 · Spazzo 디자인 참고": "Based on AhliObs (MIT) · Spazzo-inspired",
+    "AI(Claude) 도움을 받아 만들었어요": "Made with help from AI (Claude)",
 }
 
 shutil.rmtree(dst, ignore_errors=True)

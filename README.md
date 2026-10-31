@@ -19,6 +19,8 @@
 
 ## 출처
 
+- **v1.0.0** · 제작 **SINONIS** · AI(Claude)의 도움을 받아 만들었어요.
+
 - **AhliObs 기반** — Ahli(Christoph Ahlers)의 [Galaxy-Observer-UI](https://github.com/Ahli/Galaxy-Observer-UI) 에 있는 AhliObs 를 바탕으로 수정했어요. AhliObs 는 MIT 라이선스이고, 원 저작권 표기는 [LICENSE](LICENSE) 에 그대로 남겨 두었어요.
 - **Spazzo 참고** — 상단바 영웅 카드(특성·스킬 쿨다운 배치)의 디자인은 spazzo966 의 [SpazzoReplayStatKit](https://github.com/spazzo966/SpazzoReplayStatKit) 을 참고했어요. 디자인 아이디어만 참고했고 코드는 가져오지 않았어요.
 - 영웅 초상화·특성·스킬 아이콘은 게임 안의 그림을 불러 쓰는 것이고, 블리자드 그림 파일은 들어 있지 않아요. Heroes of the Storm 은 Blizzard Entertainment 의 상표예요.

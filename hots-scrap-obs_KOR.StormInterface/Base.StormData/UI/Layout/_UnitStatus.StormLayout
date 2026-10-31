@@ -141,6 +141,10 @@
 		<RoundMode val="up"/>
 		<ShowMaxZero val="false"/>
 		<Unclipped val="true"/>
+		<!-- unit status elements default to the owner only; without these the label never shows in a replay -->
+		<VisibleToOwner val="true"/>
+		<VisibleToAlly val="true"/>
+		<VisibleToEnemy val="true"/>
 		<Frame type="Label" name="Plus">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>

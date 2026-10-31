@@ -64,7 +64,7 @@ Ahli/NotificationPick=picked
 Ahli/NotificationQuest=Quest completed
 Ahli/portraitDamageTooltip=basic: %exp1%</n>hero: %exp2%</n>minion: %exp3%</n>structure: %exp4%
 Ahli/CalcShortVal=<d ref="%v%/1000" precision="1"/>
-Sinonis/MenuTooltip=Sinonis options
+Sinonis/MenuTooltip=옵션 열기/닫기
 Sinonis/MenuHideAllUI=All UI
 Sinonis/MenuHideNames=Player names
 Sinonis/MenuHpCurrent=HP: current
@@ -133,4 +133,7 @@ Sinonis/Menu/HpMax=최대 체력
 Sinonis/Menu/Tip/HpMax=체력바 안 '/최대 체력' (Ctrl+Alt+M)
 Sinonis/Menu/HpPct=퍼센트
 Sinonis/Menu/Tip/HpPct=체력바 안 '(62%)' 퍼센트 (Ctrl+Alt+P)
-Sinonis/MenuTitle=Sinonis 옵션 (체크 = 보임)
+Sinonis/Menu/Foot0=hots-scrap-obs v1.0.0 · 제작 SINONIS
+Sinonis/Menu/Foot1=AhliObs(MIT) 기반 · Spazzo 디자인 참고
+Sinonis/Menu/Foot2=AI(Claude) 도움을 받아 만들었어요
+Sinonis/MenuTitle=옵션 (체크 = 보임)

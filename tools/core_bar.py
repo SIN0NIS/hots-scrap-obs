@@ -235,7 +235,34 @@ for item in MENU:
 			</Frame>
 ''')
     y += ROW_H
-height = y + 12
+# footer: version, maker, credits (make_eng.py swaps the Korean lines)
+VERSION = "1.0.0"
+FOOT = [f"hots-scrap-obs v{VERSION} · 제작 SINONIS", "AhliObs(MIT) 기반 · Spazzo 디자인 참고", "AI(Claude) 도움을 받아 만들었어요"]
+FOOT_H = 16
+y += 8
+rows.append(f'''			<Frame type="Image" name="FootLine">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="{y}"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="1"/>
+				<Texture val="@UI/StormTempWhite"/>
+				<Alpha val="50"/>
+			</Frame>
+''')
+y += 6
+for k, line in enumerate(FOOT):
+    strings[f"Sinonis/Menu/Foot{k}"] = line
+    rows.append(f'''			<Frame type="Label" name="Foot{k}">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="{y}"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="{FOOT_H}"/>
+				<Style val="SinonisMenuFootLabel"/>
+				<Text val="@Sinonis/Menu/Foot{k}"/>
+			</Frame>
+''')
+    y += FOOT_H
+height = y + 10
 
 panel = f'''		<!-- the [메뉴] panel: the switches used while watching. Every box starts empty (Toggled is ignored in
 			replays): empty = default, tick = changed. Rows whose default is "shown" draw ShownMark while empty,
@@ -315,12 +342,16 @@ if "SinonisMenuHeadLabel" not in s:
     s = s.replace('\t<Style name="SinonisCoreBarLabel"',
                   '\t<Style name="SinonisMenuHeadLabel" template="StandardTemplate" height="13" textcolor="FFD24A" vjustify="Bottom" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>\n\t<Style name="SinonisCoreBarLabel"', 1)
     st.write_text(s, encoding="utf-8")
+if "SinonisMenuFootLabel" not in s:
+    s = s.replace('\t<Style name="SinonisCoreBarLabel"',
+                  '\t<Style name="SinonisMenuFootLabel" template="StandardTemplate" height="10" textcolor="9AA6C0" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>\n\t<Style name="SinonisCoreBarLabel"', 1)
+    st.write_text(s, encoding="utf-8")
 
 for gs in root.glob("*.StormData/LocalizedData/GameStrings.txt"):
     raw = gs.read_bytes()
     bom = raw.startswith(b"\xef\xbb\xbf")
     lines = [l for l in raw.decode("utf-8-sig").splitlines()
              if l and not l.startswith(("Sinonis/Core/", "Sinonis/Menu/", "Sinonis/MenuTitle="))]
-    lines += [f"{k}={v}" for k, v in strings.items()] + ["Sinonis/MenuTitle=Sinonis 옵션 (체크 = 보임)"]
+    lines += [f"{k}={v}" for k, v in strings.items()] + ["Sinonis/MenuTitle=옵션 (체크 = 보임)"]
     gs.write_bytes((b"\xef\xbb\xbf" if bom else b"") + ("\r\n".join(lines) + "\r\n").encode("utf-8"))
 print(f"menu: {sum(1 for m in MENU if m[0] != 'head')} switches, panel {PANEL_W}x{height}")
