@@ -1,0 +1,2567 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	<!-- created by Ahli
+			twitter.com/AhliSC2 -->
+	
+	
+	<!-- The debugger... are there no better tools?
+	<Frame type="Image" name="QQQ">
+		<Anchor relative="$parent"/>
+		<Texture val="_Assets\Textures\QQQ.dds"/>
+		<Alpha val="128"/>
+	</Frame>
+	 -->
+	
+	<!-- Constants -->
+	<Constant name="DEBUG_PARTYPANEL_VISIBLE" val="false"/>
+	
+	<!-- unit status -->
+	<Constant name="preSelectionAlpha" val="0"/>
+	
+	<!-- UI modifications -->
+	<Frame type="GameUI" name="GameUI" file="GameUI">
+		
+		<!--<Frame type="Label" name="AHLI_DEBUG1">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="210"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Handle val="AHLI_DEBUG"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG2">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="220"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Handle val="AHLI_DEBUG2"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG3">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="240"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Handle val="AHLI_DEBUG3"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG4">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="250"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Handle val="AHLI_DEBUG4"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG5">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="260"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Handle val="AHLI_DEBUG5"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG6">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="270"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Handle val="AHLI_DEBUG6"/>
+		</Frame>-->
+		<!--<Frame type="Label" name="AHLI_DEBUG2">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="210"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG3">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="220"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG4">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="230"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG5">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="240"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG6">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="250"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame1/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG7">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="260"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame1/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG8">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="270"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame1/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG9">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="280"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame1/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG10">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="290"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame1/@Unit}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG11">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="320"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$Team1HeroOverview/HeroOverview1/HeroStatus/DVaMechDetector/MechState/@Visible}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG12">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="330"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/@Batch}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG13">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="340"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$Team1HeroOverview/HeroOverview2/HeroStatus/HealthBar/@AlphaMaskTexture}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG14">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="340"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/DVaMechHealthBar/HealthBar/@AlphaMaskTexture}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG15">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="350"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$GameUI/UIContainer/FullscreenUpperContainer/ObserverHeroOverviewPanel/TalentsOverview/TalentOverview/@Batch}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG16">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="360"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$GameUI/UIContainer/FullscreenUpperContainer/ObserverHeroOverviewPanel/TalentsOverview/TalentOverview/@BatchGroup}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG17">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="370"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$GameUI/UIContainer/FullscreenUpperContainer/ObserverHeroOverviewPanel/TalentsOverview/TalentOverview/@BatchText}"/>
+		</Frame>
+		<Frame type="Label" name="AHLI_DEBUG18">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="380"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Text val="{$GameUI/UIContainer/FullscreenUpperContainer/ObserverHeroOverviewPanel/TalentsOverview/TalentOverview/@BatchImages}"/>
+		</Frame>-->
+		
+		<Frame type="Frame" name="UIContainer">
+			
+			<Frame type="Frame" name="FullscreenUpperContainer">
+				
+				<!-- hide new default obs UI elements -->
+				<!-- @Override -->
+				<Frame type="Frame" name="ObserverTeamNamePanel">
+					<Visible val="false"/>
+					<!-- @Override -->
+					<Frame type="Image" name="PanelImage">
+						<Visible val="false"/>
+					</Frame>
+				</Frame>
+				<!-- @Override -->
+				<Frame type="Frame" name="ObserverToggleControls">
+					<!-- @Override -->
+					<Frame type="ToggleControl" name="ToggleControlObserverTools">
+						<Shortcut val=""/>
+					</Frame>
+					<!-- @Override -->
+					<Frame type="ToggleControl" name="ObserverToggleChat">
+						<Shortcut val=""/>
+					</Frame>
+					<!-- @Override -->
+					<Frame type="ToggleControl" name="ToggleHUD">
+						<Shortcut val=""/>
+					</Frame>
+					<!-- @Override -->
+					<Frame type="ToggleControl" name="ToggleFullHUD">
+						<Shortcut val=""/>
+					</Frame>
+				</Frame>
+				
+				<!-- top panel modifications -->
+				<!-- @Override -->
+				<Frame type="Frame" name="ObserverHeroOverviewPanel">
+					<!-- hide default -->
+					<!-- @Override -->
+					<Frame type="Frame" name="BottomPanel">
+						<Visible val="false"/>
+						<!-- @Override -->
+						 <Frame type="ToggleControl" name="ToggleTalentOverview">
+							<Shortcut val=""/>
+						 </Frame>
+						<!-- @Override -->
+						 <Frame type="ToggleControl" name="ToggleStatsOverview">
+							<Shortcut val=""/>
+						 </Frame>
+					</Frame>
+
+				</Frame>
+				
+				<!-- edit existing panels -->
+				<!-- Chat Bar -->
+				<!-- pushes to the right (observer tools) -->
+				<Frame type="Frame" name="ChatBarHorizOffset_A">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="409"/>
+					<Width val="1"/>
+				</Frame>
+				<!-- pushes to the right (detailed unit info) -->
+				<Frame type="Frame" name="ChatBarHorizOffset_B">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/ChatBarHorizOffset_A" pos="Max" offset="-1"/>
+					<Width val="1"/>
+				</Frame>
+				
+				<!-- @Override -->
+				<Frame type="ChatBar" name="ChatBar">
+					<Anchor side="Top" relative="$this" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="-310"/>
+					<Anchor side="Left" relative="$parent/ChatBarHorizOffset_B" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$this" pos="Min" offset="0"/>
+					<Width val="750"/>
+					
+					<!-- @Override -->
+					<StateGroup name="EndOfMatchChatPosition">
+						<State name="EndOfMatchChatPosition">
+							<When type="Property" frame="$parent/EndOfGameAwardsPanel" visible="True"/>
+							<Action type="SetAnchor" undo="False" side="Top" relative="$parent" pos="Min" offset="1080"/>
+							<Action type="SetAnchor" undo="False" side="Left" relative="$parent/ChatBarAnchorFrame" pos="Max" offset="0"/>
+						</State>
+					</StateGroup>
+				</Frame>
+				<!-- @Override -->
+				<Frame type="GameMessageDisplay" name="ChatDisplay">
+					<Anchor side="Bottom" relative="$parent/ChatBar" pos="Min" offset="-10"/>
+					<Anchor side="Left" relative="$parent/ChatBar" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$this" pos="Min" offset="0"/>
+					<Width val="750"/>
+					<Height val="310"/>
+				</Frame>
+				
+				<!-- hide chat drag button -->
+				<!-- @Override -->
+				<Frame type="Control" name="ChatBarDragButton">
+					<StateGroup name="ShowButton">
+						<State name="Show">
+							<!-- never -->
+							<When type="Property" Visible="false"/>
+							<When type="Property" Visible="true"/>
+						</State>
+					</StateGroup>
+				</Frame>
+				
+				<!-- Hide "Press Enter to Chat" -->
+				<!-- @Override -->
+				<Frame type="Label" name="ChatHelpLabel">
+					<Alpha val="0"/>
+				</Frame>
+				
+				<!-- chat toggle -->
+				<Frame type="ToggleControl" name="ToggleChat">
+					<Anchor relative="$parent"/>
+					<!-- <Shortcut val="#Hotkey - Toggle Chat"/> -->
+					<AcceptsMouse val="false"/>
+					<Visible val="true"/>
+					
+					<Animation name="Ahlimation">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+
+						<Controller type="Fade" end="Pause" frame="$parent/ChatDisplay">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.5" value="255"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ChatDisplay">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.5" value="true"/>
+						</Controller>
+					</Animation>
+				</Frame>
+
+
+				<!-- BUG: shortcut is hijacked -->
+				<!-- FIX: added new HeroLeaderPanel to ConsoleUIContainer which reroutes the animation event -->
+				<!-- FIX: close button was not working, neither -->
+				<!-- TODO: remaining problem: after pressing the button, TAB still needs to be hit twice to make it re-appear -->
+				<Frame type="HeroLeaderPanel" name="HeroLeaderPanel">
+					<RenderPriority val="600"/>
+					<Handle val="HeroLeaderPanel"/>
+					
+					<Frame type="Frame" name="HeroLeaderPanelContainer">
+						<Frame type="Button" name="CloseButton">
+							<Animation name="Click">
+								<Event event="OnMouseUp" action="Play"/>
+								<Controller type="Event" end="Stop" frame="$parent/$parent">
+									<Key type="Event" time="0" event="Hide"/>
+								</Controller>
+							</Animation>
+						</Frame>
+					</Frame>
+				</Frame>
+				
+				<!-- team map score -->
+				<Frame type="Frame" name="TeamPanel" template="_MapScore/MapScoreTemplate">
+					<Anchor relative="$parent"/>
+					<RenderPriority val="500"/>
+					<Visible val="false"/>
+				</Frame>
+				
+				<!-- player vision UI & red team vision detector -->
+				<Frame type="ObserverPreviewFrame" name="ObserverPreviewFrame">
+					<Handle val="ObserverPreviewFrame"/>
+					
+					<StateGroup name="RedPlayerVisionDetector">
+						<State name="RedVision">
+							<When type="Property" frame="ContainerFrame" visible="true"/>
+							<When type="Property" frame="ContainerFrame/ColorImage" color="254,138,14"/>
+							<Action type="SetProperty" frame="RedPlayerVisionState" visible="true"/>	
+						</State>
+						<State name="RedVisionCB">
+							<When type="Property" frame="ContainerFrame" visible="true"/>
+							<When type="Property" frame="ContainerFrame/ColorImage" color="178,0,0"/>
+							<Action type="SetProperty" frame="RedPlayerVisionState" visible="true"/>							
+						</State>
+						<!-- TODO be able to detect it properly, not only in default game types -->
+						<State name="PulldownOnRedTeamSlots">
+							<When type="Property" frame="ContainerFrame" visible="false"/>
+							<When type="Property" frame="$VisionPulldown" operator="GreaterThan" SelectedIndex="5"/>
+							<When type="Property" frame="$VisionPulldown" operator="LessThan" SelectedIndex="11"/>
+							<Action type="SetProperty" frame="RedPlayerVisionState" visible="true"/>
+						</State>
+					</StateGroup>
+					<Frame type="Frame" name="RedPlayerVisionState">
+						<Anchor relative="$parent"/>
+						<Visible val="false"/>
+						<Handle val="RedPlayerVisionState"/>
+					</Frame>
+				</Frame>
+
+				<!-- Interface control menu -->
+				<Frame type="Frame" name="InterfaceControl" template="_InterfaceControl/InterfaceControlTemplate">
+					<Anchor relative="$parent"/>
+				</Frame>
+				
+				<!-- Pause notification panel -->
+				<Frame type="SystemAlertPanel" name="SystemAlertPanel">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="120"/>
+				</Frame>
+
+				<!-- Hide TargetInfoFrame -->
+				<Frame type="TargetInfoFrame" name="TargetInfoFrame">
+					<Animation name="KeepHidden">
+						<Event event="OnShown" action="Reset,Play"/>
+						<Controller type="Visibility" end="Pause">
+							<Key type="Bool" time="0" value="false"/>
+						</Controller>
+					</Animation>
+					<!--<DescFlags val="CreationDeferred"/> crashes -->
+				</Frame>
+
+			</Frame>
+			
+			<Frame type="Frame" name="ConsoleUIContainer">
+				<Handle val="ConsoleUIContainer"/>
+				
+				<!-- BUG FIX: Second HeroLeaderPanel which will react to TAB due to Blizzard's non-static implementation -->
+				<!-- TODO: remaining bug is that you hit TAB twice after using the close button -->
+				<Frame type="HeroLeaderPanel" name="HeroLeaderPanelHotkeyHijackFIX" template="HeroLeaderPanel/HeroLeaderPanelTemplate">
+					<Anchor relative="$parent"/>
+					<Handle val="HeroLeaderPanelHotkeyHijackFIX"/>
+					<Frame type="Frame" name="HeroLeaderPanelContainer">
+						<Anchor side="Top" relative="$parent" pos="Max" offset="9999"/>
+						<Anchor side="Left" relative="$parent" pos="Max" offset="9999"/>
+						<Anchor side="Bottom" relative="$parent" pos="Max" offset="9999"/>
+						<Anchor side="Right" relative="$parent" pos="Max" offset="9999"/>
+						<Visible val="false"/>
+						<!-- always hidden content for performance -->
+						<Animation name="KeepHidden">
+							<Event event="OnShown" action="Reset,Play"/>
+							<Controller type="Visibility" end="Pause">
+								<Key type="Bool" time="0" value="false"/>
+							</Controller>
+						</Animation>
+						
+						<!-- transfer visibility -->
+						<Animation name="BUGFIXanimationShow">
+							<Event event="Show" action="Play" frame="$parent"/>
+
+							<Controller type="Event" end="Stop" frame="$HeroLeaderPanel">
+								<Key type="Event" time="0" event="Show"/>
+							</Controller>
+						</Animation>
+						<Animation name="BUGFIXanimationHide">
+							<Event event="Hide" action="Play" frame="$parent"/>
+
+							<Controller type="Event" end="Stop" frame="$HeroLeaderPanel">
+								<Key type="Event" time="0" event="Hide"/>
+							</Controller>
+						</Animation>
+					</Frame>
+				</Frame>
+
+
+				<Frame type="Frame" name="LeaderPanelBottom" template="_LeaderPanelBottom/LeaderPanelBottomTemplate">
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="#LeaderPanelBottom - VerticalOffset"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Handle val="LeaderPanelBottom"/>
+					
+					<StateGroup name="VisibilityController">
+						<DefaultState val="Show"/>
+						<State name="Hide_ToggleUI">
+							<When type="Property" frame="$ToggleUI" visible="true"/>
+							<Action type="SetAnchor" undo="False" side="Bottom" relative="$parent" pos="Max" offset="999"/>
+						</State>
+						<State name="Hide_PlayerVisionPreview">
+							<When type="Property" frame="$ObserverPreviewFrame/ContainerFrame" visible="true"/>
+							<Action type="SetAnchor" undo="False" side="Bottom" relative="$parent" pos="Max" offset="999"/>
+						</State>
+						<State name="Hide_SettingsUI">
+							<When type="Property" frame="$Menu_Animator" visible="true"/>
+							<Action type="SetAnchor" undo="False" side="Bottom" relative="$parent" pos="Max" offset="999"/>
+						</State>
+						<State name="Show">
+							<Action type="SetAnchor" undo="False" side="Bottom" relative="$parent" pos="Max" offset="#LeaderPanelBottom - VerticalOffset"/>
+						</State>
+					</StateGroup>
+				</Frame>
+
+
+
+
+				<!-- control groups - offscreen for now -->
+				<Frame type="ControlGroupPanel" name="ControlGroupPanel">
+					<Anchor side="Bottom" relative="$parent/CommandPanel" pos="Min" offset="9999"/>
+					<Visible val="false"/>
+				</Frame>
+
+				<Frame type="UnitStatusFrame" name="HeroBehaviorChannelBarFrame">
+					<Anchor side="Bottom" relative="$parent" pos="Max" offset="-50"/>
+				</Frame>
+
+				<!-- hide ping button -->
+				<Frame type="MinimapPanel" name="MinimapPanel">
+					
+					<Frame type="Button" name="PingButton">
+						<Visible val="false"/>
+					</Frame>
+				</Frame>
+				
+				<!-- hide party panel -->
+				<Frame type="PartyFramePanel" name="PartyFramePanel">
+					<Handle val="PartyFramePanel"/>
+					<OverrideVisibilityForObservers val="True"/>
+					<OverriddenObserverVisibility val="#DEBUG_PARTYPANEL_VISIBLE"/>
+					<Anchor side="Top" relative="$parent" pos="Min" offset="270"/>
+				</Frame>
+				
+				<!-- mute talent selection panel -->
+				<Frame type="SelectionUnitStatusPanel" name="FloatingCombatUnitSelectionPanel">
+					<Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+						<Frame type="HeroTalentTreeSelectionPanel" name="HeroTalentTreeSelectionPanel">
+							<!-- @Override -->
+							<Animation name="Show">
+								<!-- Stop works, most other actions do not for some reason -->
+								<Event event="Toggle" action="Stop"/>
+								<Event event="Hide" action="Stop"/>
+								<Event event="Begin" action="Stop"/>
+								<Event event="End" action="Stop"/>
+							</Animation>
+							<!-- duplicate without sound => muted -->
+							<Animation name="Show2">
+								<Event event="Toggle" action="ToggleDirection, Play"/>
+								<Event event="Hide" action="DirectionReverse, Play"/>
+								<Event event="Begin" action="DirectionForward, Play"/>
+								<Event event="End" action="DirectionReverse, Play"/>
+								<Controller type="Fade" end="Pause">
+									<Key type="Curve" time="0" value="0"/>
+									<Key type="Curve" time=".175" value="255"/>
+								</Controller>
+								<Controller type="Anchor" end="Pause" side="Left" relative="true">
+									<Key type="Curve" time="0" value="-75" inout="Linear,Slow"/>
+									<Key type="Curve" time=".175" value="0" inout="Slow,Linear"/>
+								</Controller>
+							</Animation>
+						</Frame>
+					</Frame>
+				</Frame>
+
+				<!-- @Override -->
+				<!-- hide death recap button -->
+				<Frame type="UnitStatusFrame" name="HeroDeathStunFrame">
+					<Frame type="Button" name="DeathRecapButton">
+						<Anchor side="Bottom" relative="$parent" pos="Min" offset="999"/>
+						<Visible val="false"/>
+						<Alpha val="0"/>
+					</Frame>
+				</Frame>
+				
+				
+			</Frame>
+			
+			<Frame type="ConsolePanel" name="ConsolePanel">
+				<!-- ENGINE BUG FIX (killLogPanelBug): required to show the KillLogPanel, else the UI frame may be hidden at the start of the match -->
+				<Visible val="true"/>
+				<Animation name="KeepVisible">
+					<Event event="OnHidden" action="Reset,DirectionForward,Play"/>
+					<Controller type="Visibility" end="Pause">
+						<Key type="Bool" time="0" value="true"/>
+					</Controller>
+				</Animation>
+				
+				<!-- Hide hero-specific things... not sure what exactly., maybe things like butcher's hero UI -->
+				<Frame type="HeroSpecificContainerPanel" name="HeroSpecificBackgroundStatusContainer">
+					<Visible val="false"/>
+				</Frame>
+				<!-- Hide hero-specific things... li-ming's command card icons, I assume -->
+				<Frame type="HeroSpecificContainerPanel" name="HeroSpecificCommandCardStatusContainer">
+					<Visible val="false"/>
+				</Frame>
+				
+				<Frame type="Frame" name="KillLogPanel">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="150"/>
+					<Handle val="KillLogPanel"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Frame" name="FullscreenLowerContainer">
+				<Frame type="Frame" name="GameNotificationsPanel">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="116"/>
+					<Visible val="#GameNotificationsPanelVisible"/>
+					<Handle val="GameNotificationsPanel"/>
+					
+					<!-- remove default text that sometimes gets shown by accident -->
+					<Frame type="Frame" name="StandardNotificationTemplate">
+						<Frame type="Label" name="NotificationTitle_Blur">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationTitle">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationLabel_Blur">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationLabel">
+							<Text val=""/>
+						</Frame>
+					</Frame>
+					<Frame type="Frame" name="StandardEnemyNotificationTemplate">
+						<Frame type="Label" name="NotificationTitle_Blur">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationTitle">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationLabel_Blur">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationLabel">
+							<Text val=""/>
+						</Frame>
+					</Frame>
+					<Frame type="Frame" name="TutorialNotificationTemplate">
+						<Frame type="Label" name="NotificationTitle">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationLabel">
+							<Text val=""/>
+						</Frame>
+					</Frame>
+					<Frame type="Frame" name="TimedKillNotificationTemplate">
+						<Frame type="Frame" name="TimedKillNotification_Tier0">
+							<Frame type="Label" name="NotificationTitle_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationTitle">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel">
+								<Text val=""/>
+							</Frame>
+						</Frame>
+						<Frame type="Frame" name="TimedKillNotification_Tier1">
+							<Frame type="Label" name="NotificationTitle_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationTitle">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel">
+								<Text val=""/>
+							</Frame>
+						</Frame>
+						<Frame type="Frame" name="TimedKillNotification_Tier2">
+							<Frame type="Label" name="NotificationTitle_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationTitle">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel">
+								<Text val=""/>
+							</Frame>
+						</Frame>
+						<Frame type="Frame" name="TimedKillNotification_Tier3">
+							<Frame type="Label" name="NotificationTitle_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationTitle">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel">
+								<Text val=""/>
+							</Frame>
+						</Frame>
+						<Frame type="Frame" name="TimedKillNotification_Tier4">
+							<Frame type="Label" name="NotificationTitle_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationTitle">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel_Blur">
+								<Text val=""/>
+							</Frame>
+							<Frame type="Label" name="NotificationLabel">
+								<Text val=""/>
+							</Frame>
+						</Frame>
+					</Frame>
+					<Frame type="Frame" name="KillCounterTemplate">
+						<Frame type="Label" name="KillCountLabel">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="KillCountAmount">
+							<Text val=""/>
+						</Frame>
+					</Frame>
+					<Frame type="Frame" name="QuestNotificationTemplate">
+						<Frame type="Label" name="NotificationTitle_Blur">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationTitle">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationLabel_Blur">
+							<Text val=""/>
+						</Frame>
+						<Frame type="Label" name="NotificationLabel">
+							<Text val=""/>
+						</Frame>
+					</Frame>
+				</Frame>
+			</Frame>
+			
+		</Frame>
+		
+		<Frame type="WorldPanel" name="WorldPanel">
+			<Handle val="WorldPanel"/>
+			
+			<!-- OnShown is executed when the player tabs into the game -->
+			<Animation name="Ahlimation">
+				<Event event="OnShown" action="DirectionForward,Play"/>
+				
+				<!-- ENGINE BUG FIX (killLogPanelBug): ctrl+w is needed twice to make KillLog panel appear in default obs UI, this should fix it -->
+				<Controller type="Visibility" end="Pause" frame="$parent/UIContainer/ConsolePanel">
+					<Key type="Bool" time="0" value="true"/>
+				</Controller>
+				
+			</Animation>
+			
+		</Frame>
+		
+		<!-- Homescreen cutscene test
+		<Frame type="Frame" name="MainMenuHeroContainer" template="Home26/StukovFrameTemplate">
+			<Anchor relative="$parent"/>
+			<Visible val="true"/>
+			<Frame type="HeroGlueButton" name="ShopButton">
+				<Visible val="false"/>
+			</Frame>
+			<Frame type="HeroGlueButton" name="TryButton">
+				<Visible val="false"/>
+			</Frame>
+			<Frame type="HeroCutsceneFrame" name="HomeCutscene">
+				<Animation name="OnShownAhli">
+					<Event event="OnShown" action="Reset,Play"/>
+					<Controller type="Cutscene" end="Stop">
+						<Key type="Cutscene" time="1" action="SetCutscene" file="Cutscenes/Home_Necromancer.StormCutscene"/>
+						<Key type="Cutscene" time="1" action="Play"/>
+						<Key type="Cutscene" time="1" action="Bookmark" bookmark="Stand Start"/>
+					</Controller>
+					<Controller type="Visibility" end="Pause" frame="$parent/$parent/ToggleAllUI">
+						<Key type="Bool" time="0" value="true"/>
+					</Controller>
+				</Animation>
+			</Frame>
+		</Frame> -->
+		
+		<!-- hotkey to hide the entire UI -->
+		<Frame type="ToggleControl" name="ToggleAllUI">
+			<Anchor relative="$parent"/>
+			<Shortcut val="#Hotkey - Toggle all UI"/>
+			<AcceptsMouse val="false"/>
+			<Visible val="false"/>
+			<Handle val="ToggleAllUI"/>
+		</Frame>
+		<Frame type="ToggleControl" name="ToggleUI">
+			<Anchor relative="$parent"/>
+			<Shortcut val="#Hotkey - Toggle UI"/>
+			<AcceptsMouse val="false"/>
+			<Visible val="false"/>
+			<Handle val="ToggleUI"/>
+		</Frame>
+			
+		<Animation name="AllUiToggle">
+			<Event event="HideAll" action="DirectionForward,Play"/>
+			<Event event="ShowAll" action="DirectionReverse,Play"/>
+			
+			<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="UIContainer">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Left" relative="true" frame="UIContainer">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="WorldPanel/UnitStatusPanel">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Left" relative="true" frame="WorldPanel/UnitStatusPanel">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="OverlayImage">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Left" relative="true" frame="OverlayImage">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="FadeImage">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Left" relative="true" frame="FadeImage">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="FadeImagePlayer">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+			<Controller type="Anchor" end="Pause" side="Left" relative="true" frame="FadeImagePlayer">
+				<Key type="Curve" time="0" value="0" inout="Fast"/>
+				<Key type="Curve" time="0.01" value="9999" inout="Fast"/>
+			</Controller>
+		</Animation>
+		<Animation name="SomeUiToggle">
+			<Event event="HideSome" action="DirectionForward,Play"/>
+			<Event event="ShowSome" action="DirectionReverse,Play"/>
+			
+			<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/MinimapPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="UIContainer/FullScreenUpperContainer/ObserverHeroOverviewPanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<!-- spawns my talent notifications <Controller type="Visibility" end="Pause" frame="UIContainer/FullScreenUpperContainer/ObserverHeroOverviewPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>-->
+			
+			<!-- to hide the white vertical lines of core health bars because ENGINE BUG causes those to not disappear -->
+			<Controller type="Visibility" end="Pause" frame="UIContainer/FullScreenUpperContainer/ObserverHeroOverviewPanel/ObserverTopPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			
+			
+<!-- bugs with hidechat feature		<Controller type="Fade" end="Pause" frame="UIContainer/FullScreenUpperContainer/ChatDisplay">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller> -->
+			<Controller type="Visibility" end="Pause" frame="UIContainer/FullScreenUpperContainer/ChatDisplay">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="UIContainer/FullScreenUpperContainer/TeamPanel/TeamScorePanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="UIContainer/FullScreenUpperContainer/TeamPanel/TeamScorePanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<!--<Controller type="Fade" end="Pause" frame="UIContainer/ConsoleUIContainer/LeaderPanelBottom">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/LeaderPanelBottom">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>-->
+			<Controller type="Fade" end="Pause" frame="UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+<!--				<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller> -->
+			<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel/UnitStatusFrame0/HealthEnergyContainer">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="UIContainer/ConsoleUIContainer/CommandPanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+<!--bugs			<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/CommandPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller> -->
+			<Controller type="Fade" end="Pause" frame="UIContainer/ConsoleUIContainer/InventoryPanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/InventoryPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="UIContainer/ConsoleUIContainer/TopPanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/TopPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="UIContainer/ConsoleUIContainer/MapMechanicPanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="UIContainer/ConsoleUIContainer/MapMechanicPanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="UIContainer/FullscreenUpperContainer/ObserverPanelMovingContainer">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+<!--				<Controller type="Visibility" end="Pause" frame="UIContainer/FullscreenUpperContainer/ObserverPanelMovingContainer">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>-->
+			<Controller type="Fade" end="Pause" frame="UIContainer/FullScreenUpperContainer/InterfaceControl">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<!--Controller type="Visibility" end="Pause" frame="UIContainer/FullScreenUpperContainer/InterfaceControl">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>-->
+			<!--<Controller type="Visibility" end="Pause" frame="UIContainer/FullScreenUpperContainer/NotificationsPanel/NotificationsContainer">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>-->
+			<Controller type="Fade" end="Pause" frame="UIContainer/FullScreenUpperContainer/NotificationsPanel/NotificationsContainer">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="$ObserverHeroSpecificBackgroundStatusContainer">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="$HeroSpecificStatusContainer">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="$KillLogPanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Fade" end="Pause" frame="UIContainer/ConsolePanel">
+				<Key type="Curve" time="0" value="255"/>
+				<Key type="Curve" time="0.2" value="0"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="$GameUI_HeroTalentTreeSelectionPanel/CustomBackgroundImage">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="$GameUI_HeroTalentTreeSelectionPanel/TalentTreePanel">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="$LeftTeamXpBar">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+			<Controller type="Visibility" end="Pause" frame="$RightTeamXpBar">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0" value="false"/>
+				<Key type="Bool" time="0.2" value="false"/>
+			</Controller>
+		</Animation>
+
+		<StateGroup name="UiVisibilityController">
+			<DefaultState val="Show"/>
+			<State name="HideSome">
+				<When type="Property" frame="ToggleAllUI" visible="false"/>
+				<When type="Property" frame="ToggleUI" visible="true"/>
+				<Action type="SendEvent" event="ShowAll"/>
+				<Action type="SendEvent" event="HideSome"/>
+			</State>
+			<State name="HideAll">
+				<When type="Property" frame="ToggleAllUI" visible="true"/>
+				<Action type="SendEvent" event="HideSome"/>
+				<Action type="SendEvent" event="HideAll"/>
+			</State>
+			<State name="Show">
+				<Action type="SendEvent" event="ShowSome"/>
+				<Action type="SendEvent" event="ShowAll"/>
+			</State>
+		</StateGroup>
+		
+		<!-- TODO: needs to do something else than width... width doesn't seem to change anything for some reason
+		<Frame type="AspectRatioFrame" name="AspectRatioControl">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Height val="10"/>
+			<Width val="10"/>
+			<MinVisibleAspectRatio val="1.5"/>
+			<Handle val="AspectRatioControl"/>
+
+			<StateGroup name="AspectRatioStates">
+				<State name="Not4x3">
+					<When type="Property" visible="True"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview1" width="128"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview2" width="128"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview3" width="128"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview4" width="128"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview5" width="128"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview1" width="128"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview2" width="128"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview3" width="128"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview4" width="128"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview5" width="128"/>
+				</State>
+				<State name="Is4x3">
+					<When type="Property" visible="False"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview1" width="64"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview2" width="64"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview3" width="64"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview4" width="64"/>
+					<Action type="SetProperty" frame="$Team1HeroOverview/HeroOverview5" width="64"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview1" width="64"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview2" width="64"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview3" width="64"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview4" width="64"/>
+					<Action type="SetProperty" frame="$Team2HeroOverview/HeroOverview5" width="64"/>
+				</State>
+			</StateGroup>
+			
+			<Frame type="Image" name="QQQ">
+				<Anchor relative="$parent"/>
+				<Texture val="_Assets\Textures\QQQ.dds"/>
+				<Alpha val="128"/>
+			</Frame>
+		</Frame>-->
+		
+		
+		
+	</Frame>
+	
+	
+	
+	<!-- MAP MECHANIC UI changes -->
+	<!-- Garden of Terror - fixes -->
+	<Frame type="Frame" name="GameUI/UIContainer/ConsoleUIContainer/MapMechanicPanel/GardenOfTerrorPanel/SeedsFrame" file="GameUI">
+	
+		<!-- FIX: team icons disappearing after red team vision -->
+        <Frame type="Image" name="Team1SeedBlue2" template="MapMechanicPanel/MapMechanicPanelTemplate/GardenOfTerrorPanel/SeedsFrame/Team1SeedBlue">
+		</Frame>
+        <Frame type="Image" name="Team2SeedRed2" template="MapMechanicPanel/MapMechanicPanelTemplate/GardenOfTerrorPanel/SeedsFrame/Team2SeedRed">
+		</Frame>
+        <Frame type="Image" name="Team1SeedBlue">
+			<Visible val="false"/>
+			<Alpha val="0"/>
+			<RenderType val="Offscreen"/>
+		</Frame>
+        <Frame type="Image" name="Team2SeedRed">
+			<Visible val="false"/>
+			<Alpha val="0"/>
+			<RenderType val="Offscreen"/>
+		</Frame>
+		
+		<!-- FIX: seed counter disappearing on time jump -->
+		<Frame type="Label" name="Team1SeedCounter">
+			<StateGroup name="FixVis">
+				<DefaultState val="Hid"/>
+				<State name="Vis">
+					<When type="Property" frame="$parent/Team1StatusLabel" visible="false"/>
+					<Action type="SetProperty" visible="true"/>
+				</State>
+				<State name="Hid">
+					<Action type="SetProperty" visible="false"/>
+				</State>
+			</StateGroup>
+		</Frame>
+		<Frame type="Label" name="Team2SeedCounter">
+			<StateGroup name="FixVis">
+				<DefaultState val="Hid"/>
+				<State name="Fix">
+					<When type="Property" frame="$parent/Team2StatusLabel" visible="false"/>
+					<Action type="SetProperty" visible="true"/>
+				</State>
+				<State name="Hid">
+					<Action type="SetProperty" visible="false"/>
+				</State>
+			</StateGroup>
+		</Frame>
+		
+		<!-- TODO: FIX: notifications are visible on time jump until they really should appear
+		<Frame type="DataRefFrame" name="SeedsOnMap">
+			<Argument name="UnitCount" val="Seed"/>
+			<PlayerId val="0"/>
+		</Frame> -->
+		
+	</Frame>
+	<!-- FIX: icon next to terror health bars was blue/red depending on whose vision was last used -->
+	<Frame type="Frame" name="GardenTerrorHealthFrame" file="GardenMapMechanic">
+		<Frame type="Image" name="IconNew" template="GardenMapMechanic/GardenTerrorHealthFrame/Icon_Blue">
+			<Texture val="@UI/Storm_UI_HUD_GoT_TerrorHealthFrameIconBlue"/>
+			
+			<Frame type="DataRefFrame" name="TerrorCountR">
+				<Argument name="UnitCount" val="GardenTerror"/>
+				<PlayerId val="12"/>
+			</Frame>
+			
+			<StateGroup name="Color">
+				<State name="Red">
+					<When type="Property" frame="TerrorCountR" RealValue="0" operator="NotEqual"/>
+					<Action type="SetProperty" texture="@UI/Storm_UI_HUD_GoT_TerrorHealthFrameIconRed"/>
+				</State>
+			</StateGroup>
+		</Frame>
+		<!-- hide original images as a new one is used to avoid triggers causing issues -->
+		<Frame type="Image" name="Icon_Blue">
+			<Visible val="false"/>
+			<Alpha val="0"/>
+			<RenderType val="Offscreen"/>
+		</Frame>
+		<Frame type="Image" name="Icon_Red">
+			<Visible val="false"/>
+			<Alpha val="0"/>
+			<RenderType val="Offscreen"/>
+		</Frame>
+		
+	</Frame>
+	
+	
+	
+	<!-- TODO fix Alterac Pass UI issues (caputured glow animation can be wrong; colors are already fixed here) -->
+	<Frame type="Frame" name="AlteracMechanicsPanel" file="AlteracMechanics">
+		
+		<Frame type="Frame" name="AVMechanicContainer">
+			
+			<Constant name="debug" val="false"/>
+			<Frame type="Label" name="DebugLabel1">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-200"/>
+				<Anchor side="Right" relative="$parent" pos="Min" offset="0"/>
+				<Visible val="#debug"/>
+				<Unclipped val="true"/>
+			</Frame>
+			<Frame type="Label" name="DebugLabel2">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-180"/>
+				<Anchor side="Right" relative="$parent" pos="Min" offset="0"/>
+				<Visible val="#debug"/>
+				<Unclipped val="true"/>
+			</Frame>
+			<Frame type="Label" name="DebugLabel3">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-160"/>
+				<Anchor side="Right" relative="$parent" pos="Min" offset="0"/>
+				<Visible val="#debug"/>
+				<Unclipped val="true"/>
+			</Frame>
+			<Frame type="Label" name="DebugLabel4">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-140"/>
+				<Anchor side="Right" relative="$parent" pos="Min" offset="0"/>
+				<Visible val="#debug"/>
+				<Unclipped val="true"/>
+			</Frame>
+			<Frame type="Label" name="DebugLabel5">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-120"/>
+				<Anchor side="Right" relative="$parent" pos="Min" offset="0"/>
+				<Visible val="#debug"/>
+				<Unclipped val="true"/>
+			</Frame>
+			<Frame type="Label" name="DebugLabel6">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-100"/>
+				<Anchor side="Right" relative="$parent" pos="Min" offset="0"/>
+				<Visible val="#debug"/>
+				<Unclipped val="true"/>
+			</Frame>
+			<Frame type="Label" name="DebugLabel7">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-80"/>
+				<Anchor side="Right" relative="$parent" pos="Min" offset="0"/>
+				<Visible val="#debug"/>
+				<Unclipped val="true"/>
+			</Frame>
+			
+			<!-- TODO: Animation state is set to the other team during red vision,
+					blue captures => top "10", switch to red vision, red captures => top from "10" to "10", unusable with red vision -->
+			<StateGroup name="TopBarCaptured">
+				<DefaultState val="FalseDflt"/>
+				<!-- @Override -->
+				<State name="False"><!-- red Vision => make top appear like bot -->
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<When type="AnimationState" BottomBarCaptured="00"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/Background" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarBottom_Inactive"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="DebugLabel1" text="tb_cap_false_redVis"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				</State>
+				<!-- @Override -->
+				<State name="True"><!-- red Vision => make top appear like bot -->
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<When type="AnimationState" BottomBarCaptured="10"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/Background" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarBottom_Active"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="DebugLabel1" text="tb_cap_true_redVis"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" texture="@UI/Storm_UI_HUD_WCAV_CountdownBarBottom_Active"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/Background" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarBottom_Inactive"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/Background" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/Background" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/TeamOrderLightColors/TeamChaosLightColors/@Color}"/>
+				</State>
+				<!-- @Override -->
+				<State name="Contested"><!-- red Vision => make top appear like bot -->
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<When type="AnimationState" BottomBarCaptured="11"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="DebugLabel1" text="tb_cap_contested_redVis"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" texture="@UI/Storm_UI_HUD_WCAV_CountdownBarBottom_Active"/>
+				</State>
+				<State name="FalseDflt">
+					<When type="AnimationState" TopBarCaptured="00"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/Background" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarTop_Inactive"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="DebugLabel1" text="tb_cap_false_dflt"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				</State>
+				<State name="TrueDflt">
+					<When type="AnimationState" TopBarCaptured="10"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/Background" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarTop_Active"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="DebugLabel1" text="tb_cap_true_dflt"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				</State>
+				<State name="ContestedDflt">
+					<When type="AnimationState" TopBarCaptured="11"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="DebugLabel1" text="tb_cap_contested_dflt"/>
+				</State>
+			</StateGroup>
+			
+			<StateGroup name="BottomBarCaptured">
+				<DefaultState val="FalseDflt"/>
+				<!-- @Override -->
+				<State name="False"><!-- red Vision => make bot appear like top -->
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<When type="AnimationState" TopBarCaptured="00"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/Background" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarTop_Inactive"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="DebugLabel2" text="bb_cap_false_redVis"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				</State>
+				<!-- @Override -->
+				<State name="True"><!-- red Vision => make bot appear like top -->
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<When type="AnimationState" TopBarCaptured="10"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/Background" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarTop_Active"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="DebugLabel2" text="bb_cap_true_redVis"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" texture="@UI/Storm_UI_HUD_WCAV_CountdownBarTop_Active"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/Background" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarTop_Inactive"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/Background" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/Background" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				</State>
+				<!-- @Override -->
+				<State name="Contested"><!-- red Vision => make bot appear like top -->
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<When type="AnimationState" TopBarCaptured="11"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="DebugLabel2" text="bb_cap_contested_redVis"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" texture="@UI/Storm_UI_HUD_WCAV_CountdownBarTop_Active"/>
+				</State>
+				<State name="FalseDflt">
+					<When type="AnimationState" BottomBarCaptured="00"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/Background" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarBottom_Inactive"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="False"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="DebugLabel2" text="bb_cap_false_dflt"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				</State>
+				<State name="TrueDflt">
+					<When type="AnimationState" BottomBarCaptured="10"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/Background" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" Texture="@UI/Storm_UI_HUD_WCAV_CountdownBarBottom_Active"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" Visible="True"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" DarkAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" LightAdjustColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/ProgressLabel" GlowColor="#ColorWhite"/>
+					<Action type="SetProperty" frame="DebugLabel2" text="bb_cap_true_dflt"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				</State>
+				<State name="ContestedDflt">
+					<When type="AnimationState" BottomBarCaptured="11"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImage" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" DarkAdjustColor="f6d71c"/>
+					<Action type="SetProperty" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar/ProgressBar/FillImageContainer/FillImageForegroundAdd" LightAdjustColor="FFFFFF"/>
+					<Action type="SetProperty" frame="DebugLabel2" text="bb_cap_contested_dflt"/>
+				</State>
+			</StateGroup>
+			
+			<StateGroup name="TeamWins">
+				<!-- @Override -->
+				<State name="Reset">
+					<When type="AnimationState" TeamWins="0"/>
+					<Action type="SetProperty" frame="VictoryHexGlow" Visible="False"/>
+					<Action type="SetProperty" frame="DebugLabel3" text="tw_reset"/>
+				</State>
+				<!-- @Override -->
+				<State name="Order">
+					<When type="AnimationState" TeamWins="1"/>
+					<Action type="SetProperty" frame="VictoryHexGlow" Visible="True"/>
+					<Action type="SetProperty" frame="VictoryHexGlow" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="VictoryHexGlow" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+					<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="NotificationLabel" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+					<Action type="SetProperty" frame="MapMechanicStatusMasker/MapMechanicStatus/CavalryHealthBarAnchorFrame1/CavalryHealthFillupFrame" Color="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/MapMechanicOrderColors_Primary/@Color}"/>
+					<Action type="SetProperty" frame="MapMechanicStatusMasker/MapMechanicStatus/CavalryHealthBarAnchorFrame2/CavalryHealthFillupFrame" Color="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/MapMechanicOrderColors_Primary/@Color}"/>
+					<Action type="SetProperty" frame="MapMechanicStatusMasker/MapMechanicStatus/CavalryHealthBarAnchorFrame3/CavalryHealthFillupFrame" Color="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/MapMechanicOrderColors_Primary/@Color}"/>
+					<Action type="SetProperty" frame="DebugLabel3" text="tw_order"/>
+				</State>
+				<!-- @Override -->
+				<State name="Chaos">
+					<When type="AnimationState" TeamWins="2"/>
+					<Action type="SetProperty" frame="VictoryHexGlow" Visible="True"/>
+					<Action type="SetProperty" frame="VictoryHexGlow" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="VictoryHexGlow" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+					<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+					<Action type="SetProperty" frame="NotificationLabel" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+					<Action type="SetProperty" frame="MapMechanicStatusMasker/MapMechanicStatus/CavalryHealthBarAnchorFrame1/CavalryHealthFillupFrame" Color="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/MapMechanicChaosColors_Primary/@Color}"/>
+					<Action type="SetProperty" frame="MapMechanicStatusMasker/MapMechanicStatus/CavalryHealthBarAnchorFrame2/CavalryHealthFillupFrame" Color="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/MapMechanicChaosColors_Primary/@Color}"/>
+					<Action type="SetProperty" frame="MapMechanicStatusMasker/MapMechanicStatus/CavalryHealthBarAnchorFrame3/CavalryHealthFillupFrame" Color="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/MapMechanicChaosColors_Primary/@Color}"/>
+					<Action type="SetProperty" frame="DebugLabel3" text="tw_chaos"/>
+				</State>
+			</StateGroup>
+			
+			<StateGroup name="TeamWinningCage">
+				<DefaultState val="NobodyWinning"/>
+				<!-- @Override -->
+				<State name="NobodyWinning">
+					<When type="AnimationState" TeamWinningCage="00"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_DarkBlue" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_DarkBlue" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_DarkRed" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_DarkRed" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_Glow" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_Glow" Visible="False"/>
+					<Action type="SetProperty" frame="DebugLabel4" text="twc_nobody"/>
+				</State>
+				<!-- @Override -->
+				<State name="OrderWinning">
+					<When type="AnimationState" TeamWinningCage="11"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_DarkBlue" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_DarkRed" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_DarkRed" Visible="True"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_DarkBlue" Visible="True"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_Glow" Visible="True"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_Glow" Visible="False"/>
+					<Action type="SetProperty" frame="DebugLabel4" text="twc_order"/>
+				</State>
+				<!-- @Override -->
+				<State name="ChaosWinning">
+					<When type="AnimationState" TeamWinningCage="12"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_DarkBlue" Visible="True"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_DarkRed" Visible="True"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_DarkBlue" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_DarkRed" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/AllianceImage_Glow" Visible="False"/>
+					<Action type="SetProperty" frame="Team0Icon/IconContainer/HordeImage_Glow" Visible="True"/>
+					<Action type="SetProperty" frame="DebugLabel4" text="twc_chaos"/>
+				</State>
+			</StateGroup>
+
+			<StateGroup name="RedTeamVisionSwapBarPositions">
+				<State name="RedTeamVision">
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<!-- Swap positions of the bars during red vision -->
+					<!-- Container height 51, Bar height 29, top was 2 higher (top min -2), bot was 1 pixel lower (bot max 1) =>  -->
+					<Action type="SetAnchor" frame="ProgressBarMasker/ProgressBarsContainer/TopProgressBar" side="Top" relative="$parent/ProgressBarsBG" pos="Min" offset="23"/>
+					<Action type="SetAnchor" frame="ProgressBarMasker/ProgressBarsContainer/BottomProgressBar" side="Bottom" relative="$parent/ProgressBarsBG" pos="Max" offset="-24"/>
+					<Action type="SetProperty" frame="DebugLabel7" text="bar_pos_swapped"/>
+				</State>
+			</StateGroup>
+		</Frame>
+
+		<Frame type="Frame" name="NotificationFrame1">
+			<StateGroup name="EventID">
+			  <State name="OrderRetakesOrderFlag">
+				<When type="AnimationState" EventID="11"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAllianceBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="CaptureGlow" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel5" text="n1_order_retake"/>
+			  </State>
+			  <State name="ChaosRetakesChaosFlag">
+				<When type="AnimationState" EventID="22"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHordeBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="False"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="CaptureGlow" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel5" text="n1_chaos_retake"/>
+			  </State>
+			  <State name="OrderTakesChaosFlag">
+				<When type="AnimationState" EventID="12"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHordeBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIcon" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIcon" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel5" text="n1_order_take"/>
+			  </State>
+			  <State name="ChaosTakesOrderFlag">
+				<When type="AnimationState" EventID="21"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAllianceBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIcon" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIcon" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel5" text="n1_chaos_take"/>
+			  </State>
+			</StateGroup>
+		</Frame>
+		<Frame type="Frame" name="NotificationFrame2">
+			<StateGroup name="EventID">
+			  <State name="OrderRetakesOrderFlag">
+				<When type="AnimationState" EventID="11"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAllianceBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="CaptureGlow" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel6" text="n2_order_retake"/>
+			  </State>
+			  <State name="ChaosRetakesChaosFlag">
+				<When type="AnimationState" EventID="22"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHordeBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="False"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="CaptureGlow" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIconFG" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel6" text="n2_chaos_retake"/>
+			  </State>
+			  <State name="OrderTakesChaosFlag">
+				<When type="AnimationState" EventID="12"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHordeBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureHorde"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIcon" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIcon" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamOrderDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamOrderColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel6" text="n2_order_take"/>
+			  </State>
+			  <State name="ChaosTakesOrderFlag">
+				<When type="AnimationState" EventID="21"/>
+				<Action type="SetProperty" frame="NotificationIconBG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAllianceBG"/>
+				<Action type="SetProperty" frame="NotificationIcon" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIconFG" Texture="@UI/Storm_UI_HUD_WCAV_CaptureAlliance"/>
+				<Action type="SetProperty" frame="NotificationIcon" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer" Visible="True"/>
+				<Action type="SetProperty" frame="NotificationIconColoring" Visible="True"/>
+				<Action type="SetProperty" frame="CaptureGlow" Visible="False"/>
+				<Action type="SetProperty" frame="NotificationIcon" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationIcon" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosLightColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlLarge" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" DarkAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationSwirlContainer/NotificationIconSwirlSmall" LightAdjustColor="{$ancestor[@name=AlteracMechanicsPanel]/UnitStatusColorContainer/TeamChaosDarkColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" DarkAdjustColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="NotificationLabel" GlowColor="{$GameUI/TeamChaosColors/@Color}"/>
+				<Action type="SetProperty" frame="$parent/AVMechanicContainer/DebugLabel6" text="n2_chaos_take"/>
+			  </State>
+			</StateGroup>
+		</Frame>
+
+	</Frame>
+	
+	
+	<Frame type="Frame" name="GameUI/UIContainer/ConsoleUIContainer/MapMechanicPanel/DragonShirePanel/DragonModeFrame" file="GameUI">
+		<Frame type="Frame" name="DragonShirePilotIconPosition">
+			<Anchor side="Bottom" relative="$parent/DragonHealthBar/HealthLabel" pos="Max" offset="0"/>
+			<Anchor side="Right" relative="$parent/DragonHealthBar" pos="Mid" offset="80"/>
+			<Width val="72"/>
+			<Height val="72"/>
+			<Handle val="DragonShirePilotIconPosition"/>
+		</Frame>
+		<!-- @Override -->
+		<Frame type="Label" name="DragonInfoLabel">
+			<Visible val="false"/>
+			<Alpha val="0"/>
+		</Frame>
+		<!-- @Override -->
+		<Frame type="UnitStatusFrame" name="DragonHealthBar">
+			<Frame type="UnitStatusHealthLabel" name="HealthLabel">
+				<Frame type="Label" name="StatusLabel">
+					<Visible val="false"/>
+					<Alpha val="0"/>
+				</Frame>
+			</Frame>
+		</Frame>
+	</Frame>
+	
+	<!-- FIX: Tombs show Webweaver status color flipped during red vision -->
+	<Frame type="Frame" name="CryptPanel" file="SoulCage">
+		<Frame type="Frame" name="SoulEaterModeBlueFrame">
+			<Frame type="Frame" name="TopFireEffect">
+				<Frame type="Image" name="FireEffectBase2" template="SoulCage/CryptPanel/SoulEaterModeBlueFrame/TopFireEffect/FireEffectBase">
+					<Texture val="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Red" layer="2"/>
+					<Visible val="false"/>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MidFireEffect">
+				<Frame type="Image" name="FireEffectBase2" template="SoulCage/CryptPanel/SoulEaterModeBlueFrame/MidFireEffect/FireEffectBase">
+					<Texture val="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Red" layer="2"/>
+					<Visible val="false"/>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="BottomFireEffect">
+				<Frame type="Image" name="FireEffectBase2" template="SoulCage/CryptPanel/SoulEaterModeBlueFrame/BottomFireEffect/FireEffectBase">
+					<Texture val="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Red" layer="2"/>
+					<Visible val="false"/>
+				</Frame>
+			</Frame>
+        </Frame>
+		<Frame type="Frame" name="SoulEaterModeRedFrame">
+			<Frame type="Frame" name="TopFireEffect">
+				<Frame type="Image" name="FireEffectBase2" template="SoulCage/CryptPanel/SoulEaterModeBlueFrame/TopFireEffect/FireEffectBase">
+					<Texture val="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Blue" layer="2"/>
+					<Visible val="false"/>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MidFireEffect">
+				<Frame type="Image" name="FireEffectBase2" template="SoulCage/CryptPanel/SoulEaterModeBlueFrame/MidFireEffect/FireEffectBase">
+					<Texture val="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Blue" layer="2"/>
+					<Visible val="false"/>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="BottomFireEffect">
+				<Frame type="Image" name="FireEffectBase2" template="SoulCage/CryptPanel/SoulEaterModeBlueFrame/BottomFireEffect/FireEffectBase">
+					<Texture val="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Blue" layer="2"/>
+					<Visible val="false"/>
+				</Frame>
+			</Frame>
+        </Frame>
+		<StateGroup name="FixColors">
+			<State name="RedVision"><!-- red Vision => make blue appear like red -->
+				<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+				<!--<Action type="SetProperty" frame="SoulEaterModeBlueFrame/TopFireEffect/FireEffectBase" Texture[2]="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Red" layer="2"/>-->
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/TopFireEffect/FireEffectBase" visible="false"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/TopFireEffect/FireEffectBase2" visible="true"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/TopSoulEaterEnabled" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Frame_Top_Red"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/TopSoulEaterHealth/TopSoulEaterHealthImage" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Red"/>
+				<!--<Action type="SetProperty" frame="SoulEaterModeBlueFrame/MidFireEffect/FireEffectBase" Texture="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Red" layer="2"/>-->
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/MidFireEffect/FireEffectBase" visible="false"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/MidFireEffect/FireEffectBase2" visible="true"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/MidSoulEaterEnabled" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Frame_Middle_Red"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/MidSoulEaterHealth/MidSoulEaterHealthImage" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Red"/>
+				<!--<Action type="SetProperty" frame="SoulEaterModeBlueFrame/BottomFireEffect/FireEffectBase" Texture="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Red" layer="2"/>-->
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/BottomFireEffect/FireEffectBase" visible="false"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/BottomFireEffect/FireEffectBase2" visible="true"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/BottomSoulEaterEnabled" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Frame_Bottom_Red"/>
+				<Action type="SetProperty" frame="SoulEaterModeBlueFrame/BottomSoulEaterHealth/BottomSoulEaterHealthImage" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Red"/>
+				<!--<Action type="SetProperty" frame="SoulEaterModeRedFrame/TopFireEffect/FireEffectBase" Texture="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Blue" layer="2"/>-->
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/TopFireEffect/FireEffectBase" visible="false"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/TopFireEffect/FireEffectBase2" visible="true"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/TopSoulEaterEnabled" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Frame_Top_Blue"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/TopSoulEaterHealth/TopSoulEaterHealthImage" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Blue"/>
+				<!--<Action type="SetProperty" frame="SoulEaterModeRedFrame/MidFireEffect/FireEffectBase" Texture="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Blue" layer="2"/>-->
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/MidFireEffect/FireEffectBase" visible="false"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/MidFireEffect/FireEffectBase2" visible="true"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/MidSoulEaterEnabled" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Frame_Middle_Blue"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/MidSoulEaterHealth/MidSoulEaterHealthImage" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Blue"/>
+				<!--<Action type="SetProperty" frame="SoulEaterModeRedFrame/BottomFireEffect/FireEffectBase" Texture="@UI/HUD_MapMechanic_SpiderQueen_FireSeamless_Blue" layer="2"/>-->
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/BottomFireEffect/FireEffectBase" visible="false"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/BottomFireEffect/FireEffectBase2" visible="true"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/BottomSoulEaterEnabled" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Frame_Bottom_Blue"/>
+				<Action type="SetProperty" frame="SoulEaterModeRedFrame/BottomSoulEaterHealth/BottomSoulEaterHealthImage" Texture="@UI/HUD_MapMechanic_SpiderQueen_SoulEater_Blue"/>
+			</State>
+		</StateGroup>
+	</Frame>
+	
+	<!-- FIX: Haunted Mines - during red vision golem life bars(position,textures), skull labels(position+style) need to be swapped -->
+	<Frame type="Frame" name="GameUI/UIContainer/ConsoleUIContainer/MapMechanicPanel/HauntedMinesPanel/GolemModeFrame" file="GameUI">
+        <Frame type="Label" name="AllySkullCounterR" template="MapMechanicPanel/MapMechanicPanelTemplate/HauntedMinesPanel/GolemModeFrame/AllySkullCounter">
+			<Visible val="false"/>
+			<Text val="{$parent/EnemySkullCounter/@Text}"/>
+		</Frame>
+        <Frame type="Label" name="EnemySkullCounterR" template="MapMechanicPanel/MapMechanicPanelTemplate/HauntedMinesPanel/GolemModeFrame/EnemySkullCounter">
+			<Visible val="false"/>
+			<Text val="{$parent/AllySkullCounter/@Text}"/>
+		</Frame>
+		<StateGroup name="FixRedVision">
+			<State name="RedVis"><!-- red Vision => swap bar positions, textures and skull counter label+style -->
+				<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+				<Action type="SetAnchor" frame="AllyGolemHealthBar" side="Top" relative="$parent/HealthBarBgBottom" pos="Min" offset="5"/>
+				<Action type="SetAnchor" frame="AllyGolemHealthBar" side="Left" relative="$parent/HealthBarBgBottom" pos="Min" offset="8"/>
+				<Action type="SetProperty" frame="AllyGolemHealthBar/HealthBar" Texture="@UI/HUD_MapMechanic_HauntedMines_HealthBarBottom"/>
+				<Action type="SetAnchor" frame="EnemyGolemHealthBar" side="Top" relative="$parent/HealthBarBgTop" pos="Min" offset="6"/>
+				<Action type="SetAnchor" frame="EnemyGolemHealthBar" side="Left" relative="$parent/HealthBarBgTop" pos="Min" offset="8"/>
+				<Action type="SetProperty" frame="EnemyGolemHealthBar/HealthBar" Texture="@UI/HUD_MapMechanic_HauntedMines_HealthBarTop"/>
+				<!-- swapping positions of the labels broke its anchors => use 2nd set of labels -->
+				<Action type="SetProperty" frame="AllySkullCounter" visible="false"/>
+				<Action type="SetProperty" frame="EnemySkullCounter" visible="false"/>
+				<Action type="SetProperty" frame="AllySkullCounterR" visible="true"/>
+				<Action type="SetProperty" frame="EnemySkullCounterR" visible="true"/>
+			</State>
+		</StateGroup>
+	</Frame>
+	
+	<!-- FIX: Battlefield of Eternity - during red vision, immortal colors are wrong -->
+	<Frame type="Frame" name="BossDuelPanel" file="BossDuel">
+		
+		<Frame type="Frame" name="BossLaningFrame">
+			
+			<Frame type="Image" name="EnemyDemonHud2" template="BossDuel/BossDuelPanel/BossLaningFrame/EnemyDemonHud">
+				<Visible val="false"/>
+			</Frame>
+			<Frame type="Image" name="AllyAngelHud2" template="BossDuel/BossDuelPanel/BossLaningFrame/AllyAngelHud">
+				<Visible val="false"/>
+			</Frame>
+			
+			<Frame type="Image" name="AllyDemonHud">
+				<RenderType val="Offscreen"/>
+			</Frame>
+			<Frame type="Image" name="EnemyDemonHud">
+				<RenderType val="Offscreen"/>
+			</Frame>
+			<Frame type="Image" name="AllyAngelHud">
+				<RenderType val="Offscreen"/>
+			</Frame>
+			<Frame type="Image" name="EnemyAngelHud">
+				<RenderType val="Offscreen"/>
+			</Frame>
+			
+			<StateGroup name="FixDemon">
+				<State name="Fix">
+					<When type="Property" frame="$parent" visible="true"/>
+					<When type="Property" frame="AllyDemonHud" alpha="255"/>
+					<When type="Property" frame="EnemyDemonHud2" visible="false"/>
+					<Action type="SetProperty" frame="EnemyDemonHud2" visible="true"/>
+				</State>
+			</StateGroup>
+			<StateGroup name="FixAngel">
+				<State name="Fix">
+					<When type="Property" frame="$parent" visible="true"/>
+					<When type="Property" frame="EnemyAngelHud" alpha="255"/>
+					<When type="Property" frame="AllyAngelHud2" visible="false"/>
+					<Action type="SetProperty" frame="AllyAngelHud2" visible="true"/>
+				</State>
+			</StateGroup>
+			<StateGroup name="CorrectDemon">
+				<State name="Correct">
+					<When type="Property" frame="$parent" visible="true"/>
+					<When type="Property" frame="EnemyDemonHud" alpha="255"/>
+					<When type="Property" frame="EnemyDemonHud2" visible="false"/>
+					<Action type="SetProperty" frame="EnemyDemonHud2" visible="true"/>
+				</State>
+			</StateGroup>
+			<StateGroup name="CorrectAngel">
+				<State name="Correct">
+					<When type="Property" frame="$parent" visible="true"/>
+					<When type="Property" frame="AllyAngelHud" alpha="255"/>
+					<When type="Property" frame="AllyAngelHud2" visible="false"/>
+					<Action type="SetProperty" frame="AllyAngelHud2" visible="true"/>
+				</State>
+			</StateGroup>
+			
+			<!-- fix health bar being behind immortal image -->
+			<Frame type="UnitStatusFrame" name="BossLaningHealthBar">
+				<Anchor side="Right" relative="$parent/AllyDemonHud" pos="Min" offset="14"/>
+			</Frame>
+		</Frame>
+
+		<!-- Fix: keep BossDuellRightFrame hidden in favor of BossDuelLeftFrame -->
+		<Frame type="Frame" name="BossDuelRightFrame">
+			<Animation name="KeepHidden">
+				<Event event="OnShown" action="Reset,Play"/>
+				<Controller type="Visibility" end="Pause">
+					<Key type="Bool" time="0" value="false"/>
+				</Controller>
+				<Controller type="Visibility" frame="$parent/BossDuelLeftFrame" end="Pause">
+					<Key type="Bool" time="0" value="true"/>
+				</Controller>
+			</Animation>
+		</Frame>
+		<Frame type="Frame" name="BossDuelLeftFrame">
+			<!-- FIX: avoid playing delayed slash animations/persistent ones -->
+			<Frame type="Frame" name="RightSlashAnimation">
+				<Animation name="BossDefeated">
+					<Event event="OnShown" action="Reset,Stop"/>
+				</Animation>
+				<Frame type="Image" name="EnemyBossHudLeftSlash1">
+					<Animation name="BossDefeated">
+						<Event event="OnShown" action="Reset,Stop"/>
+					</Animation>
+				</Frame>
+				<Frame type="Image" name="EnemyBossHudLeftSlash2">
+					<Animation name="BossDefeated">
+						<Event event="OnShown" action="Reset,Stop"/>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="LeftSlashAnimation">
+				<Animation name="BossDefeated">
+					<Event event="OnShown" action="Reset,Stop"/>
+				</Animation>
+				<Frame type="Image" name="EnemyBossHudLeftSlash1">
+					<Animation name="BossDefeated">
+						<Event event="OnShown" action="Reset,Stop"/>
+					</Animation>
+				</Frame>
+				<Frame type="Image" name="EnemyBossHudLeftSlash2">
+					<Animation name="BossDefeated">
+						<Event event="OnShown" action="Reset,Stop"/>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Image" name="BossHudLeft">
+				<Animation name="LeftBossDefeated">
+					<Event event="OnShown" action="Reset,Stop"/>
+				</Animation>
+			</Frame>
+			<Frame type="Image" name="BossHudRight">
+				<Animation name="RightBossDefeated">
+					<Event event="OnShown" action="Reset,Stop"/>
+				</Animation>
+			</Frame>
+
+			<!-- FIX: colorblind color on health labels before death -->
+			<Frame type="UnitStatusFrame" name="AllyBossHealthBar">
+				<Frame type="UnitStatusHealthLabel" name="HealthLabel">
+					<Frame type="Label" name="StatusLabel">
+						<GlowColor val="{$GameUI/TeamOrderColors/@Color}"/>
+						<ColorAdjustMode val="Colorize"/>
+						<LightAdjustColor val="#ColorWhite"/>
+						<DarkAdjustColor val="{$GameUI/TeamOrderColors/@Color}"/>
+					</Frame>
+				</Frame>
+			</Frame>
+			<Frame type="UnitStatusFrame" name="EnemyBossHealthBar">
+				<Frame type="UnitStatusHealthLabel" name="HealthLabel">
+					<Frame type="Label" name="StatusLabel">
+						<GlowColor val="{$GameUI/TeamChaosColors/@Color}"/>
+						<ColorAdjustMode val="Colorize"/>
+						<LightAdjustColor val="#ColorWhite"/>
+						<DarkAdjustColor val="{$GameUI/TeamChaosColors/@Color}"/>
+					</Frame>
+				</Frame>
+			</Frame>
+		</Frame>
+	</Frame>
+	
+	<!-- FIX: Sky Temple - vertical Progress Bar has wrong colors in red vision -->
+	<Frame type="Frame" name="CapturePointsPanel" file="CapturePoints">
+		<Frame type="Frame" name="TempleModeFrame">
+			<Frame type="Frame" name="ShrineIndicators1">
+				<Frame type="Image" name="ShrineIcon">
+					<StateGroup name="ShrineIconStateControl">
+						<State name="EnableBlueTeam">
+							<When type="AnimationState" Ownership="Order"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="false"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/AllyColors/@Color}"/>
+						</State>
+						<State name="EnableRedTeam">
+							<When type="AnimationState" Ownership="Chaos"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="false"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/EnemyColors/@Color}"/>
+						</State>
+						<State name="EnableBlueTeamR">
+							<When type="AnimationState" Ownership="Order"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/EnemyColors/@Color}"/>
+						</State>
+						<State name="EnableRedTeamR">
+							<When type="AnimationState" Ownership="Chaos"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/AllyColors/@Color}"/>
+						</State>
+					</StateGroup>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="ShrineIndicators2">
+				<Frame type="Image" name="ShrineIcon">
+					<StateGroup name="ShrineIconStateControl">
+						<State name="EnableBlueTeam">
+							<When type="AnimationState" Ownership="Order"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="false"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/AllyColors/@Color}"/>
+						</State>
+						<State name="EnableRedTeam">
+							<When type="AnimationState" Ownership="Chaos"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="false"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/EnemyColors/@Color}"/>
+						</State>
+						<State name="EnableBlueTeamR">
+							<When type="AnimationState" Ownership="Order"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/EnemyColors/@Color}"/>
+						</State>
+						<State name="EnableRedTeamR">
+							<When type="AnimationState" Ownership="Chaos"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/AllyColors/@Color}"/>
+						</State>
+					</StateGroup>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="ShrineIndicators3">
+				<Frame type="Image" name="ShrineIcon">
+					<StateGroup name="ShrineIconStateControl">
+						<State name="EnableBlueTeam">
+							<When type="AnimationState" Ownership="Order"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="false"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/AllyColors/@Color}"/>
+						</State>
+						<State name="EnableRedTeam">
+							<When type="AnimationState" Ownership="Chaos"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="false"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/EnemyColors/@Color}"/>
+						</State>
+						<State name="EnableBlueTeamR">
+							<When type="AnimationState" Ownership="Order"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/EnemyColors/@Color}"/>
+						</State>
+						<State name="EnableRedTeamR">
+							<When type="AnimationState" Ownership="Chaos"/>
+							<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+							<Action type="SetProperty" LightAdjustColor="#ColorWhite"/>
+							<Action type="SetProperty" DarkAdjustColor="#ColorSkyTempleNeutral"/>
+							<Action type="SetProperty" frame="ShrineCaptureProgressMask/ProgressFill" DarkAdjustColor="{$GameUI/AllyColors/@Color}"/>
+						</State>
+					</StateGroup>
+				</Frame>
+			</Frame>
+		</Frame>
+	</Frame>
+	
+	<!-- FIX: KillLog colors on player vision changes -->
+	<!-- TODO selected-unit-player-vision-support, non 5vs5 -->
+	<Frame type="Frame" name="Item" file="KillLog">
+		<!-- DEBUG CODE 
+		<Constant name="debug" val="false"/>
+		<Frame type="Label" name="DebugLabel1">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-100"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel2">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="20"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-100"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel3">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel4">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="20"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel5">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="40"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel6">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel7">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="40"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-100"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel8">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-100"/>
+			<Visible val="#debug"/>
+		</Frame>
+		<Frame type="Label" name="DebugLabel9">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-200"/>
+			<Visible val="#debug"/>
+		</Frame>
+		
+		<StateGroup name="SrcColorDebug">
+			<DefaultState val="Dflt"/>
+			<State name="Blue">
+				<When type="AnimationState" SrcColor="Blue"/>
+				<Action type="SetProperty" frame="DebugLabel3" text="src_blue"/>
+			</State>
+			<State name="Red">
+				<When type="AnimationState" SrcColor="Red"/>
+				<Action type="SetProperty" frame="DebugLabel3" text="src_red"/>
+			</State>
+			<State name="Purple">
+				<When type="AnimationState" SrcColor="Purple"/>
+				<Action type="SetProperty" frame="DebugLabel3" text="src_purple"/>
+			</State>
+			<State name="Dflt">
+				<Action type="SetProperty" frame="DebugLabel3" text="src_dflt"/>
+			</State>
+		</StateGroup>
+		<StateGroup name="tgtColorDebug">
+			<DefaultState val="Dflt"/>
+			<State name="Blue">
+				<When type="AnimationState" TgtColor="Blue"/>
+				<Action type="SetProperty" frame="DebugLabel4" text="tgt_blue"/>
+			</State>
+			<State name="Red">
+				<When type="AnimationState" TgtColor="Red"/>
+				<Action type="SetProperty" frame="DebugLabel4" text="tgt_red"/>
+			</State>
+			<State name="Dflt">
+				<Action type="SetProperty" frame="DebugLabel4" text="tgt_dflt"/>
+			</State>
+		</StateGroup>
+		<StateGroup name="visionPulldownIndexDebug">
+			<DefaultState val="Dflt"/>
+			<State name="0">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="0"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_0"/>
+			</State>
+			<State name="1">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="1"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_1"/>
+			</State>
+			<State name="2">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="2"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_2"/>
+			</State>
+			<State name="3">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="3"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_3"/>
+			</State>
+			<State name="4">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="4"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_4"/>
+			</State>
+			<State name="5">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="5"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_5"/>
+			</State>
+			<State name="6">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="6"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_6"/>
+			</State>
+			<State name="7">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="7"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_7"/>
+			</State>
+			<State name="8">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="8"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_8"/>
+			</State>
+			<State name="9">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="9"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_9"/>
+			</State>
+			<State name="10">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="10"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_10"/>
+			</State>
+			<State name="11">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="11"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_11"/>
+			</State>
+			<State name="12">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="12"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_12"/>
+			</State>
+			<State name="13">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="13"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_13"/>
+			</State>
+			<State name="14">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="14"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_14"/>
+			</State>
+			<State name="15">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="15"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_15"/>
+			</State>
+			<State name="16">
+				<When type="Property" frame="$VisionPulldown" selectedIndex="16"/>
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_16"/>
+			</State>
+			<State name="Dflt">
+				<Action type="SetProperty" frame="DebugLabel5" text="vi_dflt"/>
+			</State>
+		</StateGroup>
+		<StateGroup name="killLogTypeDebug">
+			<DefaultState val="Dflt"/>
+			<State name="Hidden">
+				<When type="Property" visible="False"/>
+				<Action type="SetProperty" frame="DebugLabel6" text="type_hidden"/>
+			</State>
+			<State name="Kill">
+				<When type="AnimationState" KillLogItemType="Kill"/>
+				<Action type="SetProperty" frame="DebugLabel6" text="type_kill"/>
+			</State>
+			<State name="Quest">
+				<When type="AnimationState" KillLogItemType="Quest"/>
+				<Action type="SetProperty" frame="DebugLabel6" text="type_quest"/>
+			</State>
+			<State name="Dflt">
+				<Action type="SetProperty" frame="DebugLabel6" text="type_dflt"/>
+			</State>
+		</StateGroup>-->
+
+		<StateGroup name="VisionOnCreation"><!-- cannot use this state as condition in other as state is only temporary -->
+			<DefaultState val="Dflt"/>
+			<State name="Red"><!-- visible && notYetLockedIn && in red team vision -->
+				<When type="Property" visible="true"/>
+				<When type="Property" frame="StateVisionOnCreationNotYetLockedIn" visible="true"/>
+				<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+				<!--<Action type="SetProperty" frame="DebugLabel7" undo="false" text="vc_red"/>-->
+				<Action type="SetProperty" frame="StateVisionOnCreationNotYetLockedIn" undo="false" visible="false"/>
+				<Action type="SetProperty" frame="StateVisionOnCreationWasRed" undo="false" visible="true"/>
+			</State>
+			<State name="NotRed"><!-- visible && notYetLockedIn && not in red team vision -->
+				<When type="Property" visible="true"/>
+				<When type="Property" frame="StateVisionOnCreationNotYetLockedIn" visible="true"/>
+				<When type="Property" frame="$RedPlayerVisionState" visible="false"/>
+				<!--<Action type="SetProperty" frame="DebugLabel7" undo="false" text="vc_notRed"/>-->
+				<Action type="SetProperty" frame="StateVisionOnCreationNotYetLockedIn" undo="false" visible="false"/>
+				<Action type="SetProperty" frame="StateVisionOnCreationWasRed" undo="false" visible="false"/>
+			</State>
+			<State name="Reset">
+				<When type="Property" visible="false"/>
+				<!--<Action type="SetProperty" frame="DebugLabel7" undo="false" text=""/>-->
+				<Action type="SetProperty" frame="StateVisionOnCreationNotYetLockedIn" undo="false" visible="true"/>
+			</State>
+			<State name="Dflt"/>
+		</StateGroup>
+		<Frame type="Frame" name="StateVisionOnCreationNotYetLockedIn">
+			<Anchor relative="$parent"/>
+			<Alpha val="0"/>
+		</Frame>
+		<Frame type="Frame" name="StateVisionOnCreationWasRed">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Alpha val="0"/>
+		</Frame>
+		
+		<Frame type="Frame" name="SrcPortrait">
+			<StateGroup name="Colors">
+				<!-- @Override -->
+				<State name="Blue"><!-- kill: red & red & created in red => blue -->
+			        <When type="AnimationState" frame="$parent" KillLogItemType="Kill"/>
+					<When type="AnimationState" frame="$parent" SrcColor="Red"/>
+					<When type="AnimationState" frame="$parent" TgtColor="Red"/>
+			        <When type="Property" frame="$parent/StateVisionOnCreationWasRed" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Blue"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_blue1"/>-->
+				</State>
+				<!-- @Override -->
+				<State name="Red"><!-- kill: blue & blue & created in red => red -->
+			        <When type="AnimationState" frame="$parent" KillLogItemType="Kill"/>
+					<When type="AnimationState" frame="$parent" SrcColor="Blue"/>
+					<When type="AnimationState" frame="$parent" TgtColor="Blue"/>
+			        <When type="Property" frame="$parent/StateVisionOnCreationWasRed" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Red"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_red1"/>-->
+				</State>
+				<!-- @Override -->
+				<State name="Purple"><!-- purple => purple -->
+					<When type="AnimationState" frame="$parent" SrcColor="Purple"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Purple"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_purple"/>-->
+				</State>
+				<State name="Blue2"><!-- kill: red & blue & created in red => blue -->
+			        <When type="AnimationState" frame="$parent" KillLogItemType="Kill"/>
+					<When type="AnimationState" frame="$parent" SrcColor="Red"/>
+					<When type="AnimationState" frame="$parent" TgtColor="Blue"/>
+			        <When type="Property" frame="$parent/StateVisionOnCreationWasRed" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Blue"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_blue2"/>-->
+				</State>
+				<State name="Red2"><!-- kill: blue & red & created in red => red -->
+			        <When type="AnimationState" frame="$parent" KillLogItemType="Kill"/>
+					<When type="AnimationState" frame="$parent" SrcColor="Blue"/>
+					<When type="AnimationState" frame="$parent" TgtColor="Red"/>
+			        <When type="Property" frame="$parent/StateVisionOnCreationWasRed" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Red"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_red2"/>-->
+				</State>
+				<State name="Blue3"><!-- quest: red & in red player vision => blue -->
+			        <When type="AnimationState" frame="$parent" KillLogItemType="Quest"/>
+					<When type="AnimationState" frame="$parent" SrcColor="Red"/>
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Blue"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_blue3"/>-->
+				</State>
+				<State name="Red3"><!-- quest: blue & in red player vision => red -->
+			        <When type="AnimationState" frame="$parent" KillLogItemType="Quest"/>
+					<When type="AnimationState" frame="$parent" SrcColor="Blue"/>
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Red"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_red3"/>-->
+				</State>
+				<State name="Blue4"><!-- blue => blue -->
+					<When type="AnimationState" frame="$parent" SrcColor="Blue"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Blue"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_blue4"/>-->
+				</State>
+				<State name="Red4"><!-- red => red -->
+					<When type="AnimationState" frame="$parent" SrcColor="Red"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Red"/>
+					<!--<Action type="SetProperty" frame="$parent/DebugLabel1" text="s_red4"/>-->
+				</State>
+			</StateGroup>
+			
+			<!-- State set by above StateGroup Colors -->
+			<StateGroup name="PortraitColor">
+				<State name="Blue">
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" LightAdjustColor="{$ancestor[@name=KillLogPanel]/AllyColors/@AdditionalColor[0]}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/AllyColors/@Color}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" texture="@UI/HUD_KillLog_Portrait_Border_Blue"/>
+				</State>
+				<State name="Red">
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" LightAdjustColor="{$ancestor[@name=KillLogPanel]/EnemyColors/@AdditionalColor[0]}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/EnemyColors/@Color}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" texture="@UI/HUD_KillLog_Portrait_Border_Red"/>
+				</State>
+				<State name="Purple">
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" LightAdjustColor="{$ancestor[@name=KillLogPanel]/NexusColors/@AdditionalColor[0]}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/NexusColors/@Color}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" texture="@UI/HUD_KillLog_Portrait_Border_Purple"/>
+				</State>
+			</StateGroup>
+			
+			
+		</Frame>
+		
+		
+		<StateGroup name="KillLogItemType">
+			<!-- @Override -->
+			<State name="Hidden">
+				<When type="Property" visible="False"/>
+			</State>
+			<!-- @Override -->
+			<State name="Kill">
+				<When type="AnimationState" KillLogItemType="Kill"/>
+				<Action type="SetProperty" frame="BackgroundCutscene2" file="Cutscenes/GameUI_KillLog.StormCutscene"/>
+				<Action type="SetProperty" frame="VsImage" visible="True"/>
+			</State>
+			<!-- @Override -->
+			<State name="Quest">
+				<When type="AnimationState" KillLogItemType="Quest"/>
+				<Action type="SetProperty" frame="BackgroundCutscene2" file="Cutscenes/GameUI_KillLogQuest.StormCutscene"/>
+				<Action type="SetProperty" frame="QuestImage" visible="True"/>
+			</State>
+		</StateGroup>
+		
+		<StateGroup name="CutsceneColor">
+			<!-- @Override -->
+			<State name="None"><!-- cutscene must have been loaded -->
+				<When type="StateGroup" frame="BackgroundCutscene2" CutsceneStatus="Inactive"/>
+				<!--<Action type="SetProperty" frame="DebugLabel8" text="cs_notLoaded"/>-->
+			</State>
+			<!-- @Override -->
+			<State name="SetAlly">
+				<When type="StateGroup" frame="VsImage" ImageColor="Blue"/>
+				<Action type="SendEvent" frame="BackgroundCutscene2" event="SetAllyColor"/>
+				<!--<Action type="SetProperty" frame="DebugLabel8" text="cs_blue"/>-->
+			</State>
+			<!-- @Override -->
+			<State name="SetEnemy">
+				<When type="StateGroup" frame="VsImage" ImageColor="Red"/>
+				<Action type="SendEvent" frame="BackgroundCutscene2" event="SetEnemyColor"/>
+				<!--<Action type="SetProperty" frame="DebugLabel8" text="cs_red"/>-->
+			</State>
+			<!-- @Override -->
+			<State name="SetNeutralToEnemy">
+				<When type="Property" frame="$GameUI" visible="false"/><!-- never -->
+				<!--<Action type="SetProperty" frame="DebugLabel8" text="cs_red2"/>-->
+			</State>
+			<!-- @Override -->
+			<State name="SetNeutralToAlly">
+				<When type="Property" frame="$GameUI" visible="false"/><!-- never -->
+				<!--<Action type="SetProperty" frame="DebugLabel8" text="cs_blue2"/>-->
+			</State>
+		</StateGroup>
+
+		<!-- Custom Cutscene Frame -->
+		<Frame type="CutsceneFrame" name="BackgroundCutscene2">
+			<Anchor side="Left" relative="$parent" pos="Min" offset="-270"/>
+			<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+			<Width val="900"/>
+			<Height val="350"/>
+			<RenderType val="HDR"/>
+			<Unclipped val="True"/>
+			<AutoPlay val="True"/>
+
+			<Animation name="PlayBg_Ally">
+				<Event event="SetAllyColor" action="Reset,Play"/>
+				<Event event="SetEnemyColor" action="Stop"/>
+				<Controller type="Cutscene" end="Stop">
+					<Key type="Cutscene" time="0" action="RemoveFilter" filter="Enemy"/>
+					<Key type="Cutscene" time=".2" action="AddFilter" filter="Ally"/>
+					<Key type="Cutscene" time=".2" action="Bookmark" bookmark="Start"/>
+				</Controller>
+			</Animation>
+			<Animation name="PlayBg_Enemy">
+				<Event event="SetEnemyColor" action="Reset,Play"/>
+				<Event event="SetAllyColor" action="Stop"/>
+				<Controller type="Cutscene" end="Stop">
+					<Key type="Cutscene" time="0" action="RemoveFilter" filter="Ally"/>
+					<Key type="Cutscene" time=".2" action="AddFilter" filter="Enemy"/>
+					<Key type="Cutscene" time=".2" action="Bookmark" bookmark="Start"/>
+				</Controller>
+			</Animation>
+			
+			<StateGroup name="CutsceneStatus">
+				<DefaultState val="Inactive"/>
+				<State name="Inactive"/>
+				<State name="Active">
+					<When type="Property" Visible="True"/>
+					<When type="AnimationState" CutsceneLoad="Loaded"/>
+				</State>
+			</StateGroup>
+			
+			<StateGroup name="SetCutsceneColorblind">
+				<State name="IsColorblind">
+					<When type="Option" colorblind="True"/>
+					<When type="AnimationState" CutsceneLoad="Loaded"/>
+					<Action type="SendEvent" event="SetCutsceneColorblind"/>
+				</State>
+				<State name="NotColorblind">
+					<When type="Option" colorblind="False"/>
+					<When type="AnimationState" CutsceneLoad="Loaded"/>
+					<Action type="SendEvent" event="RemoveCutsceneColorblind"/>
+				</State>
+			</StateGroup>
+
+			<Animation name="CutsceneColorblindSetAnim">
+				<Event event="SetCutsceneColorblind" action="Reset,Play"/>
+				<Controller type="Cutscene" end="Pause">
+					<Key type="Cutscene" time="0" action="AddFilter" filter="Colorblind"/>
+				</Controller>
+			</Animation>
+
+			<Animation name="CutsceneColorblindRemoveAnim">
+				<Event event="RemoveCutsceneColorblind" action="Reset,Play"/>
+				<Controller type="Cutscene" end="Pause">
+					<Key type="Cutscene" time="0" action="RemoveFilter" filter="Colorblind"/>
+				</Controller>
+			</Animation>
+		</Frame>
+		
+		<Frame type="CutsceneFrame" name="BackgroundCutscene">
+			<Visible val="false"/>
+		</Frame>
+		
+		<Frame type="Image" name="VsImage">
+			<StateGroup name="Colors">
+				<!-- @Override -->
+				<State name="Blue"><!-- kill: not blue src result & red tgt result => blue -->
+					<When type="AnimationState" frame="$parent" KillLogItemType="Kill"/>
+					<When type="StateGroup" frame="$parent/SrcPortrait" operator="NotEqual" PortraitColor="Blue"/>
+					<When type="StateGroup" frame="$parent/TgtPortrait0" PortraitColor="Red"/>
+					<Action type="SetState" group="ImageColor" undo="false" state="Blue"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel9" text="vs_blue1"/>
+				</State>
+				<!-- @Override -->
+				<State name="BlueNeutral"><!-- kill: not red src result & blue tgt result => red -->
+					<When type="AnimationState" frame="$parent" KillLogItemType="Kill"/>
+					<When type="StateGroup" frame="$parent/SrcPortrait" operator="NotEqual" PortraitColor="Red"/>
+					<When type="StateGroup" frame="$parent/TgtPortrait0" PortraitColor="Blue"/>
+					<Action type="SetState" group="ImageColor" undo="false" state="Red"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel9" text="vs_red1"/>
+				</State>
+				<!-- @Override -->
+				<State name="Red"><!-- red src result => red -->
+					<When type="StateGroup" frame="$parent/SrcPortrait" PortraitColor="Red"/>
+					<Action type="SetState" group="ImageColor" undo="false" state="Red"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel9" text="vs_red2"/>
+				</State>
+				<State name="RealBlue"><!-- blue src result => blue -->
+					<When type="StateGroup" frame="$parent/SrcPortrait" PortraitColor="Blue"/>
+					<Action type="SetState" group="ImageColor" undo="false" state="Blue"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel9" text="vs_blue2"/>
+				</State>
+			</StateGroup>
+			
+			<!-- State set by Colors StateGroup above, used by Cutscene -->
+			<StateGroup name="ImageColor">
+				<State name="Red">
+					<Action type="SetProperty" frame="VsImageInset" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/EnemyColors/@Color}"/>
+					<Action type="SetProperty" undo="false" LightAdjustColor="{$ancestor[@name=KillLogPanel]/EnemyColors/@AdditionalColor[1]}"/>
+					<Action type="SetProperty" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/EnemyColors/@AdditionalColor[1]}"/>
+				</State>
+				<State name="Blue">
+					<Action type="SetProperty" frame="VsImageInset" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/AllyColors/@Color}"/>
+					<Action type="SetProperty" undo="false" LightAdjustColor="{$ancestor[@name=KillLogPanel]/AllyColors/@AdditionalColor[1]}"/>
+					<Action type="SetProperty" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/AllyColors/@AdditionalColor[1]}"/>
+				</State>
+			</StateGroup>
+		</Frame>
+		
+		<Frame type="Frame" name="TgtPortrait0">
+			<StateGroup name="Colors">
+				<!-- @Override -->
+				<State name="Red"><!-- blue tgtColor & in red player vision => red -->
+					<When type="AnimationState" frame="$parent" tgtColor="Blue"/>
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Red"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel2" undo="false" text="t_redOnRed"/>
+				</State>
+				<!-- @Override -->
+				<State name="Blue"><!-- red tgtColor & in red player vision => blue -->
+					<When type="AnimationState" frame="$parent" tgtColor="Red"/>
+					<When type="Property" frame="$RedPlayerVisionState" visible="true"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Blue"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel2" undo="false" text="t_blueOnRed"/>
+				</State>
+				<State name="Red2"><!-- red tgtColor => red -->
+					<When type="AnimationState" frame="$parent" tgtColor="Red"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Red"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel2" undo="false" text="t_red"/>
+				</State>
+				<State name="Blue2"><!-- blue tgtColor => blue -->
+					<When type="AnimationState" frame="$parent" tgtColor="Blue"/>
+					<Action type="SetState" group="PortraitColor" undo="false" state="Blue"/>
+					<Action type="SetProperty" frame="$parent/DebugLabel2" undo="false" text="t_blue"/>
+				</State>
+			</StateGroup>
+			
+			<!-- State set by Colors -->
+			<StateGroup name="PortraitColor">
+				<State name="Blue">
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" LightAdjustColor="{$ancestor[@name=KillLogPanel]/AllyColors/@AdditionalColor[0]}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/AllyColors/@Color}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" texture="@UI/HUD_KillLog_Portrait_Border_Blue"/>
+					<Action type="SetState" frame="StrikethroughFrame" group="Colors" undo="false" state="Blue"/>
+				</State>
+				<State name="Red">
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" LightAdjustColor="{$ancestor[@name=KillLogPanel]/EnemyColors/@AdditionalColor[0]}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" DarkAdjustColor="{$ancestor[@name=KillLogPanel]/EnemyColors/@Color}"/>
+					<Action type="SetProperty" frame="PortraitBorder" undo="false" texture="@UI/HUD_KillLog_Portrait_Border_Red"/>
+					<Action type="SetState" frame="StrikethroughFrame" group="Colors" undo="false" state="Red"/>
+				</State>
+			</StateGroup>
+			
+			<StateGroup name="StrikeColors">
+				<!-- @Override -->
+				<State name="Red">
+					<Action type="SetState" frame="QuestResetIcon1/StrikethroughFrame" group="Colors" undo="false" state="Red"/>
+					<Action type="SetState" frame="QuestResetIcon2/StrikethroughFrame" group="Colors" undo="false" state="Red"/>
+					<Action type="SetState" frame="QuestResetIcon3/StrikethroughFrame" group="Colors" undo="false" state="Red"/>
+					<Action type="SetState" frame="QuestResetIcon4/StrikethroughFrame" group="Colors" undo="false" state="Red"/>
+				</State>
+				<!-- @Override -->
+				<State name="Blue">
+					<Action type="SetProperty" frame="$GameUI" visible="true"/>
+					<Action type="SetState" frame="QuestResetIcon1/StrikethroughFrame" group="Colors" undo="false" state="Blue"/>
+					<Action type="SetState" frame="QuestResetIcon2/StrikethroughFrame" group="Colors" undo="false" state="Blue"/>
+					<Action type="SetState" frame="QuestResetIcon3/StrikethroughFrame" group="Colors" undo="false" state="Blue"/>
+					<Action type="SetState" frame="QuestResetIcon4/StrikethroughFrame" group="Colors" undo="false" state="Blue"/>
+				</State>
+			</StateGroup>
+		</Frame>
+		<Frame type="Frame" name="TgtPortrait1" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait2" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait3" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait4" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait5" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait6" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait7" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait8" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait9" template="_Ahli/Item/TgtPortrait0"/>
+		<Frame type="Frame" name="TgtPortrait10" template="_Ahli/Item/TgtPortrait0"/>
+		
+		<!-- failed attempt to fix first slot taking up space when not shown (it is used after going into player vision and back to everyone vision)
+		<Frame type="Frame" name="SrcPortrait">
+			<Animation name="OnShown">
+				<Event event="OnShown" action="DirectionForward,Play"/>
+				<Event event="OnHidden" action="DirectionReverse,Play"/>
+				<Controller type="Dimension" dimension="Height" relative="False" percentage="True" end="Pause" frame="$parent">
+					<Key type="Curve" time="0" value="0"/>
+					<Key type="Curve" time=".1" value="100"/>
+				</Controller>
+			</Animation>
+		</Frame>-->
+		<!--<CollapseLayout val="true"/> breaks the source portrait -->
+		
+	</Frame>
+	
+	
+	
+	<!-- edit pause notifications -->
+	<Frame type="SystemAlertListBoxItem" name="SystemAlertListBoxItemTemplate" file="SystemAlertPanel">
+		<!-- hide original background image -->
+		<Frame type="Image" name="BackgroundImage">
+			<Visible val="false"/>
+		</Frame>
+		<!-- center text label -->
+		<Frame type="Label" name="TextLabel">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="35"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="80"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="-35"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-80"/>
+		</Frame>
+		<!-- new close button look -->
+		<Frame type="Button" name="CloseButton" template="StandardTemplates/SmallPanelCloseButtonTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="15"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-38"/>
+		</Frame>
+		
+		<!-- new background -->
+		<Frame type="Frame" name="AhliBorder">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="9"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="-12"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="29"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="-28"/>
+			<RenderPriority val="100"/>
+			
+			<Frame type="BlurFrame" name="BlurBackground">
+				<Anchor relative="$parent" offset="-9"/>
+				<BlurAmount val="0.8"/>
+				<Visible val="True"/>
+				
+				<Frame type="Image" name="LowImage">
+					<Anchor relative="$parent"/>
+					<TextureType val="Normal"/>
+					<Texture val="@UI/Storm_Generic_Background_Low"/>
+				</Frame>
+			</Frame>
+
+			<Frame type="Image" name="BottomBorder">
+				<Anchor relative="$parent/BlurBackground"/>
+				<Texture val="@UI/Storm_UI_Tooltip_BottomBorder"/>
+				<TextureType val="NineSlice"/>
+				<Alpha val="165"/>
+			</Frame>
+
+			<Frame type="Image" name="TipGradient">
+				<Anchor relative="$parent/BlurBackground"/>
+				<Texture val="@UI/Storm_UI_Tooltip_OverlayGradient"/>
+				<Alpha val="101"/>
+			</Frame>
+
+			<Frame type="Image" name="TipEdgeBurn">
+				<Anchor relative="$parent/BlurBackground"/>
+				<Texture val="@UI/Storm_UI_Tooltip_AddBurn"/>
+				<BlendMode val="Add"/>
+				<TextureType val="Normal"/>
+				<Alpha val="100"/>
+			</Frame>
+			
+			<Frame type="Image" name="TopBorder">
+				<Anchor relative="$parent"/>
+				<Texture val="@UI/Storm_UI_Tooltip_TopBorder"/>
+				<TextureType val="NineSlice"/>
+				<Alpha val="255"/>
+			</Frame>
+		</Frame>
+		
+	</Frame>
+	
+</Desc>

@@ -1,0 +1,138 @@
+﻿DocInfo/DescLong=Sinonis replay UI (based on Ahli Obs UI)
+DocInfo/DescShort=Sinonis
+DocInfo/Name=Sinonis Obs UI
+Ahli/Deaths=<s val="AhliColumnHeaderL22">死亡</s>
+Ahli/HeroDamage=<s val="AhliColumnHeaderL22">英雄伤害</s>
+Ahli/SiegeDamage=<s val="AhliColumnHeaderL22">攻城伤害</s>
+Ahli/Healing=<s val="AhliColumnHeaderL22">治疗量</s>
+Ahli/APM=<s val="AhliColumnHeaderL22">APM</s>
+Ahli/APMAverage=<s val="AhliColumnHeaderL22">平均APM</s>
+Ahli/XPtotal=<s val="AhliColumnHeaderL22">贡献经验值</s>
+Ahli/DeathTime=<s val="AhliColumnHeaderL22">死亡计时</s>
+Ahli/SelfHealing=<s val="AhliColumnHeaderL22">自我治疗</s>
+Ahli/Mechanics=<s val="AhliColumnHeaderL22">地图机制得分</s>
+Ahli/CarriedMechanics=<s val="AhliColumnHeaderL22">携带资源</s>
+Ahli/DeathsR=<s val="AhliColumnHeaderR22">死亡</s>
+Ahli/HeroDamageR=<s val="AhliColumnHeaderR22">英雄伤害</s>
+Ahli/SiegeDamageR=<s val="AhliColumnHeaderR22">攻城伤害</s>
+Ahli/HealingR=<s val="AhliColumnHeaderR22">治疗量</s>
+Ahli/APMR=<s val="AhliColumnHeaderR22">APM</s>
+Ahli/APMAverageR=<s val="AhliColumnHeaderR22">平均APM</s>
+Ahli/XPtotalR=<s val="AhliColumnHeaderR22">贡献经验值</s>
+Ahli/XPtakedownsR=<s val="AhliColumnHeaderR22">(不可用)</s>
+Ahli/XPminionR=<s val="AhliColumnHeaderR22">(不可用)</s>
+Ahli/XPstructuresR=<s val="AhliColumnHeaderR22">(不可用)</s>
+Ahli/DeathTimeR=<s val="AhliColumnHeaderR22">死亡计时</s>
+Ahli/SelfHealingR=<s val="AhliColumnHeaderR22">自我治疗</s>
+Ahli/MechanicsR=<s val="AhliColumnHeaderR22">地图机制得分</s>
+Ahli/CarriedMechanicsR=<s val="AhliColumnHeaderR22">携带资源</s>
+Ahli/RoleScore=<s val="AhliColumnHeaderL22">角色表现</s>
+Ahli/RoleScoreR=<s val="AhliColumnHeaderR22">角色表现</s>
+Ahli/SettingHeroics=隐藏大招冷却计时器
+Ahli/SettingUnitInfo=隐藏选中单位信息
+Ahli/SettingReplayControls=显示录像控制器
+Ahli/SettingChat=隐藏聊天区
+Ahli/SettingMapScore=显示比分
+Ahli/SettingTalentNotification=隐藏天赋提示
+Ahli/SettingPlayerNames=Hide Player Names
+Ahli/LeftTeamName=蓝队
+Ahli/RightTeamName=红队
+Ahli/Intro1=风暴英雄OB界面 by Ahli
+Ahli/Intro2=<n/><n/><n/>UI version 0.75 - 2nd January 2024
+Ahli/ZaryaTraitDamageBoostFix=<d ref="Effect,ZaryaUIDamageBoostIndicationDamage,Amount"/>%
+Ahli/Kills=<s val="AhliColumnHeaderL22">单杀</s>
+Ahli/KillsR=<s val="AhliColumnHeaderR22">单杀</s>
+Ahli/Assists=<s val="AhliColumnHeaderL22">助攻</s>
+Ahli/AssistsR=<s val="AhliColumnHeaderR22">助攻</s>
+Ahli/Ammunition=弹药
+Ahli/HealOther=<s val="AhliColumnHeaderL22">输出治疗量</s>
+Ahli/HealOtherR=<s val="AhliColumnHeaderR22">输出治疗量</s>
+Ahli/TimeCCdEnemyHeroes=<s val="AhliColumnHeaderL22">控制敌方英雄时长</s>
+Ahli/TimeCCdEnemyHeroesR=<s val="AhliColumnHeaderR22">控制敌方英雄时长</s>
+Ahli/AlarakSadismLabel=<d ref="100*(($BehaviorTokenCount:AlarakSadismToken$*Accumulator,AlarakSadismAccumulator,Scale)+($BehaviorTokenCount:AlarakSadismPureMaliceQuestToken$*Accumulator,AlarakSadismPureMaliceAccumulator,Scale))"/>
+UI/HeroCharacterSheetPanel/LifeSteal=生命窃取
+UI/HeroCharacterSheetPanel/StructureDamage=攻城伤害
+UI/HeroCharacterSheetPanel/CooldownReduction=技能冷却时间减少量
+UI/HeroCharacterSheetPanel/KillStreak=连杀数
+UI/HeroCharacterSheetPanel/ArmorPhysicalHeroOnly=英雄伤害物理护甲
+UI/HeroCharacterSheetPanel/HealthRegen=Regen (per second)
+UI/HeroCharacterSheetPanel/EnergyRegen=Regen (per second)
+UI/HeroCharacterSheetPanel/ArmorAbility=Spell Armor
+UI/HeroCharacterSheetPanel/ArmorPhysical=Physical Armor
+UI/HeroCharacterSheetPanel/AttackRange=Attack Range
+UI/HeroCharacterSheetPanel/AttackSpeed=Attacks per second
+Ahli/ZuljinGuillotineDamage=<d ref="($AccumulatedValue:Behavior,ZuljinBerserkerPassive,Modification.AdditiveAttackSpeedFactor$*100 * $AccumulatedValue:Behavior,ZuljinBerserkerPassive,Modification.AdditiveAttackSpeedFactor$*100 / 5000 + 1) * Effect,ZuljinGuillotineBaseDamage,Amount" precision="0"/>
+Ahli/NotificationPick=选择天赋
+Ahli/NotificationQuest=任务完成
+Ahli/portraitDamageTooltip=basic: exp1</n>hero: exp2</n>minion: exp3</n>structure: exp4
+Ahli/CalcShortVal=<d ref="%v%/1000" precision="1"/>
+Sinonis/MenuTooltip=Sinonis options
+Sinonis/MenuHideAllUI=All UI
+Sinonis/MenuHideNames=Player names
+Sinonis/MenuHpCurrent=HP: current
+Sinonis/MenuHpMax=HP: max
+Sinonis/MenuHpPercent=HP: percent
+Sinonis/QuickUI=UI
+Sinonis/QuickMenu=Menu
+Sinonis/Menu/Head7=화면
+Sinonis/Menu/AllUI=UI 전체
+Sinonis/Menu/Tip/AllUI=모든 UI 켜기/끄기 (Ctrl+Alt+U). 꺼도 좌상단 [메뉴]는 남아요
+Sinonis/Menu/Top=상단바
+Sinonis/Menu/Tip/Top=상단 영웅 개요(점수·타이머)·맵 점수판·경험치 바·시간·팀 이름
+Sinonis/Menu/Minimap=미니맵
+Sinonis/Menu/Tip/Minimap=미니맵
+Sinonis/Menu/Chat=채팅창
+Sinonis/Menu/Tip/Chat=채팅창
+Sinonis/Menu/Replay=리플레이 컨트롤
+Sinonis/Menu/Tip/Replay=리플레이 컨트롤 박스 (관전·리플레이 조절바)
+Sinonis/Menu/Selection=유닛 정보
+Sinonis/Menu/Tip/Selection=좌하단 선택 유닛 정보 (초상화·이름·체력·공격력·기술·버프·영웅 전용 칸)
+Sinonis/Menu/Events=알림·킬 로그
+Sinonis/Menu/Tip/Events=화면 위·좌·우에 뜨는 알림: 파괴·오브젝트, Ahli 알림, 토스트, 목표, 아나운서, 킬 로그
+Sinonis/Menu/Head15=머리 위 이름
+Sinonis/Menu/Names=이름 표시
+Sinonis/Menu/Tip/Names=머리 위 이름 켜기/끄기 (Ctrl+Alt+N)
+Sinonis/Menu/NameKindUser=유저 이름
+Sinonis/Menu/Tip/NameKindUser=머리 위에 유저 이름 (닉네임)
+Sinonis/Menu/NameKindHero=영웅 이름
+Sinonis/Menu/Tip/NameKindHero=머리 위에 영웅 이름
+Sinonis/Menu/Head21=상단바 모드
+Sinonis/Menu/TopModeBasic=기본
+Sinonis/Menu/Tip/TopModeBasic=초상화·체력·마나·궁극기·사망 타이머
+Sinonis/Menu/TopModeSkills=스킬
+Sinonis/Menu/Tip/TopModeSkills=기본 + 영웅 카드 아래 Q·W·E·고유 능력 아이콘과 쿨다운
+Sinonis/Menu/TopModeTalents=특성
+Sinonis/Menu/Tip/TopModeTalents=영웅마다 네모 카드: ㄴ자 특성(1·4·7 세로, 10·13·16·20 가로) + 초상화·체력·자원·사망 시간
+Sinonis/Menu/TopModeBoth=스킬 + 특성
+Sinonis/Menu/Tip/TopModeBoth=네모 카드 + 그 아래 Q·W·E·고유 능력 쿨다운
+Sinonis/Menu/TopModeSimple=간단
+Sinonis/Menu/Tip/TopModeSimple=초상화·체력·사망 타이머만 (마나·궁극기·쿨다운 숨김)
+Sinonis/Menu/TopModeNoHeroes=영웅 숨김
+Sinonis/Menu/Tip/TopModeNoHeroes=영웅 줄 없이 시간·팀 킬·레벨·경험치만
+Sinonis/Menu/Head34=하단 통계 패널 (Ahli)
+Sinonis/Menu/StatsNone=없음
+Sinonis/Menu/Tip/StatsNone=하단 통계 패널 닫기
+Sinonis/Menu/StatsTalents=특성 전체 (Ctrl+1)
+Sinonis/Menu/Tip/StatsTalents=모든 영웅의 고른 특성
+Sinonis/Menu/StatsDamage=사망·공성·영웅 피해 (Ctrl+2)
+Sinonis/Menu/Tip/StatsDamage=사망, 공성 피해, 영웅 피해, 역할
+Sinonis/Menu/StatsApm=APM (Ctrl+3)
+Sinonis/Menu/Tip/StatsApm=현재·평균 APM
+Sinonis/Menu/StatsXp=경험치 (Ctrl+4)
+Sinonis/Menu/Tip/StatsXp=경험치 기여
+Sinonis/Menu/StatsHeal=사망 시간·치유 (Ctrl+5)
+Sinonis/Menu/Tip/StatsHeal=사망 시간, 사망, 자힐, 치유
+Sinonis/Menu/StatsMechanic=맵 오브젝트 (Ctrl+6)
+Sinonis/Menu/Tip/StatsMechanic=전장 오브젝트 기여
+Sinonis/Menu/StatsKda=킬/데스/어시 (Ctrl+7)
+Sinonis/Menu/Tip/StatsKda=킬, 데스, 어시스트
+Sinonis/Menu/StatsCc=적 CC 시간 (Ctrl+8)
+Sinonis/Menu/Tip/StatsCc=적 영웅에게 건 CC 시간
+Sinonis/Menu/Head53=체력바 숫자
+Sinonis/Menu/HpCur=현재 체력
+Sinonis/Menu/Tip/HpCur=체력바 안 현재 체력 (Ctrl+Alt+H)
+Sinonis/Menu/HpMax=최대 체력
+Sinonis/Menu/Tip/HpMax=체력바 안 '/최대 체력' (Ctrl+Alt+M)
+Sinonis/Menu/HpPct=퍼센트
+Sinonis/Menu/Tip/HpPct=체력바 안 '(62%)' 퍼센트 (Ctrl+Alt+P)
+Sinonis/MenuTitle=Sinonis 옵션 (체크 = 보임)

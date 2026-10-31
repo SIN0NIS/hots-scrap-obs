@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	<!-- created by Ahli
+			twitter.com/AhliSC2 -->
+
+	<!-- The debugger... are there no better tools?
+	<Frame type="Image" name="QQQ">
+		<Anchor relative="$parent"/>
+		<Texture val="_Assets\Textures\QQQ.dds"/>
+		<Alpha val="128"/>
+	</Frame>
+	 -->
+
+	<Frame type="Frame" name="AbilCooldownTemplate">
+		<Anchor relative="$parent"/>
+		<Unclipped val="true"/>
+		
+		<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<!-- <AbilityLink val=""/> -->
+			<Frame type="AbilIcon" name="AbilIcon">
+				<Anchor relative="$parent"/>
+				<Frame type="Image" name="IconImage">
+					<Anchor relative="$parent"/>
+					<Unclipped val="true"/>
+					<ImageMaskTexture val="@UI/obs_alphaMask_mini_talents"/>
+					<RenderPriority val="512"/>
+					<Unclipped val="true"/>
+				</Frame>
+				<!--<Frame type="ProgressBar" name="CooldownBar">
+					<Anchor side="Top" relative="$parent/$parent/$parent/ChromeRingImage" pos="Mid" offset="0"/>
+					<Anchor side="Left" relative="$parent/$parent/$parent/ChromeRingImage" pos="Mid" offset="0"/>
+					<Anchor side="Right" relative="$parent/$parent/$parent/ChromeRingImage" pos="Mid" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/$parent/$parent/ChromeRingImage" pos="Mid" offset="0"/>
+					<AcceptsMouse val="False"/>
+					<Circular val="True"/>
+					<CircularStart val="0"/>
+					<CircularEndOffset val="360"/>
+					<Height val="50"/> 
+					<Width val="50"/>
+					<Unclipped val="true"/>
+					<Frame type="Frame" name="FillImageContainer">
+						<Anchor relative="$parent"/>
+						<Unclipped val="true"/>
+						<Frame type="Image" name="FillImage">
+							<Anchor relative="$parent"/>
+							<Texture val="@UI/Storm_UI_HeroUI_Greymane_CountDownCircleTalented"/>
+							<TextureType val="Circular"/>
+							<Unclipped val="true"/>
+						</Frame>
+					</Frame>
+				</Frame>-->
+				<Frame type="ProgressBar" name="CooldownBar">
+					<Anchor relative="$parent/IconImage"/>
+					<Visible val="false"/>
+					<Alpha val="0"/>
+					<RenderPriority val="513"/>
+				</Frame>
+				<!--<Frame type="Image" name="CooldownImage">
+					<Anchor relative="$parent"/>
+					<Texture val="@UI/Storm_UI_Blank"/>
+					<Unclipped val="true"/>
+				</Frame>-->
+				<Frame type="Label" name="CooldownLabel">
+					<Anchor relative="$parent"/>
+					<Style val="{$parent/$parent/$parent/$parent/State/@Style}"/>
+					<Unclipped val="true"/>
+					<IgnoreParentColor val="true"/>
+					<Options val="NoWrapping | ScaleToPreventTruncation"/>
+					<RenderPriority val="514"/>
+					
+					<Animation name="DarkenIcon">
+						<Event event="OnShown" action="DirectionForward, Play"/>
+						<Event event="OnHidden" action="DirectionReverse, Play"/>
+						
+						<Controller type="Color" end="Pause" frame="$parent/IconImage">
+							<Key type="Curve" time="0" value="255,255,255" inout="Step"/>
+							<Key type="Curve" time="0.01" value="64,64,64" inout="Step"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+		</Frame>
+	</Frame>
+
+
+		<!--
+		<Frame type="Frame" name="TalentCleanse" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentCleanse"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentHealingWard" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentHealingWard"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentBucketBribe" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentBucketBribe"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentProtectiveShield" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentProtectiveShield"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentBucketStormShield" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentBucketStormShield"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentBucketPromote" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentBucketPromote"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="Envenom" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="Envenom"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentBucketCalldownMule" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentBucketCalldownMule"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentHardenedShield" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentHardenedShield"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentScoutingDrone" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentScoutingDrone"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentImposingPresence" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentImposingPresence"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentArcanePower" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentArcanePower"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentOverdrive" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentOverdrive"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentFirstAid" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentFirstAid"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentBloodForBlood" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentBloodForBlood"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentRewind" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentRewind"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentStoneskin" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentStoneskin"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="TalentBucketShrinkRay" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="TalentBucketShrinkRay"/>
+			</Frame>
+		</Frame>-->
+
+		<!-- Abathur
+		<Frame type="Frame" name="AbathurLocustSwarm" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AbathurLocustSwarm"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="AbathurLocustNest" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AbathurLocustNest"/>
+			</Frame>
+		</Frame> -->
+		<!-- Alarak
+		<Frame type="Frame" name="AlarakRiteofRakShir" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AlarakRiteofRakShir"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="AlarakLastLaugh" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AlarakLastLaugh"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="AlarakHastyBargain" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AlarakHastyBargain"/>
+			</Frame>
+		</Frame> -->
+		<!-- Alexstrasza
+		<Frame type="Frame" name="AlexstraszaPacify" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AlexstraszaPacify"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="AlexstraszaLifeUnbound" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AlexstraszaLifeUnbound"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="AlexstraszaBlessingOfTheRed" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AlexstraszaBlessingOfTheRed"/>
+			</Frame>
+		</Frame> -->
+		<!-- Amazon / Cassia
+		<Frame type="Frame" name="AmazonChargedStrikes" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AmazonChargedStrikes"/>
+			</Frame>
+		</Frame> -->
+		<!-- Ana
+		<Frame type="Frame" name="AnaBioticGrenadeAirStrike" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AnaBioticGrenadeAirStrike"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="AnaDebilitatingDart" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AnaDebilitatingDart"/>
+			</Frame>
+		</Frame> -->
+		<!-- Auriel
+		<Frame type="Frame" name="AurielAngelicFlight" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AurielAngelicFlight"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="AurielShieldOfHope" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="AurielShieldOfHope"/>
+			</Frame>
+		</Frame> -->
+		<!-- Cho
+		<Frame type="Frame" name="ChoTwilightVeil" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="ChoTwilightVeil"/>
+			</Frame>
+		</Frame>
+		<Frame type="Frame" name="ChoTalentMoltenBlock" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="ChoTalentMoltenBlock"/>
+			</Frame>
+		</Frame> -->
+		<!-- Gall - none -->
+		<!-- Chromie -->
+		
+		
+		
+	<Frame type="Frame" name="SpecialSingleCDPanelTemplate_L">
+		<Width val="62"/>
+		<Height val="52"/>
+		
+		<!-- Frame whose visibility marks if an icon is shown -->
+		<Frame type="Label" name="State">
+			<Anchor relative="$parent"/>
+			<!-- visible needs to become true, if any of the abilIcons is visible; checked from outside -->
+			<Visible val="false"/>
+			<!-- Style for all cooldowns -->
+			<Style val="AhliHeroicCooldown"/>
+		</Frame>
+		<!-- Update State's visibility -->
+		<StateGroup name="StateControl">
+			<DefaultState val="Dflt"/>
+			<State name="Active1">
+				<When type="Property" frame="$this/GladiatorsMedallion/UnitStatusAbilIcon" visible="true"/>
+				<Action type="SetProperty" frame="$this/State" visible="true"/>
+			</State>
+			<State name="Active2">
+				<When type="Property" frame="$this/GladiatorsMedallion/UnitStatusAbilIcon" visible="false"/>
+				<When type="Property" frame="$this/DeathwingBellowingRoar/UnitStatusAbilIcon" visible="true"/>
+				<Action type="SetProperty" frame="$this/State" visible="true"/>
+			</State>
+			<State name="Dflt"/>
+		</StateGroup>
+		
+		
+		
+		<!-- Event -->
+		<Frame type="Frame" name="GladiatorsMedallion" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="GladiatorsMedallion"/>
+			</Frame>
+		</Frame>
+		<!-- Deathwing -->
+		<Frame type="Frame" name="DeathwingBellowingRoar" template="_ActivateableTalentCD/AbilCooldownTemplate">
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<AbilityLink val="DeathwingBellowingRoar"/>
+			</Frame>
+		</Frame>
+		
+	</Frame>
+	<Frame type="Frame" name="SpecialSingleCDPanelTemplate_R" template="_ActivateableTalentCD/SpecialSingleCDPanelTemplate_L">
+		<!-- Event -->
+		<Frame type="Frame" name="GladiatorsMedallion">
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<Frame type="AbilIcon" name="AbilIcon">
+					<Frame type="Image" name="IconImage">
+						<ImageMaskTexture val="@UI/obs_alphaMask_mini_talents_mirrored"/>
+					</Frame>
+				</Frame>
+			</Frame>
+		</Frame>
+		<!-- Deathwing -->
+		<Frame type="Frame" name="DeathwingBellowingRoar">
+			<Frame type="UnitStatusAbilIcon" name="UnitStatusAbilIcon">
+				<Frame type="AbilIcon" name="AbilIcon">
+					<Frame type="Image" name="IconImage">
+						<ImageMaskTexture val="@UI/obs_alphaMask_mini_talents_mirrored"/>
+					</Frame>
+				</Frame>
+			</Frame>
+		</Frame>
+	</Frame>
+
+
+
+
+
+
+</Desc>

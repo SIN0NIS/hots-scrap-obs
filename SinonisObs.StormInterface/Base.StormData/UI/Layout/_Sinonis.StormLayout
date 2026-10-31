@@ -1,0 +1,3408 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+	<!-- Sinonis additions on top of Ahli Obs UI -->
+
+	<!-- one row of the Sinonis menu: checkbox + label, hotkey goes on Button/Shortcut -->
+	<Frame type="CheckBox" name="SinonisMenuRowTemplate" template="StandardTemplates/StandardCheckBoxLabelTemplate">
+		<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+		<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+		<Height val="38"/>
+		<Muted val="true"/>
+		<Frame type="Label" name="Label">
+			<Style val="@AhliFeatureControl"/>
+		</Frame>
+	</Frame>
+
+	<Frame type="GameUI" name="GameUI" file="GameUI">
+
+		<!-- state frames: visible = feature active. Health bar / name labels bind to these handles. -->
+		<Frame type="Frame" name="SinonisHpCurState">
+			<Anchor relative="$parent"/>
+			<Visible val="true"/>
+			<Handle val="SINONIS_HP_CUR_STATE"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHpMaxState">
+			<Anchor relative="$parent"/>
+			<Visible val="true"/>
+			<Handle val="SINONIS_HP_MAX_STATE"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHpPctState">
+			<Anchor relative="$parent"/>
+			<Visible val="true"/>
+			<Handle val="SINONIS_HP_PCT"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisNamesState">
+			<Anchor relative="$parent"/>
+			<Visible val="true"/>
+			<Handle val="PLAYER_NAME_TOGGLE_STATE"/>
+		</Frame>
+		<!-- name mode: the core bar drives SINONIS_NAMES_ON / SINONIS_HERO_NAME_MODE, this group decides between
+			the player-name label (PLAYER_NAME_TOGGLE_STATE) and the hero-name label (SINONIS_HERO_NAME_SHOW) -->
+		<Frame type="Frame" name="SinonisNamesOnState">
+			<Anchor relative="$parent"/>
+			<Visible val="true"/>
+			<Handle val="SINONIS_NAMES_ON"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHeroNameModeState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HERO_NAME_MODE"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHeroNameShowState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HERO_NAME_SHOW"/>
+		</Frame>
+		<StateGroup name="SinonisNameMode">
+			<DefaultState val="None"/>
+			<State name="Hero">
+				<When type="Property" frame="SinonisNamesOnState" visible="true"/>
+				<When type="Property" frame="SinonisHeroNameModeState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisNamesState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHeroNameShowState" visible="true"/>
+			</State>
+			<State name="Player">
+				<When type="Property" frame="SinonisNamesOnState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisNamesState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHeroNameShowState" visible="false"/>
+			</State>
+			<State name="None">
+				<Action type="SetProperty" frame="SinonisNamesState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHeroNameShowState" visible="false"/>
+			</State>
+		</StateGroup>
+		<!-- current/max needs both toggles, so it is resolved here instead of in every health bar -->
+		<Frame type="Frame" name="SinonisHpCurOnlyState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HP_CUR_ONLY"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHpCurMaxState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HP_CUR_MAX"/>
+		</Frame>
+		<!-- with percent on, everything sits in the bar as "value (pct%)"; _S = split layout, _C = centred alone -->
+		<Frame type="Frame" name="SinonisHpCurOnlySplitState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HP_CUR_ONLY_S"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHpCurMaxSplitState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HP_CUR_MAX_S"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHpPctCentreState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HP_PCT_C"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHpPctSplitState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HP_PCT_S"/>
+		</Frame>
+		<Frame type="Frame" name="SinonisHpPctSplitMaxState">
+			<Anchor relative="$parent"/>
+			<Visible val="false"/>
+			<Handle val="SINONIS_HP_PCT_S2"/>
+		</Frame>
+		<StateGroup name="SinonisHpMode">
+			<DefaultState val="None"/>
+			<!-- first matching state wins; every state sets all seven outputs instead of relying on undo.
+				max alone means nothing without the current value, so it shows current/max. -->
+			<State name="CurMaxPct">
+				<When type="Property" frame="SinonisHpMaxState" visible="true"/>
+				<When type="Property" frame="SinonisHpPctState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlyState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlySplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxSplitState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpPctCentreState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitMaxState" visible="true"/>
+			</State>
+			<State name="CurPct">
+				<When type="Property" frame="SinonisHpCurState" visible="true"/>
+				<When type="Property" frame="SinonisHpPctState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlyState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlySplitState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctCentreState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitMaxState" visible="false"/>
+			</State>
+			<State name="Pct">
+				<When type="Property" frame="SinonisHpPctState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlyState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlySplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctCentreState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitMaxState" visible="false"/>
+			</State>
+			<State name="Max">
+				<When type="Property" frame="SinonisHpMaxState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlyState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlySplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctCentreState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitMaxState" visible="false"/>
+			</State>
+			<State name="Cur">
+				<When type="Property" frame="SinonisHpCurState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlyState" visible="true"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlySplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctCentreState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitMaxState" visible="false"/>
+			</State>
+			<State name="None">
+				<Action type="SetProperty" frame="SinonisHpCurOnlyState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurOnlySplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpCurMaxSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctCentreState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitState" visible="false"/>
+				<Action type="SetProperty" frame="SinonisHpPctSplitMaxState" visible="false"/>
+			</State>
+		</StateGroup>
+
+		<!-- the Sinonis menu hotkey now drives ToggleAllUI, so drop Ahli's own shortcut on it -->
+		<Frame type="ToggleControl" name="ToggleAllUI">
+			<Shortcut val=""/>
+		</Frame>
+
+		<!-- "Toggle all UI" only shifted UIContainer away, which left the top bar and minimap on screen in replays.
+			Hide the whole container outright as well. -->
+		<Animation name="SinonisAllUiHide">
+			<Event event="HideAll" action="DirectionForward,Play"/>
+			<Event event="ShowAll" action="DirectionReverse,Play"/>
+			<Controller type="Visibility" end="Pause" frame="UIContainer">
+				<Key type="Bool" time="0" value="true"/>
+				<Key type="Bool" time="0.01" value="false"/>
+			</Controller>
+		</Animation>
+
+		<!-- the only always-on control: a small semi-transparent [메뉴] box in the top-left corner, kept narrow so it
+			does not cover the top bar. Lives outside UIContainer, so it survives "UI 전체" off and the UI can
+			always be brought back from the menu. -->
+		<Frame type="CheckBox" name="SinonisMenuButton" template="_Sinonis/SinonisMenuRowTemplate">
+			<Anchor side="Top" relative="$parent" pos="Min" offset="4"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="4"/>
+			<Anchor side="Right" relative="$parent" pos="Min" offset="84"/>
+			<Height val="28"/>
+			<RenderPriority val="900"/>
+			<Alpha val="190"/>
+			<Tooltip val="@Sinonis/MenuTooltip"/>
+			<Frame type="Image" name="Background">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="2"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="2"/>
+				<TextureType val="Normal"/>
+				<Texture val="@UI/Storm_Generic_Background_Low"/>
+				<RenderPriority val="400"/>
+				<AcceptsMouse val="false"/>
+			</Frame>
+			<Frame type="Button" name="Button">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="2"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="4"/>
+				<Width val="24"/>
+				<Height val="24"/>
+			</Frame>
+			<Frame type="Image" name="CheckImage">
+				<!-- open: slide the panel on screen; closed: park it far off screen (kept visible so its hotkeys keep working) -->
+				<Animation name="SinonisMenuOpen">
+					<Event event="OnShown" action="DirectionForward,Play"/>
+					<Event event="OnHidden" action="DirectionReverse,Play"/>
+					<Controller type="Anchor" end="Pause" side="Left" relative="true" frame="$parent/$parent/SinonisMenuPanel">
+						<Key type="Curve" time="0" value="0" inout="Fast"/>
+						<Key type="Curve" time="0.01" value="10000" inout="Fast"/>
+					</Controller>
+				</Animation>
+			</Frame>
+			<Frame type="Label" name="Label">
+				<Style val="SinonisCoreBarLabel"/>
+				<Text val="@Sinonis/QuickMenu"/>
+			</Frame>
+		</Frame>
+
+		<!-- the [메뉴] panel: the switches used while watching. Every box starts empty (Toggled is ignored in
+			replays): empty = default, tick = changed. Rows whose default is "shown" draw ShownMark while empty,
+			so on screen a tick still means "shown". Generated by tools/core_bar.py - edit there. -->
+		<Frame type="Frame" name="SinonisMenuPanel">
+			<Anchor side="Top" relative="$parent/SinonisMenuButton" pos="Max" offset="4"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="-9994"/>
+			<Width val="270"/>
+			<Height val="970"/>
+			<RenderPriority val="900"/>
+
+			<Frame type="Image" name="LowImage">
+				<Anchor relative="$parent"/>
+				<TextureType val="Normal"/>
+				<Texture val="@UI/Storm_Generic_Background_Low"/>
+				<Alpha val="215"/>
+			</Frame>
+
+			<Frame type="Label" name="Title">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="8"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Style val="AhliControlsHeader"/>
+				<Text val="@Sinonis/MenuTitle"/>
+			</Frame>
+
+			<Frame type="Frame" name="SinonisTopTalentsState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOP_TALENTS"/>
+			</Frame>
+			<Frame type="Frame" name="SinonisTopHeroicState">
+				<Anchor relative="$parent"/>
+				<Visible val="true"/>
+				<Handle val="SINONIS_TOP_HEROIC"/>
+			</Frame>
+			<Frame type="Frame" name="SinonisTopHeroesState">
+				<Anchor relative="$parent"/>
+				<Visible val="true"/>
+				<Handle val="SINONIS_TOP_HEROES"/>
+			</Frame>
+			<Frame type="Frame" name="SinonisTopManaState">
+				<Anchor relative="$parent"/>
+				<Visible val="true"/>
+				<Handle val="SINONIS_TOP_MANA"/>
+			</Frame>
+			<Frame type="Frame" name="SinonisTopSkills1State">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOP_SKILLS1"/>
+			</Frame>
+			<Frame type="Frame" name="SinonisTopSkills2State">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOP_SKILLS2"/>
+			</Frame>
+			<Frame type="Frame" name="SinonisTopAhliStripState">
+				<Anchor relative="$parent"/>
+				<Visible val="true"/>
+				<Handle val="SINONIS_TOP_AHLISTRIP"/>
+			</Frame>
+			<Frame type="Label" name="Head7">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="48"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="22"/>
+				<Style val="SinonisMenuHeadLabel"/>
+				<Text val="@Sinonis/Menu/Head7"/>
+			</Frame>
+			<Frame type="CheckBox" name="MenuAllUI" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="70"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/AllUI"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+					<Shortcut val="#Hotkey - Toggle all UI"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$ToggleAllUI">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/AllUI"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuTop" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="98"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/Top"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/ObserverHeroOverviewPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/TeamPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$LeftTeamXpBar">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$RightTeamXpBar">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/TimePanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/ObserverTeamNamePanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/Top"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuMinimap" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="126"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/Minimap"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/MinimapPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/Minimap"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuChat" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="154"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/Chat"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/ChatDisplay">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/Chat"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuReplay" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="182"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/Replay"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/ObserverPanelMovingContainer">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/Replay"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuSelection" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="210"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/Selection"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/PortraitPanelContainer">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanelTopOverlay">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroConsolePanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroBuffDebuffPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/CommandPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroCharacterSheetPanelContainer">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/UnitSelectionInfoVerticalPositionControl">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroSpecificBackgroundStatusContainer">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroSpecificStatusContainer">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroSpecificFullUIModContainer">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsolePanel/HeroSpecificCommandCardStatusContainer">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/Selection"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuEvents" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="238"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/Events"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenLowerContainer/GameNotificationsPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/NotificationsPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/ToastPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/ObjectiveDisplay">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/TalkerPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/LogMessagePanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/FullscreenUpperContainer/DirectiveDisplay">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$KillLogPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/Events"/>
+				</Frame>
+			</Frame>
+			<Frame type="Label" name="Head15">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="270"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="22"/>
+				<Style val="SinonisMenuHeadLabel"/>
+				<Text val="@Sinonis/Menu/Head15"/>
+			</Frame>
+			<Frame type="CheckBox" name="MenuNames" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="292"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/Names"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+					<Shortcut val="#Hotkey - Toggle Player Names"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_NAMES_ON">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/Names"/>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="NameKindUserState">
+				<Anchor relative="$parent"/>
+				<Visible val="true"/>
+				<Handle val="SINONIS_NAMEKIND_USER"/>
+			</Frame>
+			<Frame type="Frame" name="NameKindHeroState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_NAMEKIND_HERO"/>
+			</Frame>
+			<Frame type="Frame" name="MenuNameKindUser">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="320"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_NAMEKIND_USER/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/NameKindUser"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/NameKindUser"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_HERO_NAME_MODE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_NAMEKIND_USER">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_NAMEKIND_HERO">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuNameKindHero">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="348"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_NAMEKIND_HERO/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/NameKindHero"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/NameKindHero"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_HERO_NAME_MODE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_NAMEKIND_USER">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_NAMEKIND_HERO">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Label" name="Head21">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="380"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="22"/>
+				<Style val="SinonisMenuHeadLabel"/>
+				<Text val="@Sinonis/Menu/Head21"/>
+			</Frame>
+			<Frame type="Frame" name="TopModeBasicState">
+				<Anchor relative="$parent"/>
+				<Visible val="true"/>
+				<Handle val="SINONIS_TOPMODE_BASIC"/>
+			</Frame>
+			<Frame type="Frame" name="TopModeSkillsState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOPMODE_SKILLS"/>
+			</Frame>
+			<Frame type="Frame" name="TopModeTalentsState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOPMODE_TALENTS"/>
+			</Frame>
+			<Frame type="Frame" name="TopModeBothState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOPMODE_BOTH"/>
+			</Frame>
+			<Frame type="Frame" name="TopModeSimpleState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOPMODE_SIMPLE"/>
+			</Frame>
+			<Frame type="Frame" name="TopModeNoHeroesState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_TOPMODE_NOHEROES"/>
+			</Frame>
+			<Frame type="Frame" name="MenuTopModeBasic">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="402"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_TOPMODE_BASIC/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/TopModeBasic"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/TopModeBasic"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS1">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS2">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_HEROIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BASIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SKILLS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BOTH">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SIMPLE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_NOHEROES">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuTopModeSkills">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="430"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_TOPMODE_SKILLS/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/TopModeSkills"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/TopModeSkills"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS1">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS2">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_HEROIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BASIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SKILLS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BOTH">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SIMPLE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_NOHEROES">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuTopModeTalents">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="458"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_TOPMODE_TALENTS/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/TopModeTalents"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/TopModeTalents"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS1">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS2">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_HEROIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BASIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SKILLS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BOTH">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SIMPLE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_NOHEROES">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuTopModeBoth">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="486"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_TOPMODE_BOTH/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/TopModeBoth"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/TopModeBoth"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS1">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS2">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_HEROIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BASIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SKILLS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BOTH">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SIMPLE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_NOHEROES">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuTopModeSimple">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="514"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_TOPMODE_SIMPLE/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/TopModeSimple"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/TopModeSimple"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS1">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS2">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_HEROIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BASIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SKILLS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BOTH">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SIMPLE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_NOHEROES">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuTopModeNoHeroes">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="542"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_TOPMODE_NOHEROES/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/TopModeNoHeroes"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/TopModeNoHeroes"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS1">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_SKILLS2">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_HEROIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview1">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview2">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview3">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview4">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BASIC">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SKILLS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_BOTH">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_SIMPLE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOPMODE_NOHEROES">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Label" name="Head34">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="574"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="22"/>
+				<Style val="SinonisMenuHeadLabel"/>
+				<Text val="@Sinonis/Menu/Head34"/>
+			</Frame>
+			<Frame type="Frame" name="StatsNoneState">
+				<Anchor relative="$parent"/>
+				<Visible val="true"/>
+				<Handle val="SINONIS_STATS_NONE"/>
+			</Frame>
+			<Frame type="Frame" name="StatsTalentsState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_TALENTS"/>
+			</Frame>
+			<Frame type="Frame" name="StatsDamageState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_DAMAGE"/>
+			</Frame>
+			<Frame type="Frame" name="StatsApmState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_APM"/>
+			</Frame>
+			<Frame type="Frame" name="StatsXpState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_XP"/>
+			</Frame>
+			<Frame type="Frame" name="StatsHealState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_HEAL"/>
+			</Frame>
+			<Frame type="Frame" name="StatsMechanicState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_MECHANIC"/>
+			</Frame>
+			<Frame type="Frame" name="StatsKdaState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_KDA"/>
+			</Frame>
+			<Frame type="Frame" name="StatsCcState">
+				<Anchor relative="$parent"/>
+				<Visible val="false"/>
+				<Handle val="SINONIS_STATS_CC"/>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsNone">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="596"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_NONE/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsNone"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsNone"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsTalents">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="624"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_TALENTS/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsTalents"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsTalents"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsDamage">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="652"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_DAMAGE/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsDamage"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsDamage"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsApm">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="680"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_APM/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsApm"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsApm"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsXp">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="708"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_XP/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsXp"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsXp"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsHeal">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="736"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_HEAL/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsHeal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsHeal"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsMechanic">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="764"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_MECHANIC/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsMechanic"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsMechanic"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsKda">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="792"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_KDA/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsKda"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsKda"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Frame" name="MenuStatsCc">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="820"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Frame type="Image" name="Box">
+					<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+					<Width val="22"/>
+					<Height val="22"/>
+					<Texture val="@UI/Storm_Checkbox_Normal"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="Tick">
+					<Anchor relative="$parent/Box"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+					<Visible val="{$SINONIS_STATS_CC/@Visible}"/>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
+					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/StatsCc"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Button" name="Click">
+					<Anchor relative="$parent"/>
+					<Tooltip val="@Sinonis/Menu/Tip/StatsCc"/>
+					<Animation name="Select">
+						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTalentOverview">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleDeathsSiegeHeroDmgRole">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleCurApmAvgApm">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleExperience">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeDeadDeathsSelfHealingHealOther">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleMechanic">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleKillsDeathsAssists">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$LeaderPanelBottom/ToggleTimeCCdEnemyHeroes">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_NONE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_TALENTS">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_DAMAGE">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_APM">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_XP">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_HEAL">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_MECHANIC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_KDA">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_STATS_CC">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+					</Animation>
+				</Frame>
+			</Frame>
+			<Frame type="Label" name="Head53">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="852"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="22"/>
+				<Style val="SinonisMenuHeadLabel"/>
+				<Text val="@Sinonis/Menu/Head53"/>
+			</Frame>
+			<Frame type="CheckBox" name="MenuHpCur" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="874"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/HpCur"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+					<Shortcut val="#Hotkey - Toggle HP Current"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_HP_CUR_STATE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/HpCur"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuHpMax" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="902"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/HpMax"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+					<Shortcut val="#Hotkey - Toggle HP Max"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_HP_MAX_STATE">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/HpMax"/>
+				</Frame>
+			</Frame>
+			<Frame type="CheckBox" name="MenuHpPct" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="930"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/HpPct"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+					<Shortcut val="#Hotkey - Toggle HP Percent"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_HP_PCT">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/HpPct"/>
+				</Frame>
+			</Frame>
+		</Frame>
+	</Frame>
+
+	<!-- CC timer: the hero nameplate duration bar tracks the current CC and refills when a new one lands.
+		Give it a remaining-time label and make it a bit taller so it is readable. -->
+	<Frame type="UnitStatusDurationBar" name="HeroUnitStatusFrameNoEnergyTemplate/HeroUnitStatusParentFrame/DurationBar" file="UnitStatus">
+		<VisibleToOwner val="true"/>
+		<VisibleToAlly val="true"/>
+		<VisibleToEnemy val="true"/>
+		<Height val="6"/>
+		<Frame type="Label" name="StatusBarLabel">
+			<Anchor side="Top" relative="$parent" pos="Max" offset="1"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+			<Unclipped val="true"/>
+			<Style val="SinonisCCTimerLabel"/>
+		</Frame>
+	</Frame>
+	<!-- HERO NAME TWINS START (tools/core_bar.py) -->
+	<Frame type="Frame" name="HeroUnitStatusFrameNoEnergyTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="LostVikingsErikUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="LostVikingsBaleogUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="LostVikingsOlafUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameYellowEnergy/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameBreathEnergy/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameOrangeEnergy/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameGreyEnergy/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFramePinkEnergy/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameRedEnergy/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameDoubleTallNoEnergyTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="IllusionHeroUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameTracer/HeroUnitStatusParentFrame" file="Tracer">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="MedivhRavenFormStatusFrame/HeroUnitStatusParentFrame" file="Medivh">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameZarya/HeroUnitStatusParentFrame" file="Zarya">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameBlinkingEnergy/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="DVaUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="DVa">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="SamuroUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="Samuro">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="AurielUnitStatusFrameTemplate/HeroUnitStatusParentFrame" file="Auriel">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameJunkrat/HeroUnitStatusParentFrame" file="Junkrat">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameSeparateShieldBar/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="CustomStitchesUnitStatusFrame/HeroUnitStatusParentFrame" file="Stitches">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="MaievVaultOfTheWardensStatusFrame/HeroUnitStatusParentFrame" file="Maiev">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="NexusHunterRevolvingSweepStatusFrame/HeroUnitStatusParentFrame" file="NexusHunter">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="DeathwingUnitStatusFrame/HeroUnitStatusParentFrame" file="Deathwing">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="CustomWhitemaneUnitStatusFrame/HeroUnitStatusParentFrame" file="Whitemane">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameAllGreyNoEnergyTemplate/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnit1SegmentStatusFrame/HeroUnitStatusParentFrame" file="UnitStatus">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<Frame type="Frame" name="HeroUnitStatusFrameGazlowe/HeroUnitStatusParentFrame" file="Gazlowe">
+		<Frame type="UnitStatusName" name="SinonisHeroNameLabel">
+			<Anchor relative="$parent/PlayerUnitNameLabel"/>
+			<NameType val="Unit"/>
+			<UseNameTypeVisibilityRules val="False"/>
+			<VisibleToOwner val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HERO_NAME_SHOW/@Visible}"/>
+			<Frame type="Label" name="Label">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+				<Style val="Storm_UnitNameLabel"/>
+			</Frame>
+		</Frame>
+	</Frame>
+	<!-- HERO NAME TWINS END -->
+</Desc>
