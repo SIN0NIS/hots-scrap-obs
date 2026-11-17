@@ -4,13 +4,13 @@
 	<!-- skill row: Q W E + trait of the unit this row sits in (a UnitStatusFrame), cooldowns from the engine.
 		The ability per hero is set by the state group below (one state per hero, generated from hero data). -->
 	<Frame type="Frame" name="SinonisSkillRowTemplate">
-		<Width val="120"/>
+		<Width val="132"/>
 		<Height val="27"/>
 		<RenderPriority val="750"/>
 		<Unclipped val="true"/>
 		<Frame type="UnitStatusAbilIcon" name="Abil1">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-			<Anchor side="Left" relative="$parent" pos="Min" offset="1"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="3"/>
 			<Width val="27"/>
 			<Height val="27"/>
 			<AbilityLink val="NULL"/>
@@ -58,7 +58,7 @@
 		</Frame>
 		<Frame type="UnitStatusAbilIcon" name="Abil2">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-			<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="36"/>
 			<Width val="27"/>
 			<Height val="27"/>
 			<AbilityLink val="NULL"/>
@@ -106,7 +106,7 @@
 		</Frame>
 		<Frame type="UnitStatusAbilIcon" name="Abil3">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-			<Anchor side="Left" relative="$parent" pos="Min" offset="61"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="69"/>
 			<Width val="27"/>
 			<Height val="27"/>
 			<AbilityLink val="NULL"/>
@@ -154,7 +154,7 @@
 		</Frame>
 		<Frame type="UnitStatusAbilIcon" name="Abil4">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-			<Anchor side="Left" relative="$parent" pos="Min" offset="91"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="102"/>
 			<Width val="27"/>
 			<Height val="27"/>
 			<AbilityLink val="NULL"/>
@@ -4215,30 +4215,37 @@
 	</Frame>
 	
 	<Frame type="Frame" name="CoreOverviewTemplate">
+		<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 		<Frame type="UnitStatusColor" name="PrimaryColorFrame">
+			<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 			<Anchor relative="$parent" />
 			<ColorStyle val="Primary" />
 		</Frame>
 		<Frame type="UnitStatusColor" name="PrimaryHighlightColorFrame">
+			<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 			<Anchor relative="$parent" />
 			<ColorStyle val="PrimaryLight" />
 		</Frame>
 
 		<Frame type="Frame" name="BossHealthBarShield1" template="_TopPanel/AlteracCoreShieldTemplate">
+			<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 			<Anchor side="Left" relative="$parent/BossHealthBarShield2" pos="Max" offset="0"/>
 			<Visible val="false"/>
 		</Frame>
 		<Frame type="Frame" name="BossHealthBarShield2" template="_TopPanel/AlteracCoreShieldTemplate">
+			<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 			<Anchor side="Left" relative="$parent" pos="Mid" offset="-40"/>
 			<Anchor side="Right" relative="$parent" pos="Mid" offset="-40"/>
 			<Visible val="false"/>
 		</Frame>
 		<Frame type="Frame" name="BossHealthBarShield3" template="_TopPanel/AlteracCoreShieldTemplate">
+			<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 			<Anchor side="Right" relative="$parent/BossHealthBarShield2" pos="Min" offset="0"/>
 			<Visible val="false"/>
 		</Frame>
 
 		<Frame type="UnitStatusValidatorAnimElement" name="ShieldIconController">
+			<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 			<Anchor relative="$parent"/>
 			<Validator val="SourceHas3WarchiefsAlive"/>
 			<Validator val="SourceHas2WarchiefsAlive"/>
@@ -5067,15 +5074,34 @@
 			
 			<!-- core life -->
 			<Frame type="UnitStatusFrame" name="Team1CoreUnitStatus" template="_TopPanel/CoreOverviewTemplate">
+				<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
+				<Handle val="SinonisCore1"/><!-- SINONIS: the top-bar mode moves this under the cards / skill rows -->
 				<Anchor side="Top" relative="$parent/TopBarBacking" pos="Min" offset="72"/>
 				<Anchor side="Right" relative="$parent/TopBarBacking" pos="Min" offset="126"/>
+				<StateGroup name="SinonisTopMode"><!-- SINONIS: under the skill rows / cards (offsets in UI units) -->
+					<State name="Skills">
+						<When type="Property" frame="$SINONIS_TOPMODE_SKILLS" visible="true"/>
+						<Action type="SetAnchor" side="Top" relative="$parent/TopBarBacking" pos="Min" offset="118"/>
+					</State>
+					<State name="Talents">
+						<When type="Property" frame="$SINONIS_TOPMODE_TALENTS" visible="true"/>
+						<Action type="SetAnchor" side="Top" relative="$parent/TopBarBacking" pos="Min" offset="124"/>
+					</State>
+					<State name="Both">
+						<When type="Property" frame="$SINONIS_TOPMODE_BOTH" visible="true"/>
+						<Action type="SetAnchor" side="Top" relative="$parent/TopBarBacking" pos="Min" offset="154"/>
+					</State>
+				</StateGroup>
 				
 				<Frame type="UnitStatusHealthLabel" name="HealthLabel">
+					<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 					<HideMax val="true"/>
 				</Frame>
 
 				<Frame type="UnitStatusElement" name="HealthBarBackingBlue">
+					<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 					<Frame type="Image" name="Image">
+						<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 						<Texture val="_Assets\Textures\coreHealthBg_blue.dds"/>
 						
 						<StateGroup name="Colorblind">
@@ -5089,15 +5115,34 @@
 				</Frame>
 			</Frame>
 			<Frame type="UnitStatusFrame" name="Team2CoreUnitStatus" template="_TopPanel/CoreOverviewTemplate">
+				<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
+				<Handle val="SinonisCore2"/><!-- SINONIS: the top-bar mode moves this under the cards / skill rows -->
 				<Anchor side="Top" relative="$parent/TopBarBacking" pos="Min" offset="72"/>
 				<Anchor side="Left" relative="$parent/TopBarBacking" pos="Max" offset="-126"/>
+				<StateGroup name="SinonisTopMode"><!-- SINONIS: under the skill rows / cards (offsets in UI units) -->
+					<State name="Skills">
+						<When type="Property" frame="$SINONIS_TOPMODE_SKILLS" visible="true"/>
+						<Action type="SetAnchor" side="Top" relative="$parent/TopBarBacking" pos="Min" offset="118"/>
+					</State>
+					<State name="Talents">
+						<When type="Property" frame="$SINONIS_TOPMODE_TALENTS" visible="true"/>
+						<Action type="SetAnchor" side="Top" relative="$parent/TopBarBacking" pos="Min" offset="124"/>
+					</State>
+					<State name="Both">
+						<When type="Property" frame="$SINONIS_TOPMODE_BOTH" visible="true"/>
+						<Action type="SetAnchor" side="Top" relative="$parent/TopBarBacking" pos="Min" offset="154"/>
+					</State>
+				</StateGroup>
 				
 				<Frame type="UnitStatusHealthLabel" name="HealthLabel">
+					<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 					<HideMax val="true"/>
 				</Frame>
 				
 				<Frame type="UnitStatusElement" name="HealthBarBackingRed">
+					<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 					<Frame type="Image" name="ImageUnmirrored">
+						<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 						<Texture val="_Assets\Textures\coreHealthBg_red.dds"/>
 						
 						<StateGroup name="Colorblind">
@@ -5111,14 +5156,17 @@
 				</Frame>
 
 				<Frame type="Frame" name="BossHealthBarShield1">
+					<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 					<Anchor side="Right" relative="$parent/BossHealthBarShield2" pos="Min" offset="0"/>
 					<Anchor side="Left" relative="$this" pos="Min" offset="0"/>
 				</Frame>
 				<Frame type="Frame" name="BossHealthBarShield2">
+					<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 					<Anchor side="Left" relative="$parent" pos="Mid" offset="40"/>
 					<Anchor side="Right" relative="$parent" pos="Mid" offset="40"/>
 				</Frame>
 				<Frame type="Frame" name="BossHealthBarShield3">
+					<Unclipped val="true"/><!-- SINONIS: core hangs below the top panel in card modes -->
 					<Anchor side="Left" relative="$parent/BossHealthBarShield2" pos="Max" offset="0"/>
 					<Anchor side="Right" relative="$this" pos="Max" offset="0"/>
 				</Frame>
@@ -5898,7 +5946,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team1HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team1HeroOverview/HeroOverview1/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -5918,7 +5966,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -5926,11 +5974,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team1HeroOverview/HeroOverview1/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team1HeroOverview/HeroOverview1/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -5938,7 +5986,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -5961,7 +6009,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -5984,7 +6032,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6007,7 +6055,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6029,8 +6077,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6052,8 +6100,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6075,8 +6123,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6098,16 +6146,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -6209,7 +6257,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team1HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team1HeroOverview/HeroOverview2/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -6229,7 +6277,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -6237,11 +6285,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team1HeroOverview/HeroOverview2/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team1HeroOverview/HeroOverview2/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -6249,7 +6297,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6272,7 +6320,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6295,7 +6343,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6318,7 +6366,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6340,8 +6388,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6363,8 +6411,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6386,8 +6434,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6409,16 +6457,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -6519,7 +6567,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team1HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team1HeroOverview/HeroOverview3/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -6539,7 +6587,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -6547,11 +6595,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team1HeroOverview/HeroOverview3/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team1HeroOverview/HeroOverview3/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -6559,7 +6607,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6582,7 +6630,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6605,7 +6653,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6628,7 +6676,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6650,8 +6698,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6673,8 +6721,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6696,8 +6744,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6719,16 +6767,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -6829,7 +6877,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team1HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team1HeroOverview/HeroOverview4/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -6849,7 +6897,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -6857,11 +6905,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team1HeroOverview/HeroOverview4/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team1HeroOverview/HeroOverview4/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -6869,7 +6917,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6892,7 +6940,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6915,7 +6963,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6938,7 +6986,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6960,8 +7008,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -6983,8 +7031,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7006,8 +7054,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7029,16 +7077,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -7139,7 +7187,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team1HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team1HeroOverview/HeroOverview5/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -7159,7 +7207,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -7167,11 +7215,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team1HeroOverview/HeroOverview5/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team1HeroOverview/HeroOverview5/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -7179,7 +7227,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7202,7 +7250,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7225,7 +7273,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7248,7 +7296,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7270,8 +7318,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7293,8 +7341,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7316,8 +7364,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7339,16 +7387,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -7449,7 +7497,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team2HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team2HeroOverview/HeroOverview1/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -7469,7 +7517,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -7477,11 +7525,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team2HeroOverview/HeroOverview1/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team2HeroOverview/HeroOverview1/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -7489,7 +7537,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7512,7 +7560,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7535,7 +7583,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7558,7 +7606,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7580,8 +7628,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7603,8 +7651,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7626,8 +7674,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7649,16 +7697,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -7759,7 +7807,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team2HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team2HeroOverview/HeroOverview2/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -7779,7 +7827,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -7787,11 +7835,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team2HeroOverview/HeroOverview2/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team2HeroOverview/HeroOverview2/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -7799,7 +7847,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7822,7 +7870,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7845,7 +7893,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7868,7 +7916,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7890,8 +7938,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7913,8 +7961,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7936,8 +7984,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -7959,16 +8007,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -8069,7 +8117,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team2HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team2HeroOverview/HeroOverview3/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -8089,7 +8137,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -8097,11 +8145,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team2HeroOverview/HeroOverview3/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team2HeroOverview/HeroOverview3/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -8109,7 +8157,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8132,7 +8180,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8155,7 +8203,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8178,7 +8226,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8200,8 +8248,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8223,8 +8271,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8246,8 +8294,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8269,16 +8317,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -8379,7 +8427,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team2HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team2HeroOverview/HeroOverview4/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -8399,7 +8447,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -8407,11 +8455,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team2HeroOverview/HeroOverview4/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team2HeroOverview/HeroOverview4/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -8419,7 +8467,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8442,7 +8490,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8465,7 +8513,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8488,7 +8536,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8510,8 +8558,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8533,8 +8581,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8556,8 +8604,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8579,16 +8627,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
@@ -8689,7 +8737,7 @@
 							<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 							<Anchor side="Top" relative="$Team2HeroOverview" pos="Min" offset="0"/>
 							<Anchor side="Left" relative="$Team2HeroOverview/HeroOverview5/HeroPortraitImage" pos="Min" offset="0"/>
-							<Width val="120"/>
+							<Width val="132"/>
 							<Height val="120"/>
 							<RenderPriority val="750"/>
 							<Unclipped val="true"/>
@@ -8709,7 +8757,7 @@
 											<Frame type="Image" name="Backing">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="-2"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="-2"/>
-												<Width val="122"/>
+												<Width val="134"/>
 												<Height val="122"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="220"/>
@@ -8717,11 +8765,11 @@
 											</Frame>
 											<Frame type="Image" name="Portrait">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Width val="87"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Width val="96"/>
 												<Height val="75"/>
 												<Texture val="{$Team2HeroOverview/HeroOverview5/HeroPortraitImage/@Texture}"/>
-												<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>
+												<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>
 												<Desaturated val="{$Team2HeroOverview/HeroOverview5/HeroDeathTimeLabel2/@Visible}"/>
 												<RenderPriority val="230"/>
 												<Unclipped val="true"/>
@@ -8729,7 +8777,7 @@
 											<Frame type="Image" name="Cell1">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8752,7 +8800,7 @@
 											<Frame type="Image" name="Cell2">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="30"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8775,7 +8823,7 @@
 											<Frame type="Image" name="Cell3">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="60"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8798,7 +8846,7 @@
 											<Frame type="Image" name="Cell4">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
 												<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
-												<Width val="28"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8820,8 +8868,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell5">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="30"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="33"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8843,8 +8891,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell6">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="60"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="66"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8866,8 +8914,8 @@
 											</Frame>
 											<Frame type="Image" name="Cell7">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="90"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="90"/>
-												<Width val="28"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="99"/>
+												<Width val="31"/>
 												<Height val="28"/>
 												<Texture val="@UI/Storm_Generic_Background_Low"/>
 												<RenderPriority val="225"/>
@@ -8889,16 +8937,16 @@
 											</Frame>
 											<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="76"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="84"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>
 											</Frame>
 											<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 												<Anchor side="Top" relative="$parent" pos="Min" offset="85"/>
-												<Anchor side="Left" relative="$parent" pos="Min" offset="31"/>
-												<Anchor side="Right" relative="$parent" pos="Min" offset="118"/>
+												<Anchor side="Left" relative="$parent" pos="Min" offset="34"/>
+												<Anchor side="Right" relative="$parent" pos="Min" offset="130"/>
 												<Anchor side="Bottom" relative="$parent" pos="Min" offset="89"/>
 												<RenderPriority val="240"/>
 												<Unclipped val="true"/>

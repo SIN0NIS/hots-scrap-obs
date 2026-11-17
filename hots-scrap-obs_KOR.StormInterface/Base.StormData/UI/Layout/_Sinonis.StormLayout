@@ -529,13 +529,13 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
-						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel">
-							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="0"/>
+						<Controller type="Visibility" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
 						</Controller>
-						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanelTopOverlay">
-							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="0"/>
+						<Controller type="Visibility" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanelTopOverlay">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroConsolePanel">
 							<Key type="Curve" time="0" value="255"/>
@@ -966,6 +966,78 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="255"/>
 						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
 							<Key type="Bool" time="0" value="true"/>
 							<Key type="Bool" time="0.01" value="true"/>
@@ -1125,6 +1197,78 @@
 						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
 						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
 							<Key type="Bool" time="0" value="true"/>
@@ -1286,6 +1430,78 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
 							<Key type="Bool" time="0" value="true"/>
 							<Key type="Bool" time="0.01" value="true"/>
@@ -1445,6 +1661,78 @@
 						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
 						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
 							<Key type="Bool" time="0" value="true"/>
@@ -1606,6 +1894,78 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="255"/>
 						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="255"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="true"/>
+						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
 							<Key type="Bool" time="0" value="true"/>
 							<Key type="Bool" time="0.01" value="false"/>
@@ -1688,43 +2048,43 @@
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame">
 							<Key type="Curve" time="0" value="255"/>
-							<Key type="Curve" time="0.01" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/HeroOverview1">
 							<Key type="Curve" time="0" value="255"/>
@@ -1765,6 +2125,78 @@
 						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/HeroOverview5">
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team1HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageLeft">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageCenter">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview1/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview2/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview3/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview4/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$Team2HeroOverview/HeroOverview5/HeroStatus">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
 						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$SINONIS_TOP_MANA">
 							<Key type="Bool" time="0" value="true"/>

@@ -23,7 +23,7 @@ MENU = [
     ("Chat", "채팅창", "채팅창", True, None, "fade", [f"{UU}/ChatDisplay"]),
     ("Replay", "리플레이 컨트롤", "리플레이 컨트롤 박스 (관전·리플레이 조절바)", True, None, "fade", [f"{UU}/ObserverPanelMovingContainer"]),
     ("Selection", "유닛 정보", "좌하단 선택 유닛 정보 (초상화·이름·체력·공격력·기술·버프·영웅 전용 칸)", True, None, "fade",
-     [f"{UC}/PortraitPanelContainer", f"{UC}/SelectionUnitStatusPanel", f"{UC}/SelectionUnitStatusPanelTopOverlay",
+     [f"{UC}/PortraitPanelContainer", f"vis:{UC}/SelectionUnitStatusPanel", f"vis:{UC}/SelectionUnitStatusPanelTopOverlay",
       f"{UC}/HeroConsolePanel", f"{UC}/HeroBuffDebuffPanel", f"{UC}/CommandPanel", f"{UC}/HeroCharacterSheetPanelContainer",
       f"{UC}/UnitSelectionInfoVerticalPositionControl", f"{UC}/HeroSpecificBackgroundStatusContainer",
       f"{UC}/HeroSpecificStatusContainer", f"{UC}/HeroSpecificFullUIModContainer",
@@ -43,7 +43,7 @@ MENU = [
       ("Talents", "특성", "영웅마다 네모 카드: ㄴ자 특성(1·4·7 세로, 10·13·16·20 가로) + 초상화·체력·자원·사망 시간"),
       ("Both", "스킬 + 특성", "네모 카드 + 그 아래 Q·W·E·고유 능력 쿨다운"),
       ("Simple", "간단", "초상화·체력·사망 타이머만 (마나·궁극기·쿨다운 숨김)"),
-      ("NoHeroes", "영웅 숨김", "영웅 줄 없이 시간·팀 킬·레벨·경험치만")],
+      ("NoHeroes", "영웅 숨김", "영웅 칸·틀 없이 시간·팀 킬·레벨·경험치·핵 체력만")],
      # _TopPanel.StormLayout binds the cards / skill rows / Ahli's strip, slots and mana bars to these state frames
      #                                     기본     스킬     특성     스킬+특성 간단     영웅 숨김
      [("vis", "$SINONIS_TOP_TALENTS",   ["false", "false", "true",  "true",  "false", "false"]),
@@ -51,11 +51,20 @@ MENU = [
       ("vis", "$SINONIS_TOP_SKILLS2",   ["false", "false", "false", "true",  "false", "false"]),
       ("vis", "$SINONIS_TOP_HEROIC",    ["true",  "true",  "true",  "true",  "false", "false"]),
       # Ahli's heroic / cooldown strip: faded, not hidden (the cards borrow its heroic cooldown)
-     ] + [("fade", f"$HeroTalentsPanelContainer/PlayerFrame{p}/TalentsContainerFrame", ["255", "255", "0", "0", "255", "255"])
+     ] + [("fade", f"$HeroTalentsPanelContainer/PlayerFrame{p}/TalentsContainerFrame", ["255", "255", "0", "0", "255", "0"])
           for p in range(10)] + [
       # Ahli's hero slots: faded, never hidden - a hidden slot collapses and the cards anchored to it pile up
      ] + [("fade", f"$Team{tm}HeroOverview/HeroOverview{n}", ["255", "255", "0", "0", "255", "0"])
           for tm in (1, 2) for n in range(1, 6)] + [
+      # "영웅 숨김": the whole team panel goes, including the slanted glass backing behind the slots (BgImage*)
+     ] + [("fade", f"$Team{tm}HeroOverview", ["255", "255", "255", "255", "255", "0"]) for tm in (1, 2)] + [
+      # slanted glass backing behind Ahli's slots: gone wherever the slots are not used (cards / no heroes)
+     ] + [("fade", f"$Team{tm}HeroOverview/BgImage{side}", ["255", "255", "0", "0", "255", "0"])
+          for tm in (1, 2) for side in ("Left", "Center", "Right")] + [
+      # the slot health bars (UnitStatusFrame) ignore the parent fade - thin end slivers stayed in "영웅 숨김"
+     ] + [("vis", f"$Team{tm}HeroOverview/HeroOverview{n}/HeroStatus", ["true", "true", "true", "true", "true", "false"])
+          for tm in (1, 2) for n in range(1, 6)] + [
+      # core health position per mode: StateGroup on the core frames in _TopPanel.StormLayout (SinonisTopMode)
       ("vis", "$SINONIS_TOP_MANA",      ["true",  "true",  "true",  "true",  "false", "false"])]),
     ("head", "하단 통계 패널 (Ahli)"),
     ("radio", "Stats",
@@ -81,6 +90,8 @@ ROW_H, HEAD_H, PANEL_W = 28, 26, 270
 
 
 def ctrl(kind, target, default_shown):
+    if target.startswith("vis:"):  # unit status bars ignore a parent fade - their ends stayed as thin lines
+        kind, target = "vis", target[4:]
     path = target if target.startswith("$") else f"{G}/{target}"
     if kind == "fade":  # time 0 = default (shown), ticking fades it out
         return f'''						<Controller type="Fade" end="Pause" frame="{path}">
@@ -143,7 +154,12 @@ for item in MENU:
             for kind, path, vals in targets + [("vis", f"${sel[j]}", ["true" if j == 0 else "false"] + ["true" if j == m else "false" for m in range(1, n)])
                                                for j in range(n)]:
                 v0, v1 = vals[0], vals[k]
-                if kind == "fade":
+                if kind == "anchor":
+                    ctr.append(f'''						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="{path}">
+							<Key type="Curve" time="0" value="{v0}"/>
+							<Key type="Curve" time="0.01" value="{v1}"/>
+						</Controller>''')
+                elif kind == "fade":
                     ctr.append(f'''						<Controller type="Fade" end="Pause" frame="{path}">
 							<Key type="Curve" time="0" value="{v0}"/>
 							<Key type="Curve" time="0.01" value="{v1}"/>
@@ -236,7 +252,7 @@ for item in MENU:
 ''')
     y += ROW_H
 # footer: version, maker, credits (make_eng.py swaps the Korean lines)
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 FOOT = [f"hots-scrap-obs v{VERSION} · 제작 SINONIS", "AhliObs(MIT) 기반 · Spazzo 디자인 참고", "AI(Claude) 도움을 받아 만들었어요"]
 FOOT_H = 16
 y += 8

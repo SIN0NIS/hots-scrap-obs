@@ -14,12 +14,13 @@ import json, pathlib, re
 
 ROOT = pathlib.Path(__file__).parent.parent
 LAYOUT = ROOT / "Galaxy-Observer-UI/dev/heroes/hots-scrap-obs_KOR.StormInterface/Base.StormData/UI/Layout/_TopPanel.StormLayout"
-HERODATA = ROOT.parent / "hots_archive/builds/hdp5/2.57.0.98348/data/herodata_98348.json"
+HERODATA = ROOT.parent.parent / "hots_archive/builds/hdp5/2.57.0.98348/data/herodata_98348.json"
 
 # measured 2026-10-31: 1 UI unit = ~1.06 px on a 2000 px wide screenshot, hero slots are ~133 apart
-CELL, STEP = 28, 30            # talent cell / pitch: the card is 4 x 30 = 120 wide and high
+CELL, STEP = 28, 30            # talent cell / pitch (vertical): 4 x 30 = 120 high
+CELLX, STEPX = 31, 33          # horizontal: 4 x 33 = 132 wide = Ahli's slot pitch (~131.6), so the cards touch
 SLOT_TO_BARS = 64              # Ahli's HeroStatus (bars) sits 64 below the top of the hero slot
-ABIL, ABIL_STEP = 27, 30       # skill icon / pitch (4 across = 120)
+ABIL, ABIL_STEP = 27, 33       # skill icon / pitch (4 across = 132, card width)
 TIERS = ["1", "4", "7", "10", "13", "16", "20"]
 START, END = "\t<!-- SINONIS TOP CARDS START (tools/top_cards.py) -->\n", "\t<!-- SINONIS TOP CARDS END -->\n"
 U = '<Unclipped val="true"/>'
@@ -156,16 +157,16 @@ def card(i, hero, ind):
                 f'{j[lvl]}\t<Width val="{w}"/>\n{j[lvl]}\t<Height val="{h}"/>\n'
                 + "".join(f"{j[lvl]}\t{x}\n" for x in extra) + f"{j[lvl]}\t{U}\n{j[lvl]}</Frame>\n")
 
-    body = [img("Backing", -2, -2, 4 * STEP + 2, 4 * STEP + 2,
+    body = [img("Backing", -2, -2, 4 * STEPX + 2, 4 * STEP + 2,
                 ['<Texture val="@UI/Storm_Generic_Background_Low"/>', '<RenderPriority val="220"/>'], 5),
-            img("Portrait", 0, STEP + 1, 3 * STEP - 3, 3 * STEP - 15,
+            img("Portrait", 0, STEPX + 1, 3 * STEPX - 3, 3 * STEP - 15,
                 [f'<Texture val="{{{hero}/HeroPortraitImage/@Texture}}"/>',
-                 # 원본 340x124: 세로 전체(124px) x 가로 144px(0.423) = 87:75 칸 비율
-                 '<TextureCoords top="0" left="0.52" bottom="1" right="0.943"/>',
+                 # 원본 340x124: 세로 전체(124px) x 가로 159px(0.468) = 96:75 칸 비율
+                 '<TextureCoords top="0" left="0.475" bottom="1" right="0.943"/>',
                  f'<Desaturated val="{{{hero}/HeroDeathTimeLabel2/@Visible}}"/>',
                  '<RenderPriority val="230"/>'], 5)]   # square hero icon (Ahli's slot portrait is a slanted cut)
     for k, (col, row) in enumerate([(0, 0), (0, 1), (0, 2), (0, 3), (1, 3), (2, 3), (3, 3)], 1):
-        body.append(img(f"Cell{k}", row * STEP, col * STEP, CELL, CELL,
+        body.append(img(f"Cell{k}", row * STEP, col * STEPX, CELLX, CELL,
                         ['<Texture val="@UI/Storm_Generic_Background_Low"/>', '<RenderPriority val="225"/>'], 5))
         body.append(f'''{j[5]}<Frame type="Label" name="Tier{k}">
 {j[6]}<Anchor relative="$parent/Cell{k}"/>
@@ -185,16 +186,16 @@ def card(i, hero, ind):
     bars_top = 3 * STEP - 14
     body.append(f'''{j[5]}<Frame type="UnitStatusShieldedHealthBar" name="HealthBar" template="UnitStatus/UnitStatusSegmentedShieldedHealthBarTemplate">
 {j[6]}<Anchor side="Top" relative="$parent" pos="Min" offset="{bars_top}"/>
-{j[6]}<Anchor side="Left" relative="$parent" pos="Min" offset="{STEP + 1}"/>
-{j[6]}<Anchor side="Right" relative="$parent" pos="Min" offset="{4 * STEP - 2}"/>
+{j[6]}<Anchor side="Left" relative="$parent" pos="Min" offset="{STEPX + 1}"/>
+{j[6]}<Anchor side="Right" relative="$parent" pos="Min" offset="{4 * STEPX - 2}"/>
 {j[6]}<Anchor side="Bottom" relative="$parent" pos="Min" offset="{bars_top + 8}"/>
 {j[6]}<RenderPriority val="240"/>
 {j[6]}{U}
 {j[5]}</Frame>
 {j[5]}<Frame type="UnitStatusEnergyBar" name="EnergyBar" template="UnitStatus/UnitStatusSegmentedEnergyTemplate">
 {j[6]}<Anchor side="Top" relative="$parent" pos="Min" offset="{bars_top + 9}"/>
-{j[6]}<Anchor side="Left" relative="$parent" pos="Min" offset="{STEP + 1}"/>
-{j[6]}<Anchor side="Right" relative="$parent" pos="Min" offset="{4 * STEP - 2}"/>
+{j[6]}<Anchor side="Left" relative="$parent" pos="Min" offset="{STEPX + 1}"/>
+{j[6]}<Anchor side="Right" relative="$parent" pos="Min" offset="{4 * STEPX - 2}"/>
 {j[6]}<Anchor side="Bottom" relative="$parent" pos="Min" offset="{bars_top + 13}"/>
 {j[6]}<RenderPriority val="240"/>
 {j[6]}{U}
@@ -243,7 +244,7 @@ def card(i, hero, ind):
 {j[1]}<!-- top from the team panel, not the slot: one slot per team sat higher when anchored to its own HeroStatus -->
 {j[1]}<Anchor side="Top" relative="{team}" pos="Min" offset="0"/>
 {j[1]}<Anchor side="Left" relative="{hero}/HeroPortraitImage" pos="Min" offset="0"/>
-{j[1]}<Width val="{4 * STEP}"/>
+{j[1]}<Width val="{4 * STEPX}"/>
 {j[1]}<Height val="{4 * STEP}"/>
 {j[1]}<RenderPriority val="750"/>
 {j[1]}{U}

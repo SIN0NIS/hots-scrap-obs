@@ -50,7 +50,7 @@ EN = {
     "간단": "Simple",
     "초상화·체력·사망 타이머만 (마나·궁극기·쿨다운 숨김)": "Portrait, health and death timer only (no mana, heroic, cooldowns)",
     "영웅 숨김": "No heroes",
-    "영웅 줄 없이 시간·팀 킬·레벨·경험치만": "Time, team kills, level and XP only",
+    "영웅 칸·틀 없이 시간·팀 킬·레벨·경험치·핵 체력만": "No hero slots or frame - time, team kills, level, XP and core health only",
     "하단 통계 패널 (Ahli)": "Bottom stats panel (Ahli)",
     "없음": "None",
     "하단 통계 패널 닫기": "Close the bottom stats panel",
@@ -79,7 +79,7 @@ EN = {
     "Sinonis 옵션 (체크 = 보임)": "Sinonis options (checked = shown)",
     "옵션 (체크 = 보임)": "Options (checked = shown)",
     "옵션 열기/닫기": "Open/close options",
-    "hots-scrap-obs v1.0.0 · 제작 SINONIS": "hots-scrap-obs v1.0.0 · by SINONIS",
+    "hots-scrap-obs v1.0.1 · 제작 SINONIS": "hots-scrap-obs v1.0.1 · by SINONIS",
     "AhliObs(MIT) 기반 · Spazzo 디자인 참고": "Based on AhliObs (MIT) · Spazzo-inspired",
     "AI(Claude) 도움을 받아 만들었어요": "Made with help from AI (Claude)",
 }
