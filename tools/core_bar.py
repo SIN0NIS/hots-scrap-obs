@@ -23,7 +23,8 @@ MENU = [
     ("Chat", "채팅창", "채팅창", True, None, "fade", [f"{UU}/ChatDisplay"]),
     ("Replay", "리플레이 컨트롤", "리플레이 컨트롤 박스 (관전·리플레이 조절바)", True, None, "fade", [f"{UU}/ObserverPanelMovingContainer"]),
     ("Selection", "유닛 정보", "좌하단 선택 유닛 정보 (초상화·이름·체력·공격력·기술·버프·영웅 전용 칸)", True, None, "fade",
-     [f"{UC}/PortraitPanelContainer", f"vis:{UC}/SelectionUnitStatusPanel", f"vis:{UC}/SelectionUnitStatusPanelTopOverlay",
+     [f"{UC}/PortraitPanelContainer", f"{UC}/SelectionUnitStatusPanel", f"{UC}/SelectionUnitStatusPanelTopOverlay",
+      f"push:{UC}/UnitSelectionInfoVerticalPositionControl/A",
       f"{UC}/HeroConsolePanel", f"{UC}/HeroBuffDebuffPanel", f"{UC}/CommandPanel", f"{UC}/HeroCharacterSheetPanelContainer",
       f"{UC}/UnitSelectionInfoVerticalPositionControl", f"{UC}/HeroSpecificBackgroundStatusContainer",
       f"{UC}/HeroSpecificStatusContainer", f"{UC}/HeroSpecificFullUIModContainer",
@@ -61,6 +62,12 @@ MENU = [
       # slanted glass backing behind Ahli's slots: gone wherever the slots are not used (cards / no heroes)
      ] + [("fade", f"$Team{tm}HeroOverview/BgImage{side}", ["255", "255", "0", "0", "255", "0"])
           for tm in (1, 2) for side in ("Left", "Center", "Right")] + [
+      # "스킬": the heroic icon / active-talent cooldown hang under the bars (_TopPanel 80 / 55) - the skill row is
+      # there in this mode, so they go one row lower
+     ] + [("anchor", f"$HeroTalentsPanelContainer/PlayerFrame{p}/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/{f}",
+           ["0", "34", "0", "0", "0", "0"])
+          for p in range(10) for f in ("HeroSelectedTalentTreeFrame/TalentTreeIcon4", "HeroSelectedTalentTreeFrame/TalentTreeIcon2",
+                                       "SpecialSingleCDPanel")] + [
       # the slot health bars (UnitStatusFrame) ignore the parent fade - thin end slivers stayed in "영웅 숨김"
      ] + [("vis", f"$Team{tm}HeroOverview/HeroOverview{n}/HeroStatus", ["true", "true", "true", "true", "true", "false"])
           for tm in (1, 2) for n in range(1, 6)] + [
@@ -90,8 +97,14 @@ ROW_H, HEAD_H, PANEL_W = 28, 26, 270
 
 
 def ctrl(kind, target, default_shown):
-    if target.startswith("vis:"):  # unit status bars ignore a parent fade - their ends stayed as thin lines
-        kind, target = "vis", target[4:]
+    if target.startswith("push:"):  # slide down off screen (Ahli's own unit-info toggle does this): unit status bars
+        # ignore a parent fade and left thin lines, and the game re-shows the panel itself, so hiding does not stick
+        path = target[5:] if target[5:].startswith("$") else f"{G}/{target[5:]}"
+        a, b = ("0", "1200") if default_shown else ("1200", "0")
+        return f'''						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="{path}">
+							<Key type="Curve" time="0" value="{a}"/>
+							<Key type="Curve" time="0.01" value="{b}"/>
+						</Controller>'''
     path = target if target.startswith("$") else f"{G}/{target}"
     if kind == "fade":  # time 0 = default (shown), ticking fades it out
         return f'''						<Controller type="Fade" end="Pause" frame="{path}">
@@ -252,7 +265,7 @@ for item in MENU:
 ''')
     y += ROW_H
 # footer: version, maker, credits (make_eng.py swaps the Korean lines)
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 FOOT = [f"hots-scrap-obs v{VERSION} · 제작 SINONIS", "AhliObs(MIT) 기반 · Spazzo 디자인 참고", "AI(Claude) 도움을 받아 만들었어요"]
 FOOT_H = 16
 y += 8

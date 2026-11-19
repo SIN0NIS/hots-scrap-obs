@@ -217,6 +217,7 @@
 				<Anchor side="Left" relative="$parent" pos="Min" offset="4"/>
 				<Width val="24"/>
 				<Height val="24"/>
+				<Shortcut val="#Hotkey - Toggle Sinonis Menu"/>
 			</Frame>
 			<Frame type="Image" name="CheckImage">
 				<!-- open: slide the panel on screen; closed: park it far off screen (kept visible so its hotkeys keep working) -->
@@ -529,13 +530,17 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
-						<Controller type="Visibility" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel">
-							<Key type="Bool" time="0" value="true"/>
-							<Key type="Bool" time="0.01" value="false"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanel">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
-						<Controller type="Visibility" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanelTopOverlay">
-							<Key type="Bool" time="0" value="true"/>
-							<Key type="Bool" time="0.01" value="false"/>
+						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/SelectionUnitStatusPanelTopOverlay">
+							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/UnitSelectionInfoVerticalPositionControl/A">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="1200"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroConsolePanel">
 							<Key type="Curve" time="0" value="255"/>
@@ -998,6 +1003,126 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="255"/>
 						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
 							<Key type="Bool" time="0" value="true"/>
 							<Key type="Bool" time="0.01" value="true"/>
@@ -1230,6 +1355,126 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="255"/>
 						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="34"/>
+						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
 							<Key type="Bool" time="0" value="true"/>
 							<Key type="Bool" time="0.01" value="true"/>
@@ -1460,6 +1705,126 @@
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
 							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
 							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
@@ -1694,6 +2059,126 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
 							<Key type="Bool" time="0" value="true"/>
 							<Key type="Bool" time="0.01" value="true"/>
@@ -1926,6 +2411,126 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="255"/>
 						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">
 							<Key type="Bool" time="0" value="true"/>
 							<Key type="Bool" time="0.01" value="true"/>
@@ -2156,6 +2761,126 @@
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$Team2HeroOverview/BgImageRight">
 							<Key type="Curve" time="0" value="255"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame0/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame1/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame2/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame3/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame4/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame5/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame6/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame7/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame8/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon4">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/HeroSelectedTalentTreeFrame/TalentTreeIcon2">
+							<Key type="Curve" time="0" value="0"/>
+							<Key type="Curve" time="0.01" value="0"/>
+						</Controller>
+						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$HeroTalentsPanelContainer/PlayerFrame9/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/SpecialSingleCDPanel">
+							<Key type="Curve" time="0" value="0"/>
 							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
 						<Controller type="Visibility" end="Pause" frame="$Team1HeroOverview/HeroOverview1/HeroStatus">

@@ -48,7 +48,7 @@ Pick the file for your language. You can also install both and choose in game.
 
 ## How to use — [Menu]
 
-Click the small **[Menu]** button in the top-left corner. **Checked = shown.**
+Click the small **[Menu]** button in the top-left corner, or press **Ctrl+Alt+O**, to open or close it. **Checked = shown.**
 
 ### Screen
 | Item | What it does |

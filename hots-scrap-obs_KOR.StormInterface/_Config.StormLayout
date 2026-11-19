@@ -46,6 +46,8 @@
 	<Constant name="Hotkey - Toggle HP Current"							val="Control+Alt+H"/>
 	<Constant name="Hotkey - Toggle HP Max"								val="Control+Alt+M"/>
 	<Constant name="Hotkey - Toggle HP Percent"							val="Control+Alt+P"/>
+	<!-- Sinonis: open / close the [메뉴] options panel -->
+	<Constant name="Hotkey - Toggle Sinonis Menu"						val="Control+Alt+O"/>
 
 	<!-- shows the map scores (change score by clicking on it; team names and logos are read from Logos.StormMod in your documents folder) -->
 	<Constant name="Hotkey - Toggle Map Scores"							val="Control+Shift+S"/>
