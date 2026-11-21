@@ -24,7 +24,10 @@ MENU = [
     ("Replay", "리플레이 컨트롤", "리플레이 컨트롤 박스 (관전·리플레이 조절바)", True, None, "fade", [f"{UU}/ObserverPanelMovingContainer"]),
     ("Selection", "유닛 정보", "좌하단 선택 유닛 정보 (초상화·이름·체력·공격력·기술·버프·영웅 전용 칸)", True, None, "fade",
      [f"{UC}/PortraitPanelContainer", f"{UC}/SelectionUnitStatusPanel", f"{UC}/SelectionUnitStatusPanelTopOverlay",
-      f"push:{UC}/UnitSelectionInfoVerticalPositionControl/A",
+      # Ahli's own unit-info switch (its hotkey's ToggleControl): shown = slides the panel 1200 down, off screen.
+      # Unit status bars ignore a parent fade (thin lines stayed) and the game re-shows the panel itself, so the
+      # fade alone is not enough; driving this switch is the path Ahli's hotkey already uses.
+      f"visinv:{UC}/UnitInfoToggle/UnitInfoToggle",
       f"{UC}/HeroConsolePanel", f"{UC}/HeroBuffDebuffPanel", f"{UC}/CommandPanel", f"{UC}/HeroCharacterSheetPanelContainer",
       f"{UC}/UnitSelectionInfoVerticalPositionControl", f"{UC}/HeroSpecificBackgroundStatusContainer",
       f"{UC}/HeroSpecificStatusContainer", f"{UC}/HeroSpecificFullUIModContainer",
@@ -118,6 +121,8 @@ def ctrl(kind, target, default_shown):
 							<Key type="Curve" time="0" value="{a}"/>
 							<Key type="Curve" time="0.01" value="{b}"/>
 						</Controller>'''
+    if target.startswith("visinv:"):
+        kind, target = "vis_inv", target[7:]
     path = target if target.startswith("$") else f"{G}/{target}"
     if kind == "fade":  # time 0 = default (shown), ticking fades it out
         return f'''						<Controller type="Fade" end="Pause" frame="{path}">
@@ -281,7 +286,7 @@ for item in MENU:
 ''')
     y += ROW_H
 # footer: version, maker, credits (make_eng.py swaps the Korean lines)
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 FOOT = [f"hots-scrap-obs v{VERSION} · 제작 SINONIS", "AhliObs(MIT) 기반 · Spazzo 디자인 참고", "AI(Claude) 도움을 받아 만들었어요"]
 FOOT_H = 16
 y += 8

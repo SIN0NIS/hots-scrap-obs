@@ -20,6 +20,8 @@ HERODATA = ROOT.parent.parent / "hots_archive/builds/hdp5/2.57.0.98348/data/hero
 CELL, STEP = 28, 30            # talent cell / pitch (vertical): 4 x 30 = 120 high
 CELLX, STEPX = 31, 33          # horizontal: 4 x 33 = 132 wide = Ahli's slot pitch (~131.6), so the cards touch
 SLOT_TO_BARS = 64              # Ahli's HeroStatus (bars) sits 64 below the top of the hero slot
+HEROIC_TOP, HEROIC_LEFT = -31, -16   # heroic icon frame vs the slot bars / placeholder: picture bottom on the bars' top
+HEROIC_W, HEROIC_H = 46, 26          # Ahli's 62x36 felt too big (the picture is 8 taller each way: 46x42)
 ABIL, ABIL_STEP = 27, 33       # skill icon / pitch (4 across = 132, card width)
 TIERS = ["1", "4", "7", "10", "13", "16", "20"]
 START, END = "\t<!-- SINONIS TOP CARDS START (tools/top_cards.py) -->\n", "\t<!-- SINONIS TOP CARDS END -->\n"
@@ -280,12 +282,46 @@ def card(i, hero, ind):
 '''
 
 
+def heroic(t, i, hero):
+    """Pin the heroic icon (and Ahli's heroic-cooldown number above it) to this player's own slot: the bottom-left
+    corner of the portrait, on Ahli's HeroicPlaceholder (the gap the bars slide right to leave for it). The game lays
+    the talent player frames out on its own grid, so the template offsets put the icon between two slots.
+    Goes into Ahli's existing TalentsContainerFrame override of PlayerFrame<i> (one frame of a name per parent)."""
+    a = t.index(f'name="PlayerFrame{i}" template=')
+    nxt = t.find('name="PlayerFrame', a + 20)
+    k = t.index('<Frame type="Frame" name="SpecialSingleCDPanel">', a)
+    assert nxt < 0 or k < nxt, i
+    ls = t.rindex("\n", 0, k) + 1
+    ind = t[ls:k]
+    ph = f"{hero}/HeroStatus/HeroicPlaceholder"
+    tree = (f'{ind}<!-- SINONIS heroic: icon pinned to this slot\'s portrait corner (tools/top_cards.py) -->\n'
+            f'{ind}<Frame type="PlayerHeroSelectedTalentTreeFrame" name="HeroSelectedTalentTreeFrame">\n'
+            f'{ind}\t<Frame type="UnitStatusTalentIcon" name="TalentTreeIcon4">\n'
+            f'{ind}\t\t<Anchor side="Top" relative="{hero}/HeroStatus" pos="Min" offset="{HEROIC_TOP}"/>\n'
+            f'{ind}\t\t<Width val="{HEROIC_W}"/>\n'
+            f'{ind}\t\t<Height val="{HEROIC_H}"/>\n'
+            + (f'{ind}\t\t<Anchor side="Left" relative="{ph}" pos="Min" offset="{HEROIC_LEFT}"/>\n' if i < 5 else
+               # red team mirrored: bottom-RIGHT corner (its slots lean the other way, so the left corner is the tail
+               # that pokes under the neighbour's portrait); the template's Left anchor is released ($this)
+               f'{ind}\t\t<Anchor side="Left" relative="$this" pos="Max" offset="0"/>\n'
+               f'{ind}\t\t<Anchor side="Right" relative="{hero}/HeroStatus" pos="Max" offset="{-HEROIC_LEFT + 1}"/>\n')
+            + f'{ind}\t</Frame>\n'
+            f'{ind}</Frame>\n')
+    le = t.index("\n", k) + 1
+    anch = (f'{ind}\t<Anchor side="Top" relative="$parent/HeroSelectedTalentTreeFrame/TalentTreeIcon4" pos="Min" offset="{HEROIC_H // 2 - 26 - 5}"/>'
+            f'<!-- SINONIS heroic -->\n'
+            f'{ind}\t<Anchor side="Left" relative="$parent/HeroSelectedTalentTreeFrame/TalentTreeIcon4" pos="Min" offset="{(HEROIC_W - 62) // 2}"/>'
+            f'<!-- SINONIS heroic -->\n')
+    return t[:ls] + tree + t[ls:le] + anch + t[le:]
+
+
 def strip_old(t):
+    t = re.sub(r"\n[^\n]*<!-- SINONIS heroic -->(?=\n)", "", t)
     if START in t:
         t = t[:t.index(START)] + t[t.index(END) + len(END):]
     # every generated block starts with a "<!-- SINONIS card" / "<!-- SINONIS skills" comment line and ends with the
     # first closing tag at its own indentation
-    for marker, name in (("<!-- SINONIS card", None), ("<!-- SINONIS skills:", None)):
+    for marker, name in (("<!-- SINONIS card", None), ("<!-- SINONIS skills:", None), ("<!-- SINONIS heroic", None)):
         while (i := t.find(marker)) >= 0:
             s = t.rindex("\n", 0, i) + 1
             ind = t[s:i]
@@ -302,6 +338,7 @@ def main():
         hero = f"$Team{1 if i < 5 else 2}HeroOverview/HeroOverview{i % 5 + 1}"
         m = re.search(r'(\t+)<Frame type="HeroTalentsPanelPlayerFrame" name="PlayerFrame%d" template="_TopPanel/HeroicTalentPlayerFrame(?:Blue|Red)">\n' % i, t)
         t = t[:m.end()] + card(i, hero, m.group(1) + "\t") + t[m.end():]
+        t = heroic(t, i, hero)
     # Ahli's heroic / cooldown strip is faded by the menu (core_bar.py) in card modes, never hidden: hidden frames
     # stop counting (the card borrows the heroic cooldown from it) and collapse their layout
     t = re.sub(r'<Visible val="\{\$SINONIS_TOP_AHLISTRIP/@Visible\}"/><!-- SINONIS: hidden in the card modes -->\n\t*', "", t)

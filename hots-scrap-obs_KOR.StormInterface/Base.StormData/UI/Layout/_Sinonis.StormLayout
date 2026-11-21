@@ -557,9 +557,9 @@
 							<Key type="Curve" time="0" value="255"/>
 							<Key type="Curve" time="0.01" value="0"/>
 						</Controller>
-						<Controller type="Anchor" end="Pause" side="Top" relative="true" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/UnitSelectionInfoVerticalPositionControl/A">
-							<Key type="Curve" time="0" value="0"/>
-							<Key type="Curve" time="0.01" value="1200"/>
+						<Controller type="Visibility" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/UnitInfoToggle/UnitInfoToggle">
+							<Key type="Bool" time="0" value="false"/>
+							<Key type="Bool" time="0.01" value="true"/>
 						</Controller>
 						<Controller type="Fade" end="Pause" frame="$parent/$parent/$parent/UIContainer/ConsoleUIContainer/HeroConsolePanel">
 							<Key type="Curve" time="0" value="255"/>
