@@ -1,7 +1,7 @@
 # (Re)writes the SinonisObs menu panel (opened by the top-left [메뉴] box): the switches used while watching.
 #   python core_bar.py
 # Safe to run again: SinonisMenuPanel is replaced, the rest of _Sinonis.StormLayout is left alone.
-import pathlib
+import pathlib, re
 
 root = pathlib.Path(__file__).parent.parent / "Galaxy-Observer-UI/dev/heroes/hots-scrap-obs_KOR.StormInterface"
 lay = root / "Base.StormData/UI/Layout/_Sinonis.StormLayout"
@@ -62,12 +62,6 @@ MENU = [
       # slanted glass backing behind Ahli's slots: gone wherever the slots are not used (cards / no heroes)
      ] + [("fade", f"$Team{tm}HeroOverview/BgImage{side}", ["255", "255", "0", "0", "255", "0"])
           for tm in (1, 2) for side in ("Left", "Center", "Right")] + [
-      # "스킬": the heroic icon / active-talent cooldown hang under the bars (_TopPanel 80 / 55) - the skill row is
-      # there in this mode, so they go one row lower
-     ] + [("anchor", f"$HeroTalentsPanelContainer/PlayerFrame{p}/TalentsContainerFrame/SelectionUnitStatusPanel/UnitStatusFrame0/{f}",
-           ["0", "34", "0", "0", "0", "0"])
-          for p in range(10) for f in ("HeroSelectedTalentTreeFrame/TalentTreeIcon4", "HeroSelectedTalentTreeFrame/TalentTreeIcon2",
-                                       "SpecialSingleCDPanel")] + [
       # the slot health bars (UnitStatusFrame) ignore the parent fade - thin end slivers stayed in "영웅 숨김"
      ] + [("vis", f"$Team{tm}HeroOverview/HeroOverview{n}/HeroStatus", ["true", "true", "true", "true", "true", "false"])
           for tm in (1, 2) for n in range(1, 6)] + [
@@ -93,7 +87,26 @@ MENU = [
     ("HpMax", "최대 체력", "체력바 안 '/최대 체력' (Ctrl+Alt+M)", True, "#Hotkey - Toggle HP Max", "vis", ["$SINONIS_HP_MAX_STATE"]),
     ("HpPct", "퍼센트", "체력바 안 '(62%)' 퍼센트 (Ctrl+Alt+P)", True, "#Hotkey - Toggle HP Percent", "vis", ["$SINONIS_HP_PCT"]),
 ]
-ROW_H, HEAD_H, PANEL_W = 28, 26, 270
+ROW_H, HEAD_H, PANEL_W = 28, 26, 310
+# hotkey column on the right of a row: checkbox · label · key (key text is the default from _Config.StormLayout)
+KEYS = {"#Hotkey - Toggle all UI": "Ctrl+Alt+U", "#Hotkey - Toggle Player Names": "Ctrl+Alt+N",
+        "#Hotkey - Toggle HP Current": "Ctrl+Alt+H", "#Hotkey - Toggle HP Max": "Ctrl+Alt+M",
+        "#Hotkey - Toggle HP Percent": "Ctrl+Alt+P"}
+KEY_W = 80
+
+
+def key_label(key, anchor):
+    """right-aligned dim hotkey text; anchor = the frame whose vertical span it shares"""
+    return f'''				<Frame type="Label" name="Key">
+					<Anchor side="Top" relative="{anchor}" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="{anchor}" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Width val="{KEY_W}"/>
+					<Style val="SinonisMenuKeyLabel"/>
+					<Text val="{key}"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+'''
 
 
 def ctrl(kind, target, default_shown):
@@ -161,6 +174,9 @@ for item in MENU:
 			</Frame>
 ''')
         for k, (rid, label, tip) in enumerate(choices):
+            km = re.search(r" \((Ctrl\+[^)]+)\)$", label)
+            if km:
+                label = label[:km.start()]
             strings[f"Sinonis/Menu/{gid}{rid}"] = label
             strings[f"Sinonis/Menu/Tip/{gid}{rid}"] = tip
             ctr = []
@@ -205,12 +221,12 @@ for item in MENU:
 					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
 					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
 					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
-					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="{-KEY_W if km else 0}"/>
 					<Style val="SinonisCoreBarLabel"/>
 					<Text val="@Sinonis/Menu/{gid}{rid}"/>
 					<AcceptsMouse val="false"/>
 				</Frame>
-				<Frame type="Button" name="Click">
+{key_label(km.group(1), "$parent/Box") if km else ""}				<Frame type="Button" name="Click">
 					<Anchor relative="$parent"/>
 					<Tooltip val="@Sinonis/Menu/Tip/{gid}{rid}"/>
 					<Animation name="Select">
@@ -261,11 +277,11 @@ for item in MENU:
 					<Style val="SinonisCoreBarLabel"/>
 					<Text val="@Sinonis/Menu/{cid}"/>
 				</Frame>
-			</Frame>
+{key_label(KEYS[hotkey], "$parent/Button") if hotkey in KEYS else ""}			</Frame>
 ''')
     y += ROW_H
 # footer: version, maker, credits (make_eng.py swaps the Korean lines)
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 FOOT = [f"hots-scrap-obs v{VERSION} · 제작 SINONIS", "AhliObs(MIT) 기반 · Spazzo 디자인 참고", "AI(Claude) 도움을 받아 만들었어요"]
 FOOT_H = 16
 y += 8

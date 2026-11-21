@@ -934,8 +934,8 @@
 						
 						<!-- heroic icon -->
 						<Frame type="UnitStatusTalentIcon" name="TalentTreeIcon4">
-							<!-- SINONIS: 44 -> 80, hangs under the slot's health/mana bars instead of covering them -->
-							<Anchor side="Top" relative="$parent" pos="Min" offset="80"/>
+							<!-- SINONIS: 44 -> 18, sits on the portrait right above the health/mana bars instead of covering them -->
+							<Anchor side="Top" relative="$parent" pos="Min" offset="18"/>
 							<Anchor side="Left" relative="$parent" pos="Min" offset="-12"/>
 							<Width val="62"/>
 							<Height val="36"/>
@@ -1487,7 +1487,7 @@
 						<DefaultState val="Dflt"/>
 						<State name="Varian">
 							<When type="Property" frame="$this/VarianDetector/State" Visible="true"/>
-							<Action type="SetAnchor" frame="$this/HeroSelectedTalentTreeFrame/TalentTreeIcon2" side="Top" relative="$parent" pos="Min" offset="80" undo="true"/>
+							<Action type="SetAnchor" frame="$this/HeroSelectedTalentTreeFrame/TalentTreeIcon2" side="Top" relative="$parent" pos="Min" offset="18" undo="true"/>
 							<Action type="SetAnchor" frame="$this/HeroSelectedTalentTreeFrame/TalentTreeIcon4" side="Top" relative="$parent" pos="Min" offset="-9999" undo="true"/>
 						</State>
 						<State name="Dflt"/>
@@ -1578,8 +1578,8 @@
 					</Frame>
 					
 					<Frame type="Frame" name="SpecialSingleCDPanel" template="_ActivateableTalentCD/SpecialSingleCDPanelTemplate_L">
-						<!-- SINONIS: 19 -> 55, moved down with the heroic icon (same gap) -->
-						<Anchor side="Top" relative="$parent" pos="Min" offset="55"/>
+						<!-- SINONIS: 19 -> -7, moved up with the heroic icon (same gap) -->
+						<Anchor side="Top" relative="$parent" pos="Min" offset="-7"/>
 						<Anchor side="Left" relative="$parent" pos="Min" offset="-21"/>
 					</Frame>
 
