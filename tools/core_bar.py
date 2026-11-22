@@ -89,12 +89,13 @@ MENU = [
     ("HpCur", "현재 체력", "체력바 안 현재 체력 (Ctrl+Alt+H)", True, "#Hotkey - Toggle HP Current", "vis", ["$SINONIS_HP_CUR_STATE"]),
     ("HpMax", "최대 체력", "체력바 안 '/최대 체력' (Ctrl+Alt+M)", True, "#Hotkey - Toggle HP Max", "vis", ["$SINONIS_HP_MAX_STATE"]),
     ("HpPct", "퍼센트", "체력바 안 '(62%)' 퍼센트 (Ctrl+Alt+P)", True, "#Hotkey - Toggle HP Percent", "vis", ["$SINONIS_HP_PCT"]),
+    ("HpShield", "보호막", "보호막이 있으면 체력 숫자·퍼센트를 '체력+보호막' 기준, 보호막 색으로 (Ctrl+Alt+B)", True, "#Hotkey - Toggle HP Shield", "vis", ["$SINONIS_HP_SHIELD"]),
 ]
 ROW_H, HEAD_H, PANEL_W = 28, 26, 310
 # hotkey column on the right of a row: checkbox · label · key (key text is the default from _Config.StormLayout)
 KEYS = {"#Hotkey - Toggle all UI": "Ctrl+Alt+U", "#Hotkey - Toggle Player Names": "Ctrl+Alt+N",
         "#Hotkey - Toggle HP Current": "Ctrl+Alt+H", "#Hotkey - Toggle HP Max": "Ctrl+Alt+M",
-        "#Hotkey - Toggle HP Percent": "Ctrl+Alt+P"}
+        "#Hotkey - Toggle HP Percent": "Ctrl+Alt+P", "#Hotkey - Toggle HP Shield": "Ctrl+Alt+B"}
 KEY_W = 80
 
 
@@ -286,7 +287,7 @@ for item in MENU:
 ''')
     y += ROW_H
 # footer: version, maker, credits (make_eng.py swaps the Korean lines)
-VERSION = "1.0.4"
+VERSION = "1.0.5"
 FOOT = [f"hots-scrap-obs v{VERSION} · 제작 SINONIS", "AhliObs(MIT) 기반 · Spazzo 디자인 참고", "AI(Claude) 도움을 받아 만들었어요"]
 FOOT_H = 16
 y += 8

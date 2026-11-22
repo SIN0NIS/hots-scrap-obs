@@ -182,6 +182,9 @@
 	<Style name="SinonisMenuKeyLabel" template="StandardTemplate" height="11" textcolor="AEB8D6" vjustify="Middle" hjustify="Right" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisHpSplitValueLabel" template="StandardTemplate" height="12" textcolor="FFFFFF" vjustify="Middle" hjustify="Right" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisHpPercentLabel" template="StandardTemplate" height="12" textcolor="FFFFFF" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>
+	<Style name="SinonisShieldedVitalityLabel" template="StandardTemplate" height="12" textcolor="A8E4FF" vjustify="Middle" hjustify="Center" styleflags="!Shadow" fontflags="Outline"/>
+	<Style name="SinonisShieldedSplitValueLabel" template="StandardTemplate" height="12" textcolor="A8E4FF" vjustify="Middle" hjustify="Right" styleflags="!Shadow" fontflags="Outline"/>
+	<Style name="SinonisShieldedPercentLabel" template="StandardTemplate" height="12" textcolor="A8E4FF" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisHpShieldLabel" template="StandardTemplate" height="12" textcolor="A8E4FF" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisCCTimerLabel" template="StandardTemplate" height="13" textcolor="FFE066" vjustify="Top" hjustify="Center" styleflags="!Shadow" fontflags="Outline"/>
 </StyleFile>

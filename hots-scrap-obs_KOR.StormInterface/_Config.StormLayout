@@ -46,6 +46,7 @@
 	<Constant name="Hotkey - Toggle HP Current"							val="Control+Alt+H"/>
 	<Constant name="Hotkey - Toggle HP Max"								val="Control+Alt+M"/>
 	<Constant name="Hotkey - Toggle HP Percent"							val="Control+Alt+P"/>
+	<Constant name="Hotkey - Toggle HP Shield"							val="Control+Alt+B"/>
 	<!-- Sinonis: open / close the [메뉴] options panel -->
 	<Constant name="Hotkey - Toggle Sinonis Menu"						val="Control+Alt+O"/>
 

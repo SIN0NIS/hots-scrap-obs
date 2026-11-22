@@ -141,10 +141,11 @@
 		<RoundMode val="up"/>
 		<ShowMaxZero val="false"/>
 		<Unclipped val="true"/>
-		<!-- unit status elements default to the owner only; without these the label never shows in a replay -->
-		<VisibleToOwner val="true"/>
-		<VisibleToAlly val="true"/>
-		<VisibleToEnemy val="true"/>
+		<!-- unit status elements default to the owner only; without these the label never shows in a replay.
+			Bound to the [메뉴] "보호막" switch (Ctrl+Alt+B). -->
+		<VisibleToOwner val="{$SINONIS_HP_SHIELD/@Visible}"/>
+		<VisibleToAlly val="{$SINONIS_HP_SHIELD/@Visible}"/>
+		<VisibleToEnemy val="{$SINONIS_HP_SHIELD/@Visible}"/>
 		<Frame type="Label" name="Plus">
 			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
 			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
@@ -210,6 +211,70 @@
 				<Style val="SinonisHpPercentLabel"/>
 				<Text val=")"/>
 			</Frame>
+		<StateGroup name="SinonisShielded">
+			<DefaultState val="Plain"/>
+			<State name="Shielded">
+				<When type="Property" frame="$parent/SinonisShieldUp" visible="true"/>
+				<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+				<Action type="SetProperty" frame="OpenParen" alpha="0"/>
+				<Action type="SetProperty" frame="StatusLabel" alpha="0"/>
+				<Action type="SetProperty" frame="CloseParen" alpha="0"/>
+			</State>
+			<State name="Plain">
+				<Action type="SetProperty" frame="OpenParen" alpha="255"/>
+				<Action type="SetProperty" frame="StatusLabel" alpha="255"/>
+				<Action type="SetProperty" frame="CloseParen" alpha="255"/>
+			</State>
+		</StateGroup>
+	</Frame>
+
+	<!-- the same while shielded (any kind): "(116%)" = (life + shield) / max, in shield colour -->
+	<Frame type="UnitStatusShieldedHealthLabel" name="SinonisHpParenPercentShieldedTemplate">
+		<ShowWhileInvulnerable val="True"/>
+		<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+		<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+		<Width val="44"/>
+		<ShowPercent val="true"/>
+		<FractionDigits val="0"/>
+		<RoundMode val="up"/>
+		<Frame type="Label" name="OpenParen">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedPercentLabel"/>
+				<Text val="("/>
+			</Frame>
+			<Frame type="Label" name="StatusLabel">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Left" relative="$parent/OpenParen" pos="Max" offset="0"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedPercentLabel"/>
+			</Frame>
+			<Frame type="Label" name="CloseParen">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Left" relative="$parent/StatusLabel" pos="Max" offset="0"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedPercentLabel"/>
+				<Text val=")"/>
+			</Frame>
+		<StateGroup name="SinonisShielded">
+			<DefaultState val="Plain"/>
+			<State name="Shielded">
+				<When type="Property" frame="$parent/SinonisShieldUp" visible="true"/>
+				<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+				<Action type="SetProperty" frame="OpenParen" alpha="255"/>
+				<Action type="SetProperty" frame="StatusLabel" alpha="255"/>
+				<Action type="SetProperty" frame="CloseParen" alpha="255"/>
+			</State>
+			<State name="Plain">
+				<Action type="SetProperty" frame="OpenParen" alpha="0"/>
+				<Action type="SetProperty" frame="StatusLabel" alpha="0"/>
+				<Action type="SetProperty" frame="CloseParen" alpha="0"/>
+			</State>
+		</StateGroup>
 	</Frame>
 
 	<!-- add life label to hero bars when on low life -->
@@ -231,6 +296,12 @@
 			Which labels show is driven by the HP toggles in _Sinonis.StormLayout. -->
 		<Visible val="true"/>
 
+		<!-- visible while the unit has any shield: the Shields vital (Fenix) or a behavior shield (Johanna's Iron Skin,
+			Zarya, Tassadar, talents ...). Game data validator, see heroesdata validatordata.xml. -->
+		<Frame type="UnitStatusValidatorAnimElement" name="SinonisShieldUp">
+			<Anchor relative="$parent"/>
+			<Validator val="TargetHasVitalOrBehaviorShields"/>
+		</Frame>
 		<!-- current life only -->
 		<Frame type="UnitStatusHealthLabel" name="VitalityLabel">
 			<Anchor relative="$parent"/>
@@ -247,6 +318,47 @@
 				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
 				<Unclipped val="true"/>
 				<Style val="AhliHeroLowVitalityLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+				</StateGroup>
+			</Frame>
+		</Frame>
+		<!-- shield on (any kind: trait / ability / talent / Fenix): life + shield, in shield colour -->
+		<Frame type="UnitStatusShieldedHealthLabel" name="VitalityLabelShielded">
+			<ShowWhileInvulnerable val="True"/>
+			<Anchor relative="$parent"/>
+			<FractionDigits val="0"/>
+			<HideMax val="true"/>
+			<RoundMode val="up"/>
+			<VisibleToOwner val="{$SINONIS_HP_CUR_ONLY/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HP_CUR_ONLY/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HP_CUR_ONLY/@Visible}"/>
+			<Frame type="Label" name="StatusLabel">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedVitalityLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+				</StateGroup>
 			</Frame>
 		</Frame>
 		<!-- current / max life -->
@@ -265,6 +377,47 @@
 				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
 				<Unclipped val="true"/>
 				<Style val="AhliHeroLowVitalityLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+				</StateGroup>
+			</Frame>
+		</Frame>
+		<!-- shield on (any kind: trait / ability / talent / Fenix): life + shield, in shield colour -->
+		<Frame type="UnitStatusShieldedHealthLabel" name="VitalityMaxLabelShielded">
+			<ShowWhileInvulnerable val="True"/>
+			<Anchor relative="$parent"/>
+			<FractionDigits val="0"/>
+			<HideMax val="false"/>
+			<RoundMode val="up"/>
+			<VisibleToOwner val="{$SINONIS_HP_CUR_MAX/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HP_CUR_MAX/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HP_CUR_MAX/@Visible}"/>
+			<Frame type="Label" name="StatusLabel">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedVitalityLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+				</StateGroup>
 			</Frame>
 		</Frame>
 		<!-- life percent alone, centred in the bar -->
@@ -280,13 +433,48 @@
 				<Anchor relative="$parent"/>
 				<Unclipped val="true"/>
 				<Style val="AhliHeroLowVitalityLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+				</StateGroup>
+			</Frame>
+		</Frame>
+		<Frame type="UnitStatusShieldedHealthLabel" name="VitalityPercentLabelShielded">
+			<ShowWhileInvulnerable val="True"/>
+			<Anchor relative="$parent"/>
+			<ShowPercent val="true"/>
+			<FractionDigits val="0"/>
+			<RoundMode val="up"/>
+			<VisibleToOwner val="{$SINONIS_HP_PCT_C/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HP_PCT_C/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HP_PCT_C/@Visible}"/>
+			<Frame type="Label" name="StatusLabel">
+				<Anchor relative="$parent"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedVitalityLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+				</StateGroup>
 			</Frame>
 		</Frame>
 
-		<!-- shields sit just past the bar's right edge in every mode, so the life text never gets longer -->
-		<Frame type="UnitStatusShieldsLabel" name="Shield" template="_UnitStatus/SinonisHpShieldTemplate">
-			<Anchor side="Left" relative="$parent" pos="Max" offset="3"/>
-		</Frame>
+		<!-- (the "+N" Shields-vital label right of the bar was dropped: only Fenix has that vital, every other shield
+			shows through the shield-coloured life + shield numbers above) -->
 
 		<!-- value + percent together inside the bar: "1234/2000 (62%)", split at the bar's centre -->
 		<Frame type="UnitStatusHealthLabel" name="VitalitySplitLabel">
@@ -304,6 +492,47 @@
 				<Anchor relative="$parent"/>
 				<Unclipped val="true"/>
 				<Style val="SinonisHpSplitValueLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+				</StateGroup>
+			</Frame>
+		</Frame>
+		<!-- shield on (any kind: trait / ability / talent / Fenix): life + shield, in shield colour -->
+		<Frame type="UnitStatusShieldedHealthLabel" name="VitalitySplitLabelShielded">
+			<ShowWhileInvulnerable val="True"/>
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="-1"/>
+			<FractionDigits val="0"/>
+			<HideMax val="true"/>
+			<RoundMode val="up"/>
+			<VisibleToOwner val="{$SINONIS_HP_CUR_ONLY_S/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HP_CUR_ONLY_S/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HP_CUR_ONLY_S/@Visible}"/>
+			<Frame type="Label" name="StatusLabel">
+				<Anchor relative="$parent"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedSplitValueLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+				</StateGroup>
 			</Frame>
 		</Frame>
 		<Frame type="UnitStatusHealthLabel" name="VitalitySplitMaxLabel">
@@ -321,6 +550,47 @@
 				<Anchor relative="$parent"/>
 				<Unclipped val="true"/>
 				<Style val="SinonisHpSplitValueLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+				</StateGroup>
+			</Frame>
+		</Frame>
+		<!-- shield on (any kind: trait / ability / talent / Fenix): life + shield, in shield colour -->
+		<Frame type="UnitStatusShieldedHealthLabel" name="VitalitySplitMaxLabelShielded">
+			<ShowWhileInvulnerable val="True"/>
+			<Anchor side="Top" relative="$parent" pos="Min" offset="0"/>
+			<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+			<Anchor side="Left" relative="$parent" pos="Min" offset="-60"/>
+			<Anchor side="Right" relative="$parent" pos="Mid" offset="14"/>
+			<FractionDigits val="0"/>
+			<HideMax val="false"/>
+			<RoundMode val="up"/>
+			<VisibleToOwner val="{$SINONIS_HP_CUR_MAX_S/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HP_CUR_MAX_S/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HP_CUR_MAX_S/@Visible}"/>
+			<Frame type="Label" name="StatusLabel">
+				<Anchor relative="$parent"/>
+				<Unclipped val="true"/>
+				<Style val="SinonisShieldedSplitValueLabel"/>
+				<StateGroup name="SinonisShielded">
+					<DefaultState val="Plain"/>
+					<State name="Shielded">
+						<When type="Property" frame="$parent/$parent/SinonisShieldUp" visible="true"/>
+						<When type="Property" frame="$SINONIS_HP_SHIELD" visible="true"/>
+						<Action type="SetProperty" alpha="255"/>
+					</State>
+					<State name="Plain">
+						<Action type="SetProperty" alpha="0"/>
+					</State>
+				</StateGroup>
 			</Frame>
 		</Frame>
 		<!-- "(62%)" after current only / after current/max (the wider text pushes the split point right) -->
@@ -330,7 +600,19 @@
 			<VisibleToAlly val="{$SINONIS_HP_PCT_S/@Visible}"/>
 			<VisibleToEnemy val="{$SINONIS_HP_PCT_S/@Visible}"/>
 		</Frame>
+		<Frame type="UnitStatusShieldedHealthLabel" name="VitalitySplitPercentLabelShielded" template="_UnitStatus/SinonisHpParenPercentShieldedTemplate">
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="2"/>
+			<VisibleToOwner val="{$SINONIS_HP_PCT_S/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HP_PCT_S/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HP_PCT_S/@Visible}"/>
+		</Frame>
 		<Frame type="UnitStatusHealthLabel" name="VitalitySplitMaxPercentLabel" template="_UnitStatus/SinonisHpParenPercentTemplate">
+			<Anchor side="Left" relative="$parent" pos="Mid" offset="17"/>
+			<VisibleToOwner val="{$SINONIS_HP_PCT_S2/@Visible}"/>
+			<VisibleToAlly val="{$SINONIS_HP_PCT_S2/@Visible}"/>
+			<VisibleToEnemy val="{$SINONIS_HP_PCT_S2/@Visible}"/>
+		</Frame>
+		<Frame type="UnitStatusShieldedHealthLabel" name="VitalitySplitMaxPercentLabelShielded" template="_UnitStatus/SinonisHpParenPercentShieldedTemplate">
 			<Anchor side="Left" relative="$parent" pos="Mid" offset="17"/>
 			<VisibleToOwner val="{$SINONIS_HP_PCT_S2/@Visible}"/>
 			<VisibleToAlly val="{$SINONIS_HP_PCT_S2/@Visible}"/>

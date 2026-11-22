@@ -80,7 +80,7 @@ None / All talents / Deaths, siege, hero damage / APM / Experience / Time dead, 
 
 ### Health bar numbers
 - Turn **Current HP** (Ctrl+Alt+H), **Max HP** (Ctrl+Alt+M) and **Percent** (Ctrl+Alt+P) on or off. All on: `1234/2000 (62%)`
-- Shields are not mixed into health: while a hero has a shield, it shows separately as a light-blue `+320` just right of the bar
+- **Shield** (Ctrl+Alt+B): while a hero is shielded, the life number and percent count life + shield, in light blue, e.g. `2888/2480 (116%)`. Every kind of shield counts (traits, abilities, talents, Fenix). The game gives interfaces no shield-only amount
 
 ## Build from source
 

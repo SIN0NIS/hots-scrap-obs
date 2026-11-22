@@ -31,6 +31,11 @@
 			<Visible val="true"/>
 			<Handle val="SINONIS_HP_PCT"/>
 		</Frame>
+		<Frame type="Frame" name="SinonisHpShieldState">
+			<Anchor relative="$parent"/>
+			<Visible val="true"/>
+			<Handle val="SINONIS_HP_SHIELD"/>
+		</Frame>
 		<Frame type="Frame" name="SinonisNamesState">
 			<Anchor relative="$parent"/>
 			<Visible val="true"/>
@@ -253,7 +258,7 @@
 			<Anchor side="Top" relative="$parent/SinonisMenuButton" pos="Max" offset="4"/>
 			<Anchor side="Left" relative="$parent" pos="Min" offset="-9994"/>
 			<Width val="310"/>
-			<Height val="1030"/>
+			<Height val="1058"/>
 			<RenderPriority val="900"/>
 
 			<Frame type="Image" name="LowImage">
@@ -3469,8 +3474,54 @@
 					<AcceptsMouse val="false"/>
 				</Frame>
 			</Frame>
+			<Frame type="CheckBox" name="MenuHpShield" template="_Sinonis/SinonisMenuRowTemplate">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="958"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="20"/>
+				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
+				<Height val="26"/>
+				<Toggled val="false"/>
+				<Tooltip val="@Sinonis/Menu/Tip/HpShield"/>
+				<Frame type="Button" name="Button">
+					<Width val="22"/>
+					<Height val="22"/>
+					<Shortcut val="#Hotkey - Toggle HP Shield"/>
+				</Frame>
+				<Frame type="Image" name="ShownMark">
+					<Anchor relative="$parent/Button"/>
+					<Texture val="@UI/Storm_Checkbox_CheckMark"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+				<Frame type="Image" name="CheckImage">
+					<Alpha val="0"/>
+					<Animation name="Apply">
+						<Event event="OnShown" action="DirectionForward,Play"/>
+						<Event event="OnHidden" action="DirectionReverse,Play"/>
+						<Controller type="Visibility" end="Pause" frame="$SINONIS_HP_SHIELD">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+						<Controller type="Visibility" end="Pause" frame="$parent/ShownMark">
+							<Key type="Bool" time="0" value="true"/>
+							<Key type="Bool" time="0.01" value="false"/>
+						</Controller>
+					</Animation>
+				</Frame>
+				<Frame type="Label" name="Label">
+					<Style val="SinonisCoreBarLabel"/>
+					<Text val="@Sinonis/Menu/HpShield"/>
+				</Frame>
+				<Frame type="Label" name="Key">
+					<Anchor side="Top" relative="$parent/Button" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$parent/Button" pos="Max" offset="0"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="0"/>
+					<Width val="80"/>
+					<Style val="SinonisMenuKeyLabel"/>
+					<Text val="Ctrl+Alt+B"/>
+					<AcceptsMouse val="false"/>
+				</Frame>
+			</Frame>
 			<Frame type="Image" name="FootLine">
-				<Anchor side="Top" relative="$parent" pos="Min" offset="966"/>
+				<Anchor side="Top" relative="$parent" pos="Min" offset="994"/>
 				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
 				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
 				<Height val="1"/>
@@ -3478,7 +3529,7 @@
 				<Alpha val="50"/>
 			</Frame>
 			<Frame type="Label" name="Foot0">
-				<Anchor side="Top" relative="$parent" pos="Min" offset="972"/>
+				<Anchor side="Top" relative="$parent" pos="Min" offset="1000"/>
 				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
 				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
 				<Height val="16"/>
@@ -3486,7 +3537,7 @@
 				<Text val="@Sinonis/Menu/Foot0"/>
 			</Frame>
 			<Frame type="Label" name="Foot1">
-				<Anchor side="Top" relative="$parent" pos="Min" offset="988"/>
+				<Anchor side="Top" relative="$parent" pos="Min" offset="1016"/>
 				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
 				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
 				<Height val="16"/>
@@ -3494,7 +3545,7 @@
 				<Text val="@Sinonis/Menu/Foot1"/>
 			</Frame>
 			<Frame type="Label" name="Foot2">
-				<Anchor side="Top" relative="$parent" pos="Min" offset="1004"/>
+				<Anchor side="Top" relative="$parent" pos="Min" offset="1032"/>
 				<Anchor side="Left" relative="$parent" pos="Min" offset="12"/>
 				<Anchor side="Right" relative="$parent" pos="Max" offset="-12"/>
 				<Height val="16"/>

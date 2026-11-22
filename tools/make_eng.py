@@ -84,10 +84,12 @@ EN = {
     "체력바 안 '/최대 체력' (Ctrl+Alt+M)": "'/max HP' in the health bar (Ctrl+Alt+M)",
     "퍼센트": "Percent",
     "체력바 안 '(62%)' 퍼센트 (Ctrl+Alt+P)": "'(62%)' percent in the health bar (Ctrl+Alt+P)",
+    "보호막": "Shield",
+    "보호막이 있으면 체력 숫자·퍼센트를 '체력+보호막' 기준, 보호막 색으로 (Ctrl+Alt+B)": "While shielded, life number and percent count life + shield, in shield colour (Ctrl+Alt+B)",
     "Sinonis 옵션 (체크 = 보임)": "Sinonis options (checked = shown)",
     "옵션 (체크 = 보임)": "Options (checked = shown)",
     "옵션 열기/닫기 (Ctrl+Alt+O)": "Open/close options (Ctrl+Alt+O)",
-    "hots-scrap-obs v1.0.4 · 제작 SINONIS": "hots-scrap-obs v1.0.4 · by SINONIS",
+    "hots-scrap-obs v1.0.5 · 제작 SINONIS": "hots-scrap-obs v1.0.5 · by SINONIS",
     "AhliObs(MIT) 기반 · Spazzo 디자인 참고": "Based on AhliObs (MIT) · Spazzo-inspired",
     "AI(Claude) 도움을 받아 만들었어요": "Made with help from AI (Claude)",
 }
