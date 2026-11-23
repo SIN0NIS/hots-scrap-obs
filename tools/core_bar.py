@@ -91,11 +91,52 @@ MENU = [
     ("HpPct", "퍼센트", "체력바 안 '(62%)' 퍼센트 (Ctrl+Alt+P)", True, "#Hotkey - Toggle HP Percent", "vis", ["$SINONIS_HP_PCT"]),
     ("HpShield", "보호막", "보호막이 있으면 체력 숫자·퍼센트를 '체력+보호막' 기준, 보호막 색으로 (Ctrl+Alt+B)", True, "#Hotkey - Toggle HP Shield", "vis", ["$SINONIS_HP_SHIELD"]),
 ]
-ROW_H, HEAD_H, PANEL_W = 28, 26, 310
+ROW_H, HEAD_H, COL_W = 28, 26, 300
+# panel top per top-bar mode (UI units from the screen top): bars + core ~100, skill rows ~144, cards ~150,
+# cards + skill rows + core health ~182
+PANEL_TOP = {"BASIC": 104, "SKILLS": 146, "TALENTS": 152, "BOTH": 184}
+PANEL_W = 3 * COL_W
+# three short columns, so the panel can sit below the top bar (cards and skill rows too) and still end above
+# the unit info: 화면 · 머리 위 이름 | 상단바 모드 · 체력바 숫자 | 하단 통계 패널
+_top = next(k for k, m in enumerate(MENU) if m[:2] == ("head", "상단바 모드"))
+_stats = next(k for k, m in enumerate(MENU) if m[:2] == ("head", "하단 통계 패널 (Ahli)"))
+_hp = next(k for k, m in enumerate(MENU) if m[:2] == ("head", "체력바 숫자"))
+MENU = MENU[:_top] + [("col",)] + MENU[_top:_stats] + MENU[_hp:] + [("col",)] + MENU[_stats:_hp]
+
+# a hotkey on every row. (constant, default, shown). Ctrl+Alt+<letter> and Ctrl+1..8 were taken, so numbers:
+# 화면 Ctrl+Alt+1..6 · 이름 종류 Ctrl+Alt+7/8 · 상단바 모드 Ctrl+Shift+1..6 · 하단 통계 없음 Ctrl+Alt+0
+TOGGLE_KEYS = {"Top": ("Hotkey - Sinonis Top Bar", "Control+Alt+1", "Ctrl+Alt+1"),
+               "Minimap": ("Hotkey - Sinonis Minimap", "Control+Alt+2", "Ctrl+Alt+2"),
+               "Chat": ("Hotkey - Sinonis Chat", "Control+Alt+3", "Ctrl+Alt+3"),
+               "Replay": ("Hotkey - Sinonis Replay Controls", "Control+Alt+4", "Ctrl+Alt+4"),
+               "Selection": ("Hotkey - Sinonis Unit Info", "Control+Alt+5", "Ctrl+Alt+5"),
+               "Events": ("Hotkey - Sinonis Notifications", "Control+Alt+6", "Ctrl+Alt+6")}
+RADIO_KEYS = {("NameKind", "User"): ("Hotkey - Sinonis Name User", "Control+Alt+7", "Ctrl+Alt+7"),
+              ("NameKind", "Hero"): ("Hotkey - Sinonis Name Hero", "Control+Alt+8", "Ctrl+Alt+8"),
+              ("Stats", "None"): ("Hotkey - Sinonis Stats None", "Control+Alt+0", "Ctrl+Alt+0")}
+for _k, _rid in enumerate(["Basic", "Skills", "Talents", "Both", "Simple", "NoHeroes"], 1):
+    RADIO_KEYS[("TopMode", _rid)] = (f"Hotkey - Sinonis Top Mode {_rid}", f"Control+Shift+{_k}", f"Ctrl+Shift+{_k}")
+MENU = [m if m[0] not in TOGGLE_KEYS else m[:4] + ("#" + TOGGLE_KEYS[m[0]][0],) + m[5:] for m in MENU]
+
+
+def in_column(block, col):
+    """move a row block (its own 4-tab anchors) into column col"""
+    out = []
+    for line in block.split("\n"):
+        m = re.match(r'(\t{4})<Anchor side="Left" relative="\$parent" pos="Min" offset="(-?\d+)"/>$', line)
+        if m:
+            line = f'{m.group(1)}<Anchor side="Left" relative="$parent" pos="Min" offset="{int(m.group(2)) + col * COL_W}"/>'
+        m = re.match(r'(\t{4})<Anchor side="Right" relative="\$parent" pos="Max" offset="(-?\d+)"/>$', line)
+        if m:
+            line = f'{m.group(1)}<Anchor side="Right" relative="$parent" pos="Min" offset="{(col + 1) * COL_W + int(m.group(2))}"/>'
+        out.append(line)
+    return "\n".join(out)
 # hotkey column on the right of a row: checkbox · label · key (key text is the default from _Config.StormLayout)
 KEYS = {"#Hotkey - Toggle all UI": "Ctrl+Alt+U", "#Hotkey - Toggle Player Names": "Ctrl+Alt+N",
         "#Hotkey - Toggle HP Current": "Ctrl+Alt+H", "#Hotkey - Toggle HP Max": "Ctrl+Alt+M",
         "#Hotkey - Toggle HP Percent": "Ctrl+Alt+P", "#Hotkey - Toggle HP Shield": "Ctrl+Alt+B"}
+for _const, _combo, _shown in TOGGLE_KEYS.values():
+    KEYS["#" + _const] = _shown
 KEY_W = 80
 
 
@@ -150,7 +191,13 @@ for name, handle, vis in (("TopTalents", "SINONIS_TOP_TALENTS", "false"), ("TopH
 				<Handle val="{handle}"/>
 			</Frame>
 ''')
+col, y_top, y_max, first = 0, y, y, len(rows)
 for item in MENU:
+    rows[first:] = [in_column(r, col) for r in rows[first:]]
+    first = len(rows)
+    if item[0] == "col":
+        y_max, y, col = max(y_max, y), y_top, col + 1
+        continue
     if item[0] == "head":
         hid = f"Head{len(rows)}"
         strings[f"Sinonis/Menu/{hid}"] = item[1]
@@ -183,6 +230,8 @@ for item in MENU:
             km = re.search(r" \((Ctrl\+[^)]+)\)$", label)
             if km:
                 label = label[:km.start()]
+            rk = RADIO_KEYS.get((gid, rid))
+            key_txt = rk[2] if rk else (km.group(1) if km else None)
             strings[f"Sinonis/Menu/{gid}{rid}"] = label
             strings[f"Sinonis/Menu/Tip/{gid}{rid}"] = tip
             ctr = []
@@ -227,14 +276,14 @@ for item in MENU:
 					<Anchor side="Top" relative="$parent/Box" pos="Min" offset="0"/>
 					<Anchor side="Bottom" relative="$parent/Box" pos="Max" offset="0"/>
 					<Anchor side="Left" relative="$parent/Box" pos="Max" offset="8"/>
-					<Anchor side="Right" relative="$parent" pos="Max" offset="{-KEY_W if km else 0}"/>
+					<Anchor side="Right" relative="$parent" pos="Max" offset="{-KEY_W if key_txt else 0}"/>
 					<Style val="SinonisCoreBarLabel"/>
 					<Text val="@Sinonis/Menu/{gid}{rid}"/>
 					<AcceptsMouse val="false"/>
 				</Frame>
-{key_label(km.group(1), "$parent/Box") if km else ""}				<Frame type="Button" name="Click">
+{key_label(key_txt, "$parent/Box") if key_txt else ""}				<Frame type="Button" name="Click">
 					<Anchor relative="$parent"/>
-					<Tooltip val="@Sinonis/Menu/Tip/{gid}{rid}"/>
+					<Tooltip val="@Sinonis/Menu/Tip/{gid}{rid}"/>{(chr(10) + '					<Shortcut val="#' + rk[0] + '"/>') if rk else ""}
 					<Animation name="Select">
 						<Event event="OnClick" action="Restart,DirectionForward,Play"/>
 {chr(10).join(ctr)}
@@ -286,8 +335,10 @@ for item in MENU:
 {key_label(KEYS[hotkey], "$parent/Button") if hotkey in KEYS else ""}			</Frame>
 ''')
     y += ROW_H
+rows[first:] = [in_column(r, col) for r in rows[first:]]
+y = max(y_max, y)
 # footer: version, maker, credits (make_eng.py swaps the Korean lines)
-VERSION = "1.0.5"
+VERSION = "1.0.6"
 FOOT = [f"hots-scrap-obs v{VERSION} · 제작 SINONIS", "AhliObs(MIT) 기반 · Spazzo 디자인 참고", "AI(Claude) 도움을 받아 만들었어요"]
 FOOT_H = 16
 y += 8
@@ -319,11 +370,18 @@ panel = f'''		<!-- the [메뉴] panel: the switches used while watching. Every b
 			replays): empty = default, tick = changed. Rows whose default is "shown" draw ShownMark while empty,
 			so on screen a tick still means "shown". Generated by tools/core_bar.py - edit there. -->
 		<Frame type="Frame" name="SinonisMenuPanel">
-			<Anchor side="Top" relative="$parent/SinonisMenuButton" pos="Max" offset="4"/>
+			<!-- below the top bar: how far down depends on the top-bar mode (cards, skill rows, core health) -->
+			<Anchor side="Top" relative="$parent" pos="Min" offset="{PANEL_TOP['BASIC']}"/>
 			<Anchor side="Left" relative="$parent" pos="Min" offset="-9994"/>
 			<Width val="{PANEL_W}"/>
 			<Height val="{height}"/>
 			<RenderPriority val="900"/>
+			<StateGroup name="SinonisBelowTopBar">
+{"".join(f"""				<State name="{m.title()}">
+					<When type="Property" frame="$SINONIS_TOPMODE_{m}" visible="true"/>
+					<Action type="SetAnchor" side="Top" relative="$parent" pos="Min" offset="{o}"/>
+				</State>
+""" for m, o in PANEL_TOP.items() if m != "BASIC")}			</StateGroup>
 
 			<Frame type="Image" name="LowImage">
 				<Anchor relative="$parent"/>
@@ -385,6 +443,16 @@ if old >= 0:  # the single hand-written label this replaces
     t = t[:old] + t[t.index("\t</Frame>\n", t.index("</Frame>\n\t</Frame>", old)) + len("\t</Frame>\n"):]
 t = t.replace("</Desc>", TW_START + twins + TW_END + "</Desc>")
 lay.write_text(t, encoding="utf-8")
+cfg = root / "_Config.StormLayout"
+ct = cfg.read_text(encoding="utf-8")
+KS, KE = "\t<!-- SINONIS MENU KEYS START (tools/core_bar.py) -->\n", "\t<!-- SINONIS MENU KEYS END -->\n"
+if KS in ct:
+    ct = ct[:ct.index(KS)] + ct[ct.index(KE) + len(KE):]
+block = KS + "".join(f'\t<Constant name="{n}" val="{v}"/>\n' for n, v, _ in list(TOGGLE_KEYS.values()) + list(RADIO_KEYS.values())) + KE
+anchor = '\t<Constant name="Hotkey - Toggle HP Shield"'
+i = ct.index("\n", ct.index(anchor)) + 1
+ct = ct[:i] + block + ct[i:]
+cfg.write_text(ct, encoding="utf-8")
 print(f"hero-name twins: {len(parents)}")
 
 st = root / "Base.StormData/UI/FontStyles.StormStyle"
@@ -405,4 +473,4 @@ for gs in root.glob("*.StormData/LocalizedData/GameStrings.txt"):
              if l and not l.startswith(("Sinonis/Core/", "Sinonis/Menu/", "Sinonis/MenuTitle="))]
     lines += [f"{k}={v}" for k, v in strings.items()] + ["Sinonis/MenuTitle=옵션 (체크 = 보임)"]
     gs.write_bytes((b"\xef\xbb\xbf" if bom else b"") + ("\r\n".join(lines) + "\r\n").encode("utf-8"))
-print(f"menu: {sum(1 for m in MENU if m[0] != 'head')} switches, panel {PANEL_W}x{height}")
+print(f"menu: {sum(1 for m in MENU if m[0] not in ('head', 'col'))} switches, panel {PANEL_W}x{height}")

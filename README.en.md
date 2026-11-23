@@ -50,6 +50,14 @@ Pick the file for your language. You can also install both and choose in game.
 
 Click the small **[Menu]** button in the top-left corner, or press **Ctrl+Alt+O**, to open or close it. **Checked = shown.**
 
+Every row has a hotkey, written at its right end:
+- Screen: top bar, minimap, chat, replay controls, unit info, notifications = **Ctrl+Alt+1–6**
+- Player names / hero names = **Ctrl+Alt+7 / 8**
+- Top bar mode (Basic, Skills, Talents, Skills + talents, Simple, No heroes) = **Ctrl+Shift+1–6**
+- Bottom stats: none = **Ctrl+Alt+0**
+
+Drag the cross left of the chat input to move the chat (with the game's chat-move-button option on).
+
 ### Screen
 | Item | What it does |
 |---|---|

@@ -208,9 +208,11 @@
 				
 				<!-- @Override -->
 				<Frame type="ChatBar" name="ChatBar">
-					<Anchor side="Top" relative="$this" pos="Min" offset="0"/>
-					<Anchor side="Bottom" relative="$parent" pos="Max" offset="-310"/>
-					<Anchor side="Left" relative="$parent/ChatBarHorizOffset_B" pos="Max" offset="0"/>
+					<!-- SINONIS: back on the game's drag button (as in the default UI), so the cross left of the chat moves it.
+						Ahli pinned it at ChatBarHorizOffset_B and hid the button. -->
+					<Anchor side="Top" relative="$parent/ChatBarDragButton" pos="Min" offset="0"/>
+					<Anchor side="Bottom" relative="$this" pos="Min" offset="0"/>
+					<Anchor side="Left" relative="$parent/ChatBarDragButton" pos="Max" offset="1"/>
 					<Anchor side="Right" relative="$this" pos="Min" offset="0"/>
 					<Width val="750"/>
 					
@@ -232,17 +234,8 @@
 					<Height val="310"/>
 				</Frame>
 				
-				<!-- hide chat drag button -->
-				<!-- @Override -->
-				<Frame type="Control" name="ChatBarDragButton">
-					<StateGroup name="ShowButton">
-						<State name="Show">
-							<!-- never -->
-							<When type="Property" Visible="false"/>
-							<When type="Property" Visible="true"/>
-						</State>
-					</StateGroup>
-				</Frame>
+				<!-- SINONIS: Ahli hid the chat drag button here; it is the game's own again (shown with the chat bar when
+					the game option for it is on) -->
 				
 				<!-- Hide "Press Enter to Chat" -->
 				<!-- @Override -->

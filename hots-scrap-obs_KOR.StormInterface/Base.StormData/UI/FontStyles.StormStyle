@@ -179,6 +179,7 @@
 	<Style name="SinonisCardDeathLabel" template="StandardTemplate" height="26" textcolor="FF5050" vjustify="Middle" hjustify="Center" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisMenuFootLabel" template="StandardTemplate" height="10" textcolor="9AA6C0" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisCoreBarLabel" template="StandardTemplate" height="14" textcolor="FFFFFF" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>
+	<Style name="SinonisMenuKeyLabelLeft" template="StandardTemplate" height="11" textcolor="AEB8D6" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisMenuKeyLabel" template="StandardTemplate" height="11" textcolor="AEB8D6" vjustify="Middle" hjustify="Right" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisHpSplitValueLabel" template="StandardTemplate" height="12" textcolor="FFFFFF" vjustify="Middle" hjustify="Right" styleflags="!Shadow" fontflags="Outline"/>
 	<Style name="SinonisHpPercentLabel" template="StandardTemplate" height="12" textcolor="FFFFFF" vjustify="Middle" hjustify="Left" styleflags="!Shadow" fontflags="Outline"/>

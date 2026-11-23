@@ -47,6 +47,23 @@
 	<Constant name="Hotkey - Toggle HP Max"								val="Control+Alt+M"/>
 	<Constant name="Hotkey - Toggle HP Percent"							val="Control+Alt+P"/>
 	<Constant name="Hotkey - Toggle HP Shield"							val="Control+Alt+B"/>
+	<!-- SINONIS MENU KEYS START (tools/core_bar.py) -->
+	<Constant name="Hotkey - Sinonis Top Bar" val="Control+Alt+1"/>
+	<Constant name="Hotkey - Sinonis Minimap" val="Control+Alt+2"/>
+	<Constant name="Hotkey - Sinonis Chat" val="Control+Alt+3"/>
+	<Constant name="Hotkey - Sinonis Replay Controls" val="Control+Alt+4"/>
+	<Constant name="Hotkey - Sinonis Unit Info" val="Control+Alt+5"/>
+	<Constant name="Hotkey - Sinonis Notifications" val="Control+Alt+6"/>
+	<Constant name="Hotkey - Sinonis Name User" val="Control+Alt+7"/>
+	<Constant name="Hotkey - Sinonis Name Hero" val="Control+Alt+8"/>
+	<Constant name="Hotkey - Sinonis Stats None" val="Control+Alt+0"/>
+	<Constant name="Hotkey - Sinonis Top Mode Basic" val="Control+Shift+1"/>
+	<Constant name="Hotkey - Sinonis Top Mode Skills" val="Control+Shift+2"/>
+	<Constant name="Hotkey - Sinonis Top Mode Talents" val="Control+Shift+3"/>
+	<Constant name="Hotkey - Sinonis Top Mode Both" val="Control+Shift+4"/>
+	<Constant name="Hotkey - Sinonis Top Mode Simple" val="Control+Shift+5"/>
+	<Constant name="Hotkey - Sinonis Top Mode NoHeroes" val="Control+Shift+6"/>
+	<!-- SINONIS MENU KEYS END -->
 	<!-- Sinonis: open / close the [메뉴] options panel -->
 	<Constant name="Hotkey - Toggle Sinonis Menu"						val="Control+Alt+O"/>
 
